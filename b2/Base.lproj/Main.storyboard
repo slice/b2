@@ -218,22 +218,22 @@
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="NEB-YN-lds"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="m0J-u7-kpE"/>
-                                <toolbarItem implicitItemIdentifier="5C6283C0-72B4-423B-87AE-47215FC0E467" label="Search" paletteLabel="Search" sizingBehavior="auto" id="Fqg-0H-fni" userLabel="Search">
+                                <toolbarItem implicitItemIdentifier="D1E7EB87-18D4-43D9-A181-4CC1F7B40A2E" label="Search" paletteLabel="Search" sizingBehavior="auto" id="A86-wE-IFb">
                                     <nil key="toolTip"/>
-                                    <searchField key="view" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" id="Tp6-Og-JjF">
-                                        <rect key="frame" x="0.0" y="14" width="96" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="UIR-6f-fiz">
+                                    <tokenField key="view" verticalHuggingPriority="750" id="1Kd-th-KAi">
+                                        <rect key="frame" x="0.0" y="14" width="250" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                        <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" placeholderString="Search" allowsEditingTextAttributes="YES" bezelStyle="round" id="65E-g6-ppK">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </searchFieldCell>
-                                    </searchField>
+                                        </tokenFieldCell>
+                                    </tokenField>
                                 </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="m0J-u7-kpE"/>
-                                <toolbarItem reference="Fqg-0H-fni"/>
+                                <toolbarItem reference="A86-wE-IFb"/>
                             </defaultToolbarItems>
                         </toolbar>
                         <connections>

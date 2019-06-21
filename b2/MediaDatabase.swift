@@ -78,7 +78,7 @@ class MediaDatabase {
         return row == nil ? nil : row![services__id]
     }
 
-    func resolveHash(withId: Int) throws -> String {
+    func resolveHash(withId: Int) throws -> String? {
         let query = hashesTable.select(hashesTable__hash).filter(hashesTable__hashId == withId)
         let row = try self.masterDatabase.pluck(query)!
         return row[hashesTable__hash].toHex()
@@ -90,7 +90,7 @@ class MediaDatabase {
 
         return try (try self.database.prepare(query)).map({ row in
             let hashId = row[currentFiles__hashId]
-            let hash = try self.resolveHash(withId: hashId)
+            let hash = try self.resolveHash(withId: hashId)!
             let metadata = try self.fetchMetadata(withHashId: hashId, timestamp: row[currentFiles__timestamp])
             return MediaFile(hash: hash, hashId: hashId, database: self, metadata: metadata!)
         }).filter({ $0.metadata.mime.isImage() })

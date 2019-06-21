@@ -2,7 +2,7 @@ import Cocoa
 
 class ViewController: NSViewController {
     @IBOutlet weak var collectionView: NSCollectionView!
-    var hashes: [String] = []
+    var files: [MediaFile] = []
 
     var database: MediaDatabase {
         let controller = self.view.window!.windowController as! WindowController
@@ -13,8 +13,8 @@ class ViewController: NSViewController {
         NSLog("Database from ViewController: \(database)")
 
         do {
-            hashes = try self.database.media()
-            NSLog("Fetched \(hashes.count) files")
+            self.files = try self.database.media()
+            NSLog("Fetched \(self.files.count) files")
         } catch let error {
             fatalError("Failed to fetch files: \(error)")
         }
@@ -25,7 +25,7 @@ class ViewController: NSViewController {
 
 extension ViewController: NSCollectionViewDataSource {
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.hashes.count
+        return self.files.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
@@ -34,10 +34,8 @@ extension ViewController: NSCollectionViewDataSource {
             for: indexPath
         )
 
-        let hash = self.hashes[indexPath.item]
-        // TODO: Handle other file types
-        let path = self.database.pathToHash(hash).string + ".png"
-        item.imageView!.image = NSImage(byReferencingFile: path)
+        let file = self.files[indexPath.item]
+        item.imageView!.image = NSImage(byReferencingFile: file.path)
 
         return item
     }

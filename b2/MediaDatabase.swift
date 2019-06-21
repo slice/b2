@@ -61,7 +61,7 @@ class MediaDatabase {
         return row[hash].toHex()
     }
 
-    func media() throws -> [String] {
+    func media() throws -> [MediaFile] {
         let localFilesServiceId = try serviceNamed("all local files")!
         let query = currentFiles.select(hashId)
             .filter(serviceId == localFilesServiceId)
@@ -72,7 +72,7 @@ class MediaDatabase {
             try fileHashes.append(resolveHash(id: fileHashId))
         }
 
-        return fileHashes
+        return fileHashes.map { MediaFile(hash: $0, database: self) }
     }
 
     deinit {

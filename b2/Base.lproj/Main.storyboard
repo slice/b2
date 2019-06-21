@@ -251,7 +251,7 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="b2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MediaViewController" id="XfG-lQ-9wD" customClass="ViewController" customModule="b2" customModuleProvider="target" sceneMemberID="viewController">
                     <splitView key="view" arrangesAllSubviews="NO" dividerStyle="thin" vertical="YES" id="fMa-ZK-jaY">
                         <rect key="frame" x="0.0" y="0.0" width="613" height="430"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

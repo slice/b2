@@ -1,13 +1,27 @@
 import Cocoa
+import Path_swift
 
 class WindowController: NSWindowController {
-    var subwindow: WindowController?
+    var database: MediaDatabase!
+    var tab: WindowController?
 
-    @IBAction override func newWindowForTab(_ sender: Any?) {
+    override func windowWillLoad() {
+        let path = Path.home / "hydrus" / "db"
+        do {
+            database = try MediaDatabase(databasePath: path)
+        } catch let error {
+            let alert = NSAlert()
+            alert.messageText = "Failed to load database"
+            alert.informativeText = error.localizedDescription
+            alert.runModal()
+            NSApplication.shared.terminate(self)
+        }
+    }
+
+    override func newWindowForTab(_ sender: Any?) {
         let controller = storyboard!.instantiateInitialController() as! WindowController
         window!.addTabbedWindow(controller.window!, ordered: .above)
-        controller.window!.orderFront(self)
-        // Keep a reference to the controller to keep it alive.
-        subwindow = controller
+        controller.window!.makeKeyAndOrderFront(self)
+        tab = controller
     }
 }

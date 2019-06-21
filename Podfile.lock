@@ -1,18 +1,22 @@
 PODS:
+  - Path.swift (0.16.2)
   - SQLite.swift (0.12.0):
     - SQLite.swift/standard (= 0.12.0)
   - SQLite.swift/standard (0.12.0)
 
 DEPENDENCIES:
+  - Path.swift (~> 0.13)
   - SQLite.swift (= 0.12.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Path.swift
     - SQLite.swift
 
 SPEC CHECKSUMS:
+  Path.swift: 287af743360588c8043c22a7d88206d637a82017
   SQLite.swift: 7cad9db150a03716336e69469ec9559c85aece5b
 
-PODFILE CHECKSUM: c12405e4c01eca40fffbaa7b45a1aaeb1f6deeb0
+PODFILE CHECKSUM: e9a7f9ed73b5aed2d863b0387eb789e09746669e
 
 COCOAPODS: 1.7.2

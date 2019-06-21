@@ -47,8 +47,14 @@ enum MediaMime: Int {
             return "png"
         case .gif:
             return "gif"
+        case .mpeg:
+            return "mp4" // Unconfirmed
         case .webm:
             return "webm"
+        case .mov:
+            return "mov"
+        case .avi:
+            return "avi"
         default:
             NSLog("Warning: Unknown file extension for \(self)")
             return ".unknown"

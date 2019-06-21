@@ -53,6 +53,7 @@ class MediaDatabase {
         self.cachesDatabase = try connect("client.caches.db")
 
         self.tags = Tags(database: self)
+        try self.tags.load()
     }
 
     func fetchMetadata(withHashId hashId: Int, timestamp: Int) throws -> MediaMetadata? {

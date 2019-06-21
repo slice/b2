@@ -21,11 +21,46 @@ let subtagsTable = Table("subtags")
 let subtags__subtagId = Expression<Int>("subtag_id")
 let subtags__subtag = Expression<String>("subtag")
 
+// client.caches.db @@ local_tags_cache
+let localTagsCacheTable = Table("local_tags_cache")
+let localTagsCache__tagId = Expression<Int>("tag_id")
+let localTagsCache__tag = Expression<String>("tag")
+
 class Tags {
     var database: MediaDatabase
 
+    var namespaces: [TagNamespace]!
+    var namespacesById: [Int: TagNamespace]!
+
     init(database: MediaDatabase) {
         self.database = database
+    }
+
+    func load() throws {
+        let namespaces = try self.database.masterDatabase.prepare(namespacesTable)
+        self.namespaces = namespaces.map({ row in
+            TagNamespace(
+                id: row[namespaces__namespaceId],
+                namespace: row[namespaces__namespace]
+            )
+        })
+        self.namespacesById = Dictionary(
+            uniqueKeysWithValues: self.namespaces.map({ ($0.id, $0) })
+        )
+    }
+
+    func lookupCachedTagText(withId id: Int) throws -> String? {
+        return try self.database.cachesDatabase.pluck(
+            localTagsCacheTable
+                .filter(localTagsCache__tagId == id)
+        )?[localTagsCache__tag]
+    }
+
+    func lookupCachedTagId(withText tag: String) throws -> Int? {
+        return try self.database.cachesDatabase.pluck(
+            localTagsCacheTable
+                .filter(localTagsCache__tag == tag)
+        )?[localTagsCache__tagId]
     }
 
     func resolveTag(withId id: Int) throws -> Tag {

@@ -36,6 +36,8 @@ class MediaDatabase {
     var masterDatabase: Connection!
     var cachesDatabase: Connection!
 
+    var tags: Tags!
+
     init(databasePath path: Path) throws {
         self.databasePath = path
 
@@ -49,6 +51,8 @@ class MediaDatabase {
         self.mappingDatabase = try connect("client.mappings.db")
         self.masterDatabase = try connect("client.master.db")
         self.cachesDatabase = try connect("client.caches.db")
+
+        self.tags = Tags(database: self)
     }
 
     func fetchMetadata(withHashId hashId: Int, timestamp: Int) throws -> MediaMetadata? {

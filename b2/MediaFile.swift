@@ -32,4 +32,8 @@ class MediaFile {
             return sectorPath / "\(self.hash).\(mimeExtension)"
         }
     }
+
+    func tags() throws -> [Tag] {
+        return try self.database.tags.tags(forFile: self)
+    }
 }

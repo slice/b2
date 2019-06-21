@@ -75,13 +75,13 @@ class MediaDatabase {
     func resolveServiceId(fromName name: String) throws -> Int? {
         let query = servicesTable.select(services__id).filter(services__name == "all local files")
         let row = try self.database.pluck(query)
-        return row == nil ? nil : row![services__id]
+        return row?[services__id]
     }
 
     func resolveHash(withId: Int) throws -> String? {
         let query = hashesTable.select(hashesTable__hash).filter(hashesTable__hashId == withId)
-        let row = try self.masterDatabase.pluck(query)!
-        return row[hashesTable__hash].toHex()
+        let row = try self.masterDatabase.pluck(query)
+        return row?[hashesTable__hash].toHex()
     }
 
     func media() throws -> [MediaFile] {

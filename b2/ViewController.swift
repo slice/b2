@@ -64,7 +64,9 @@ extension ViewController: NSTableViewDataSource {
 extension ViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "TagCell"), owner: nil) as! NSTableCellView
-        cell.textField!.stringValue = self.currentlySelectedFileTags![row].description
+        let tag = self.currentlySelectedFileTags![row]
+        cell.textField!.stringValue = tag.description
+        cell.toolTip = String(tag.id)
         return cell
     }
 }

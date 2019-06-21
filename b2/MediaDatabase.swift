@@ -25,8 +25,8 @@ let filesInfoTable = Table("files_info")
 let filesInfo__hashId = Expression<Int>("hash_id")
 let filesInfo__size = Expression<Int>("size")
 let filesInfo__mime = Expression<Int>("mime")
-let filesInfo__width = Expression<Int>("width")
-let filesInfo__height = Expression<Int>("height")
+let filesInfo__width = Expression<Int?>("width")
+let filesInfo__height = Expression<Int?>("height")
 
 class MediaDatabase {
     var databasePath: Path

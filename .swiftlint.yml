@@ -2,6 +2,7 @@ excluded:
     - Pods
 disabled_rules:
     - force_cast
+    - force_try
     - line_length
     - identifier_name
     - todo

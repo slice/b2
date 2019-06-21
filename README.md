@@ -7,7 +7,7 @@ a native hydrus client for macOS!
 - [ ] database
   - [ ] viewing
     - [x] view images
-    - [ ] view tags
+    - [x] view tags
     - [ ] search by tag
     - [ ] rating
   - [ ] editing

@@ -5,6 +5,10 @@ class MediaCollectionViewItem: NSCollectionViewItem {
         didSet {
             self.view.layer!.borderColor = self.isSelected ? NSColor.selectedControlColor.highlight(withLevel: 0.2)!.cgColor : NSColor.clear.cgColor
             self.view.layer!.backgroundColor = self.isSelected ? NSColor.selectedControlColor.cgColor : NSColor.quaternaryLabelColor.cgColor
+
+            if self.isSelected {
+                (self.collectionView?.dataSource as? ViewController)?.currentlySelectedFile = self.file
+            }
         }
     }
 

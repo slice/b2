@@ -1,6 +1,6 @@
 import Foundation
 
-func measure<T>(_ name: String, task: () throws -> T) throws -> T {
+func measure<T>(_ name: String, task: () throws -> T) rethrows -> T {
     let start = DispatchTime.now()
     let returnValue = try task()
     let end = DispatchTime.now()

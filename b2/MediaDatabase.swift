@@ -87,7 +87,7 @@ class MediaDatabase {
             let hashId = row[currentFiles__hashId]
             let hash = try self.resolveHash(withId: hashId)
             let metadata = try self.fetchMetadata(withHashId: hashId, timestamp: row[currentFiles__timestamp])
-            return MediaFile(hash: hash, database: self, metadata: metadata!)
+            return MediaFile(hash: hash, hashId: hashId, database: self, metadata: metadata!)
         }).filter({ $0.metadata.mime.isImage() })
     }
 

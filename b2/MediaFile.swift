@@ -2,6 +2,8 @@ import Path_swift
 
 class MediaFile {
     let hash: String
+    let hashId: Int
+
     var database: MediaDatabase
     var metadata: MediaMetadata
 
@@ -10,8 +12,9 @@ class MediaFile {
         case thumbnail = "t"
     }
 
-    init(hash: String, database: MediaDatabase, metadata: MediaMetadata) {
+    init(hash: String, hashId: Int, database: MediaDatabase, metadata: MediaMetadata) {
         self.hash = hash
+        self.hashId = hashId
         self.database = database
         self.metadata = metadata
     }

@@ -6,11 +6,12 @@ a native hydrus client for macOS!
 
 - [ ] database
   - [ ] viewing
-    - [ ] view images
+    - [x] view images
     - [ ] view tags
     - [ ] search by tag
     - [ ] rating
   - [ ] editing
+    - [ ] import images
     - [ ] add and remove tags
       - [ ] autocomplete
 - [ ] downloading

@@ -32,10 +32,10 @@ extension ViewController: NSCollectionViewDataSource {
         let item = self.collectionView.makeItem(
             withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "MediaCollectionViewItem"),
             for: indexPath
-        )
+        ) as! MediaCollectionViewItem
 
         let file = self.files[indexPath.item]
-        item.imageView!.image = NSImage(byReferencingFile: file.path)
+        item.file = file
 
         return item
     }

@@ -3,23 +3,30 @@ import SQLite
 import Path_swift
 
 // @@ services table
-let services = Table("services")
-let serviceId = Expression<Int>("service_id")
-let serviceKey = Expression<SQLite.Blob>("service_key")
-let serviceType = Expression<Int>("service_type")
-let serviceName = Expression<String>("name")
-let serviceDictString = Expression<String>("dictionary_string")
+let servicesTable = Table("services")
+let services__id = Expression<Int>("service_id")
+let services__key = Expression<SQLite.Blob>("service_key")
+let services__type = Expression<Int>("service_type")
+let services__name = Expression<String>("name")
 
 // @@ current_files table
-let currentFiles = Table("current_files")
-// serviceId
-let hashId = Expression<Int>("hash_id")
-let timestamp = Expression<Int>("timestamp")
+let currentFilesTable = Table("current_files")
+let currentFiles__serviceId = Expression<Int>("service_id")
+let currentFiles__hashId = Expression<Int>("hash_id")
+let currentFiles__timestamp = Expression<Int>("timestamp")
 
 // @@ hashes table
-let hashes = Table("hashes")
-// hashId
-let hash = Expression<SQLite.Blob>("hash")
+let hashesTable = Table("hashes")
+let hashesTable__hashId = Expression<Int>("hash_id")
+let hashesTable__hash = Expression<SQLite.Blob>("hash")
+
+// @@ files_info table
+let filesInfoTable = Table("files_info")
+let filesInfo__hashId = Expression<Int>("hash_id")
+let filesInfo__size = Expression<Int>("size")
+let filesInfo__mime = Expression<Int>("mime")
+let filesInfo__width = Expression<Int>("width")
+let filesInfo__height = Expression<Int>("height")
 
 class MediaDatabase {
     var databasePath: Path
@@ -44,35 +51,44 @@ class MediaDatabase {
         self.cachesDatabase = try connect("client.caches.db")
     }
 
-    func pathToHash(_ hash: String) -> Path {
-        let firstTwo = hash[...hash.index(hash.startIndex, offsetBy: 1)]
-        return self.databasePath / "client_files" / "f\(firstTwo)" / "\(hash)"
-    }
-
-    func serviceNamed(_ name: String) throws -> Int? {
-        let query = services.select(serviceId).filter(serviceName == "all local files")
+    func fetchMetadata(withHashId hashId: Int) throws -> MediaMetadata? {
+        let query = filesInfoTable.filter(filesInfo__hashId == hashId)
         let row = try self.database.pluck(query)
-        return row == nil ? nil : row![serviceId]
+        if let row = row, let mime = MediaMime(rawValue: row[filesInfo__mime]) {
+            return MediaMetadata(
+                mime: mime,
+                size: row[filesInfo__size],
+                width: row[filesInfo__width],
+                height: row[filesInfo__height]
+            )
+        } else {
+            return nil
+        }
     }
 
-    func resolveHash(id: Int) throws -> String {
-        let query = hashes.select(hash).filter(hashId == id)
+    func resolveServiceId(fromName name: String) throws -> Int? {
+        let query = servicesTable.select(services__id).filter(services__name == "all local files")
+        let row = try self.database.pluck(query)
+        return row == nil ? nil : row![services__id]
+    }
+
+    func resolveHash(withId: Int) throws -> String {
+        let query = hashesTable.select(hashesTable__hash).filter(hashesTable__hashId == withId)
         let row = try self.masterDatabase.pluck(query)!
-        return row[hash].toHex()
+        return row[hashesTable__hash].toHex()
     }
 
     func media() throws -> [MediaFile] {
-        let localFilesServiceId = try serviceNamed("all local files")!
-        let query = currentFiles.select(hashId)
-            .filter(serviceId == localFilesServiceId)
+        let localFilesServiceId = try self.resolveServiceId(fromName: "all local files")!
+        let query = currentFilesTable.select(currentFiles__hashId)
+            .filter(currentFiles__serviceId == localFilesServiceId)
 
-        var fileHashes: [String] = []
-        for file in try self.database.prepare(query) {
-            let fileHashId = file[hashId]
-            try fileHashes.append(resolveHash(id: fileHashId))
-        }
-
-        return fileHashes.map { MediaFile(hash: $0, database: self) }
+        return try (try self.database.prepare(query)).map({ row in
+            let hashId = row[currentFiles__hashId]
+            let hash = try self.resolveHash(withId: hashId)
+            let metadata = try self.fetchMetadata(withHashId: hashId)
+            return MediaFile(hash: hash, database: self, metadata: metadata!)
+        })
     }
 
     deinit {

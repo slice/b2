@@ -6,6 +6,7 @@ class WindowController: NSWindowController {
     var tab: WindowController?
 
     override func windowWillLoad() {
+//        let path = Path.home / "Library" / "Hydrus"
         let path = Path.home / "hydrus" / "db"
         do {
             self.database = try MediaDatabase(databasePath: path)

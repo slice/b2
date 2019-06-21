@@ -9,6 +9,12 @@ class ViewController: NSViewController {
         return controller.database
     }
 
+    override func viewDidLoad() {
+        let layout = self.collectionView.collectionViewLayout! as! NSCollectionViewGridLayout
+        layout.minimumInteritemSpacing = 1.0
+        layout.minimumLineSpacing = 1.0
+    }
+
     override func viewDidAppear() {
         NSLog("Database from ViewController: \(database)")
 

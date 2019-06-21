@@ -270,10 +270,10 @@
                                         <collectionView id="Mc7-R0-xjS">
                                             <rect key="frame" x="0.0" y="0.0" width="440" height="430"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="uti-nd-ch5">
-                                                <size key="itemSize" width="50" height="50"/>
-                                                <edgeInsets key="sectionInset" left="20" right="20" top="20" bottom="20"/>
-                                            </collectionViewFlowLayout>
+                                            <collectionViewGridLayout key="collectionViewLayout" id="bKu-ky-RzW">
+                                                <size key="minimumItemSize" width="150" height="150"/>
+                                                <size key="maximumItemSize" width="150" height="150"/>
+                                            </collectionViewGridLayout>
                                             <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <connections>
                                                 <outlet property="dataSource" destination="XfG-lQ-9wD" id="LWJ-HR-YwZ"/>

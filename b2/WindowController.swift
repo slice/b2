@@ -8,7 +8,7 @@ class WindowController: NSWindowController {
     override func windowWillLoad() {
         let path = Path.home / "hydrus" / "db"
         do {
-            database = try MediaDatabase(databasePath: path)
+            self.database = try MediaDatabase(databasePath: path)
         } catch let error {
             let alert = NSAlert()
             alert.messageText = "Failed to load database"
@@ -19,9 +19,9 @@ class WindowController: NSWindowController {
     }
 
     override func newWindowForTab(_ sender: Any?) {
-        let controller = storyboard!.instantiateInitialController() as! WindowController
-        window!.addTabbedWindow(controller.window!, ordered: .above)
+        let controller = self.storyboard!.instantiateInitialController() as! WindowController
+        self.window!.addTabbedWindow(controller.window!, ordered: .above)
         controller.window!.makeKeyAndOrderFront(self)
-        tab = controller
+        self.tab = controller
     }
 }

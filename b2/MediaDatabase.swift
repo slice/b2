@@ -24,38 +24,40 @@ let hash = Expression<SQLite.Blob>("hash")
 class MediaDatabase {
     var databasePath: Path
 
-    var db: Connection!
-    var mappingsDb: Connection!
-    var masterDb: Connection!
-    var cachesDb: Connection!
+    var database: Connection!
+    var mappingDatabase: Connection!
+    var masterDatabase: Connection!
+    var cachesDatabase: Connection!
 
     init(databasePath path: Path) throws {
-        databasePath = path
+        self.databasePath = path
 
-        NSLog("Loading database at \(databasePath.string)")
-        db = try Connection((databasePath / "client.db").string)
-        mappingsDb = try Connection((databasePath / "client.mappings.db").string)
-        masterDb = try Connection((databasePath / "client.master.db").string)
-        cachesDb = try Connection((databasePath / "client.caches.db").string)
+        func connect(_ file: String) throws -> Connection {
+            let databaseFilePath = path / file
+            return try Connection(databaseFilePath.string)
+        }
+
+        NSLog("Loading database at \(path.string)")
+        self.database = try connect("client.db")
+        self.mappingDatabase = try connect("client.mappings.db")
+        self.masterDatabase = try connect("client.master.db")
+        self.cachesDatabase = try connect("client.caches.db")
     }
 
     func pathToHash(_ hash: String) -> Path {
         let firstTwo = hash[...hash.index(hash.startIndex, offsetBy: 1)]
-        return databasePath / "client_files" / "f\(firstTwo)" / "\(hash)"
+        return self.databasePath / "client_files" / "f\(firstTwo)" / "\(hash)"
     }
 
     func serviceNamed(_ name: String) throws -> Int? {
         let query = services.select(serviceId).filter(serviceName == "all local files")
-        if let row = try db.pluck(query) {
-            return row[serviceId]
-        } else {
-            return nil
-        }
+        let row = try self.database.pluck(query)
+        return row == nil ? nil : row![serviceId]
     }
 
     func resolveHash(id: Int) throws -> String {
         let query = hashes.select(hash).filter(hashId == id)
-        let row = try masterDb.pluck(query)!
+        let row = try self.masterDatabase.pluck(query)!
         return row[hash].toHex()
     }
 
@@ -65,7 +67,7 @@ class MediaDatabase {
             .filter(serviceId == localFilesServiceId)
 
         var fileHashes: [String] = []
-        for file in try db.prepare(query) {
+        for file in try self.database.prepare(query) {
             let fileHashId = file[hashId]
             try fileHashes.append(resolveHash(id: fileHashId))
         }
@@ -74,6 +76,6 @@ class MediaDatabase {
     }
 
     deinit {
-        NSLog("Database leaving")
+        NSLog("Database deinitializing")
     }
 }

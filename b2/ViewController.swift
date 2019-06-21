@@ -13,28 +13,30 @@ class ViewController: NSViewController {
         NSLog("Database from ViewController: \(database)")
 
         do {
-            hashes = try database.media()
+            hashes = try self.database.media()
             NSLog("Fetched \(hashes.count) files")
         } catch let error {
             fatalError("Failed to fetch files: \(error)")
         }
 
-        collectionView.reloadData()
+        self.collectionView.reloadData()
     }
 }
 
 extension ViewController: NSCollectionViewDataSource {
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return hashes.count
+        return self.hashes.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "MediaCollectionViewItem"), for: indexPath)
+        let item = self.collectionView.makeItem(
+            withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "MediaCollectionViewItem"),
+            for: indexPath
+        )
 
-        let hash = hashes[indexPath.item]
+        let hash = self.hashes[indexPath.item]
         // TODO: Handle other file types
-        let path = database.pathToHash(hash).string + ".png"
-        NSLog("\(hash): \(path)")
+        let path = self.database.pathToHash(hash).string + ".png"
         item.imageView!.image = NSImage(byReferencingFile: path)
 
         return item

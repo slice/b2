@@ -30,6 +30,13 @@ extension ViewController: NSCollectionViewDataSource {
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "MediaCollectionViewItem"), for: indexPath)
+
+        let hash = hashes[indexPath.item]
+        // TODO: Handle other file types
+        let path = database.pathToHash(hash).string + ".png"
+        NSLog("\(hash): \(path)")
+        item.imageView!.image = NSImage(byReferencingFile: path)
+
         return item
     }
 }

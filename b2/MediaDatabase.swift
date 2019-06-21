@@ -22,17 +22,26 @@ let hashes = Table("hashes")
 let hash = Expression<SQLite.Blob>("hash")
 
 class MediaDatabase {
+    var databasePath: Path
+
     var db: Connection!
     var mappingsDb: Connection!
     var masterDb: Connection!
     var cachesDb: Connection!
 
-    init(databasePath: Path) throws {
+    init(databasePath path: Path) throws {
+        databasePath = path
+
         NSLog("Loading database at \(databasePath.string)")
         db = try Connection((databasePath / "client.db").string)
         mappingsDb = try Connection((databasePath / "client.mappings.db").string)
         masterDb = try Connection((databasePath / "client.master.db").string)
         cachesDb = try Connection((databasePath / "client.caches.db").string)
+    }
+
+    func pathToHash(_ hash: String) -> Path {
+        let firstTwo = hash[...hash.index(hash.startIndex, offsetBy: 1)]
+        return databasePath / "client_files" / "f\(firstTwo)" / "\(hash)"
     }
 
     func serviceNamed(_ name: String) throws -> Int? {

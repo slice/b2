@@ -1,0 +1,9 @@
+excluded:
+    - Pods
+disabled_rules:
+    - force_cast
+    - line_length
+    - identifier_name
+    - todo
+analyzer_rules:
+    - explicit_self

@@ -12,6 +12,7 @@
 		128ED16622AAD1AE00A1DDD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 128ED16522AAD1AE00A1DDD6 /* Assets.xcassets */; };
 		128ED16922AAD1AE00A1DDD6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 128ED16722AAD1AE00A1DDD6 /* Main.storyboard */; };
 		128ED17222AAD88300A1DDD6 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128ED17122AAD88300A1DDD6 /* WindowController.swift */; };
+		12D5009E22BC7D4100CB1D98 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 12D5009D22BC7D4100CB1D98 /* .swiftlint.yml */; };
 		12D7B0B322BB6DA000CB740F /* MediaCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D7B0B122BB6DA000CB740F /* MediaCollectionViewItem.swift */; };
 		12D7B0B422BB6DA000CB740F /* MediaCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12D7B0B222BB6DA000CB740F /* MediaCollectionViewItem.xib */; };
 		12D7B0B822BC237200CB740F /* MediaDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D7B0B722BC237200CB740F /* MediaDatabase.swift */; };
@@ -27,6 +28,7 @@
 		128ED16A22AAD1AE00A1DDD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		128ED16B22AAD1AE00A1DDD6 /* b2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = b2.entitlements; sourceTree = "<group>"; };
 		128ED17122AAD88300A1DDD6 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		12D5009D22BC7D4100CB1D98 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		12D7B0B122BB6DA000CB740F /* MediaCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCollectionViewItem.swift; sourceTree = "<group>"; };
 		12D7B0B222BB6DA000CB740F /* MediaCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaCollectionViewItem.xib; sourceTree = "<group>"; };
 		12D7B0B722BC237200CB740F /* MediaDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaDatabase.swift; sourceTree = "<group>"; };
@@ -50,6 +52,7 @@
 		128ED15522AAD1AC00A1DDD6 = {
 			isa = PBXGroup;
 			children = (
+				12D5009D22BC7D4100CB1D98 /* .swiftlint.yml */,
 				128ED16022AAD1AC00A1DDD6 /* b2 */,
 				128ED15F22AAD1AC00A1DDD6 /* Products */,
 				94AF0756A5715ADBC75A2FDA /* Pods */,
@@ -139,6 +142,7 @@
 			buildConfigurationList = 128ED16E22AAD1AE00A1DDD6 /* Build configuration list for PBXNativeTarget "b2" */;
 			buildPhases = (
 				D45E0B18D93216126E3EB15B /* [CP] Check Pods Manifest.lock */,
+				12D5009C22BC7CDC00CB1D98 /* ShellScript */,
 				128ED15A22AAD1AC00A1DDD6 /* Sources */,
 				128ED15B22AAD1AC00A1DDD6 /* Frameworks */,
 				128ED15C22AAD1AC00A1DDD6 /* Resources */,
@@ -191,6 +195,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12D5009E22BC7D4100CB1D98 /* .swiftlint.yml in Resources */,
 				12D7B0B422BB6DA000CB740F /* MediaCollectionViewItem.xib in Resources */,
 				128ED16622AAD1AE00A1DDD6 /* Assets.xcassets in Resources */,
 				128ED16922AAD1AE00A1DDD6 /* Main.storyboard in Resources */,
@@ -200,6 +205,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		12D5009C22BC7CDC00CB1D98 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		D45E0B18D93216126E3EB15B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

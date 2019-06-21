@@ -51,7 +51,7 @@ class MediaDatabase {
         self.cachesDatabase = try connect("client.caches.db")
     }
 
-    func fetchMetadata(withHashId hashId: Int) throws -> MediaMetadata? {
+    func fetchMetadata(withHashId hashId: Int, timestamp: Int) throws -> MediaMetadata? {
         let query = filesInfoTable.filter(filesInfo__hashId == hashId)
         let row = try self.database.pluck(query)
         if let row = row, let mime = MediaMime(rawValue: row[filesInfo__mime]) {
@@ -59,7 +59,8 @@ class MediaDatabase {
                 mime: mime,
                 size: row[filesInfo__size],
                 width: row[filesInfo__width],
-                height: row[filesInfo__height]
+                height: row[filesInfo__height],
+                timestamp: Date(timeIntervalSince1970: TimeInterval(timestamp))
             )
         } else {
             return nil
@@ -80,13 +81,12 @@ class MediaDatabase {
 
     func media() throws -> [MediaFile] {
         let localFilesServiceId = try self.resolveServiceId(fromName: "all local files")!
-        let query = currentFilesTable.select(currentFiles__hashId)
-            .filter(currentFiles__serviceId == localFilesServiceId)
+        let query = currentFilesTable.filter(currentFiles__serviceId == localFilesServiceId)
 
         return try (try self.database.prepare(query)).map({ row in
             let hashId = row[currentFiles__hashId]
             let hash = try self.resolveHash(withId: hashId)
-            let metadata = try self.fetchMetadata(withHashId: hashId)
+            let metadata = try self.fetchMetadata(withHashId: hashId, timestamp: row[currentFiles__timestamp])
             return MediaFile(hash: hash, database: self, metadata: metadata!)
         }).filter({ $0.metadata.mime.isImage() })
     }

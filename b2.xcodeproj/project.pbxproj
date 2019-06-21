@@ -124,15 +124,23 @@
 			name = Tags;
 			sourceTree = "<group>";
 		};
-		12D7B0B522BC1A5200CB740F /* Media */ = {
+		12C43B7722BD65F1003AF7C1 /* File */ = {
 			isa = PBXGroup;
 			children = (
-				12C43B7222BD606C003AF7C1 /* Tags */,
-				12D7B0B622BC1A5600CB740F /* Collection View */,
-				12D7B0B722BC237200CB740F /* MediaDatabase.swift */,
 				12D5009A22BC7A4E00CB1D98 /* MediaFile.swift */,
 				12D5009F22BC907C00CB1D98 /* MediaMime.swift */,
 				12D500A122BC931400CB1D98 /* MediaMetadata.swift */,
+			);
+			name = File;
+			sourceTree = "<group>";
+		};
+		12D7B0B522BC1A5200CB740F /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				12C43B7722BD65F1003AF7C1 /* File */,
+				12C43B7222BD606C003AF7C1 /* Tags */,
+				12D7B0B622BC1A5600CB740F /* Collection View */,
+				12D7B0B722BC237200CB740F /* MediaDatabase.swift */,
 			);
 			name = Media;
 			sourceTree = "<group>";

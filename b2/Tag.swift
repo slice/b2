@@ -1,8 +1,10 @@
 struct Tag {
+    let id: Int
     let tag: String
     let namespace: TagNamespace?
 
-    init(_ tag: String, namespace: TagNamespace? = nil) {
+    init(id: Int, tag: String, namespace: TagNamespace? = nil) {
+        self.id = id
         self.tag = tag
         self.namespace = namespace
     }

@@ -73,18 +73,15 @@ class Tags {
         )![subtags__subtag]
 
         let namespaceRow = try self.database.masterDatabase.pluck(
-            namespacesTable.filter(namespaces__namespaceId == tagRow[tags__namespaceId])
+            namespacesTable
+                .filter(namespaces__namespaceId == tagRow[tags__namespaceId])
         )!
 
         if namespaceRow[namespaces__namespace] == "" {
-            return Tag(subtag)
+            return Tag(id: id, tag: subtag)
         } else {
-            let namespace = TagNamespace(
-                id: namespaceRow[namespaces__namespaceId],
-                namespace: namespaceRow[namespaces__namespace]
-            )
-
-            return Tag(subtag, namespace: namespace)
+            let namespaceId = namespaceRow[namespaces__namespaceId]
+            return Tag(id: id, tag: subtag, namespace: self.namespacesById[namespaceId])
         }
     }
 

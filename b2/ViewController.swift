@@ -1,4 +1,5 @@
 import Cocoa
+import SQLite
 
 class ViewController: NSViewController {
     @IBOutlet weak var collectionView: NSCollectionView!
@@ -32,6 +33,26 @@ class ViewController: NSViewController {
         return controller.database
     }
 
+    func loadAllMedia() throws {
+        self.files = try measure("Fetching all database files") {
+            return try self.database.media()
+        }
+        NSLog("Fetched \(self.files.count) file(s)")
+        self.collectionView.reloadData()
+    }
+
+    func performSearch(tags: [String]) throws {
+        self.files = try measure("Query for \(tags)") {
+            return try self.database.search(tags: tags)
+        }
+
+        NSLog("Query returned \(self.files.count) file(s).")
+
+        self.collectionView.reloadData()
+    }
+}
+
+extension ViewController {
     override func viewDidLoad() {
         let layout = self.collectionView.collectionViewLayout! as! NSCollectionViewGridLayout
         layout.minimumInteritemSpacing = 1.0
@@ -39,19 +60,8 @@ class ViewController: NSViewController {
     }
 
     override func viewDidAppear() {
-        NSLog("Database from ViewController: \(database)")
-
-        do {
-            self.files = try measure("Fetching all database files") {
-                return try self.database.media()
-            }
-
-            NSLog("Fetched \(self.files.count) files")
-        } catch let error {
-            fatalError("Failed to fetch files: \(error)")
-        }
-
-        self.collectionView.reloadData()
+        NSLog("Database: \(database)")
+        try! self.loadAllMedia()
     }
 }
 

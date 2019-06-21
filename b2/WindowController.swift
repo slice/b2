@@ -2,8 +2,21 @@ import Cocoa
 import Path_swift
 
 class WindowController: NSWindowController {
+    @IBOutlet weak var tokenField: NSTokenField!
     var database: MediaDatabase!
     var tab: WindowController?
+
+    @IBAction func performSearch(_ sender: NSTokenField) {
+        let viewController = self.contentViewController as! ViewController
+        let tags = sender.objectValue as! [String]
+
+        if tags.isEmpty {
+            try! viewController.loadAllMedia()
+        } else {
+            NSLog("Searching for tags: \(tags)")
+            try! viewController.performSearch(tags: tags)
+        }
+    }
 
     override func windowWillLoad() {
 //        let path = Path.home / "Library" / "Hydrus"

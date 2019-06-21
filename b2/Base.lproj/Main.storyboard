@@ -229,6 +229,9 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </tokenFieldCell>
                                     </tokenField>
+                                    <connections>
+                                        <action selector="performSearch:" target="B8D-0N-5wS" id="LI6-EJ-X4v"/>
+                                    </connections>
                                 </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
@@ -241,6 +244,7 @@
                         </connections>
                     </window>
                     <connections>
+                        <outlet property="tokenField" destination="1Kd-th-KAi" id="fAB-3F-N1O"/>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
                     </connections>
                 </windowController>

@@ -8,7 +8,7 @@ a native hydrus client for macOS!
   - [ ] viewing
     - [x] view images
     - [x] view tags
-    - [ ] search by tag
+    - [x] search by tag
     - [ ] rating
   - [ ] editing
     - [ ] import images

@@ -72,6 +72,12 @@ class MediaDatabase {
         }
     }
 
+    func resolveTimestamp(fromHashId hashId: Int) throws -> Int? {
+        let query = currentFilesTable.select(currentFiles__timestamp).filter(currentFiles__hashId == hashId)
+        let row = try self.database.pluck(query)
+        return row?[currentFiles__timestamp]
+    }
+
     func resolveServiceId(fromName name: String) throws -> Int? {
         let query = servicesTable.select(services__id).filter(services__name == "all local files")
         let row = try self.database.pluck(query)
@@ -94,6 +100,48 @@ class MediaDatabase {
             let metadata = try self.fetchMetadata(withHashId: hashId, timestamp: row[currentFiles__timestamp])
             return MediaFile(hash: hash, hashId: hashId, database: self, metadata: metadata!)
         }).filter({ $0.metadata.mime.isImage() })
+    }
+
+    func search(tags: [String]) throws -> [MediaFile] {
+        let tagIds: [Int] = try tags.map({ tag in
+            return try self.tags.lookupCachedTagId(withText: tag)
+        }).compactMap({ $0 })
+
+        if tagIds.isEmpty {
+            NSLog("Search made with no valid tags.")
+            return []
+        }
+
+        let query = currentMappingsTable
+            .select(currentMappings__hashId.distinct)
+            .filter(tagIds.contains(currentMappings__tagId))
+            .group(currentFiles__hashId, having: currentMappings__tagId.distinct.count == tagIds.count)
+
+        return try self.mappingDatabase.prepare(query).map({ row in
+            let hashId = row[currentMappings__hashId.distinct]
+
+            guard let hash = try self.resolveHash(withId: hashId) else {
+                NSLog("Can't resolve hash \(hashId)!")
+                return nil
+            }
+
+            guard let timestamp = try self.resolveTimestamp(fromHashId: hashId) else {
+                NSLog("Can't find \(hashId) in current_files!")
+                return nil
+            }
+
+            guard let metadata = try self.fetchMetadata(withHashId: hashId, timestamp: timestamp) else {
+                NSLog("Can't find metadata for \(hashId)!")
+                return nil
+            }
+
+            return MediaFile(
+                hash: hash,
+                hashId: hashId,
+                database: self,
+                metadata: metadata
+            )
+        }).compactMap { $0 }
     }
 
     deinit {

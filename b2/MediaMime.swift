@@ -39,6 +39,15 @@ enum MediaMime: Int {
     case octetStream = 100
     case unknown = 101
 
+    func isImage() -> Bool {
+        switch self {
+        case .jpeg, .png, .gif, .apng, .tiff, .webp:
+            return true
+        default:
+            return false
+        }
+    }
+
     func `extension`() -> String {
         switch self {
         case .jpeg:

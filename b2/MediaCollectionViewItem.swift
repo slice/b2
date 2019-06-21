@@ -28,6 +28,13 @@ class MediaCollectionViewItem: NSCollectionViewItem {
         }
     }
 
+    override func mouseDown(with event: NSEvent) {
+        super.mouseDown(with: event)
+        if event.clickCount == 2 {
+            NSWorkspace.shared.openFile(self.file.path().string)
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.wantsLayer = true

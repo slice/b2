@@ -19,7 +19,10 @@ class ViewController: NSViewController {
         NSLog("Database from ViewController: \(database)")
 
         do {
-            self.files = try self.database.media()
+            self.files = try measure("Fetching all database files") {
+                return try self.database.media()
+            }
+
             NSLog("Fetched \(self.files.count) files")
         } catch let error {
             fatalError("Failed to fetch files: \(error)")

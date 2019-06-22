@@ -103,19 +103,25 @@ class MediaDatabase {
     }
 
     func search(tags: [String]) throws -> [MediaFile] {
-        let tagIds: [Int] = try tags.map({ tag in
+        let cachedTags: [Int?] = try tags.map({ tag in
             return try self.tags.lookupCachedTagId(withText: tag)
-        }).compactMap({ $0 })
+        })
 
-        if tagIds.isEmpty {
+        // If `nil` is in `cachedTags`, a tag wasn't found.
+        if cachedTags.isEmpty || cachedTags.contains(nil) {
             NSLog("Search made with no valid tags.")
             return []
         }
+
+        // Convert type from `[Int?]` to `[Int]`.
+        let tagIds = cachedTags.compactMap({ $0 })
 
         let query = currentMappingsTable
             .select(currentMappings__hashId.distinct)
             .filter(tagIds.contains(currentMappings__tagId))
             .group(currentFiles__hashId, having: currentMappings__tagId.distinct.count == tagIds.count)
+
+        NSLog("Search SQL: \(query.asSQL())")
 
         return try self.mappingDatabase.prepare(query).map({ row in
             let hashId = row[currentMappings__hashId.distinct]

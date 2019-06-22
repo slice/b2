@@ -9,7 +9,7 @@ class ViewController: NSViewController {
     var currentlySelectedFileTags: [Tag]?
     var currentlySelectedFile: MediaFile? {
         didSet {
-            measure("Fetching tags") {
+            measure("Fetching tags for \(self.currentlySelectedFile.hashId)") {
                 guard let tags = try? self.currentlySelectedFile!.tags() else {
                     NSLog("Fetching tags failed")
                     return

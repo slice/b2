@@ -1,22 +1,22 @@
 PODS:
+  - GRDB.swift (4.1.0):
+    - GRDB.swift/standard (= 4.1.0)
+  - GRDB.swift/standard (4.1.0)
   - Path.swift (0.16.2)
-  - SQLite.swift (0.12.0):
-    - SQLite.swift/standard (= 0.12.0)
-  - SQLite.swift/standard (0.12.0)
 
 DEPENDENCIES:
+  - GRDB.swift
   - Path.swift (~> 0.13)
-  - SQLite.swift (= 0.12.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - GRDB.swift
     - Path.swift
-    - SQLite.swift
 
 SPEC CHECKSUMS:
+  GRDB.swift: 38bdbf0680331d9e20a1241e95794037656ee6a9
   Path.swift: 287af743360588c8043c22a7d88206d637a82017
-  SQLite.swift: 7cad9db150a03716336e69469ec9559c85aece5b
 
-PODFILE CHECKSUM: e9a7f9ed73b5aed2d863b0387eb789e09746669e
+PODFILE CHECKSUM: bf701a25172334c34ae8fd59038ab7f58ee554c1
 
 COCOAPODS: 1.7.2

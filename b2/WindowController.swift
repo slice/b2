@@ -3,7 +3,7 @@ import Path_swift
 
 class WindowController: NSWindowController {
     @IBOutlet weak var tokenField: NSTokenField!
-    var database: MediaDatabase!
+    var database: HydrusDatabase!
     var tab: WindowController?
 
     @IBAction func performSearch(_ sender: NSTokenField) {
@@ -22,7 +22,7 @@ class WindowController: NSWindowController {
 //        let path = Path.home / "Library" / "Hydrus"
         let path = Path.home / "hydrus" / "db"
         do {
-            self.database = try MediaDatabase(databasePath: path)
+            self.database = try HydrusDatabase(databasePath: path)
         } catch let error {
             let alert = NSAlert()
             alert.messageText = "Failed to load database"

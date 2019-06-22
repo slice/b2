@@ -1,18 +1,18 @@
 import Path_swift
 
-class MediaFile {
+class HydrusFile {
     let hash: String
     let hashId: Int
 
-    var database: MediaDatabase
-    var metadata: MediaMetadata
+    var database: HydrusDatabase
+    var metadata: HydrusMetadata
 
     enum PathType: String {
         case original = "f"
         case thumbnail = "t"
     }
 
-    init(hash: String, hashId: Int, database: MediaDatabase, metadata: MediaMetadata) {
+    init(hash: String, hashId: Int, database: HydrusDatabase, metadata: HydrusMetadata) {
         self.hash = hash
         self.hashId = hashId
         self.database = database
@@ -33,7 +33,13 @@ class MediaFile {
         }
     }
 
-    func tags() throws -> [Tag] {
-        return try self.database.tags.tags(forFile: self)
+    func tags() throws -> [HydrusTag] {
+        return try self.database.withReadAll({ dbs in
+            return try self.database.tags.tags(
+                mappingDatabase: dbs[.mapping]!,
+                masterDatabase: dbs[.master]!,
+                file: self
+            )
+        })
     }
 }

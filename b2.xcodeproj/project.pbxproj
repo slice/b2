@@ -13,16 +13,19 @@
 		128ED16922AAD1AE00A1DDD6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 128ED16722AAD1AE00A1DDD6 /* Main.storyboard */; };
 		128ED17222AAD88300A1DDD6 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128ED17122AAD88300A1DDD6 /* WindowController.swift */; };
 		12C43B6F22BCA5DD003AF7C1 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B6E22BCA5DD003AF7C1 /* Utilities.swift */; };
-		12C43B7122BD5E59003AF7C1 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B7022BD5E59003AF7C1 /* Tags.swift */; };
-		12C43B7422BD6076003AF7C1 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B7322BD6076003AF7C1 /* Tag.swift */; };
-		12C43B7622BD6094003AF7C1 /* TagNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B7522BD6094003AF7C1 /* TagNamespace.swift */; };
-		12D5009B22BC7A4E00CB1D98 /* MediaFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5009A22BC7A4E00CB1D98 /* MediaFile.swift */; };
+		12C43B7122BD5E59003AF7C1 /* HydrusTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B7022BD5E59003AF7C1 /* HydrusTags.swift */; };
+		12C43B7422BD6076003AF7C1 /* HydrusTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B7322BD6076003AF7C1 /* HydrusTag.swift */; };
+		12C43B7622BD6094003AF7C1 /* HydrusTagNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B7522BD6094003AF7C1 /* HydrusTagNamespace.swift */; };
+		12D5009B22BC7A4E00CB1D98 /* HydrusFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5009A22BC7A4E00CB1D98 /* HydrusFile.swift */; };
 		12D5009E22BC7D4100CB1D98 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 12D5009D22BC7D4100CB1D98 /* .swiftlint.yml */; };
-		12D500A022BC907C00CB1D98 /* MediaMime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5009F22BC907C00CB1D98 /* MediaMime.swift */; };
-		12D500A222BC931400CB1D98 /* MediaMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D500A122BC931400CB1D98 /* MediaMetadata.swift */; };
+		12D500A022BC907C00CB1D98 /* HydrusMime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5009F22BC907C00CB1D98 /* HydrusMime.swift */; };
+		12D500A222BC931400CB1D98 /* HydrusMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D500A122BC931400CB1D98 /* HydrusMetadata.swift */; };
 		12D7B0B322BB6DA000CB740F /* MediaCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D7B0B122BB6DA000CB740F /* MediaCollectionViewItem.swift */; };
 		12D7B0B422BB6DA000CB740F /* MediaCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12D7B0B222BB6DA000CB740F /* MediaCollectionViewItem.xib */; };
-		12D7B0B822BC237200CB740F /* MediaDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D7B0B722BC237200CB740F /* MediaDatabase.swift */; };
+		12D7B0B822BC237200CB740F /* HydrusDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D7B0B722BC237200CB740F /* HydrusDatabase.swift */; };
+		12E10CF322BE0B3000BD248E /* HydrusCachedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E10CF222BE0B3000BD248E /* HydrusCachedTag.swift */; };
+		12E10CF622BE10DE00BD248E /* Data+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E10CF522BE10DE00BD248E /* Data+Hex.swift */; };
+		12E10CF822BE25B700BD248E /* HydrusSubtag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E10CF722BE25B700BD248E /* HydrusSubtag.swift */; };
 		1482C829AB7BE410F16AFC50 /* Pods_b2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3EC2702E763916FA92E3D7E /* Pods_b2.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,16 +39,19 @@
 		128ED16B22AAD1AE00A1DDD6 /* b2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = b2.entitlements; sourceTree = "<group>"; };
 		128ED17122AAD88300A1DDD6 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		12C43B6E22BCA5DD003AF7C1 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		12C43B7022BD5E59003AF7C1 /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
-		12C43B7322BD6076003AF7C1 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
-		12C43B7522BD6094003AF7C1 /* TagNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagNamespace.swift; sourceTree = "<group>"; };
-		12D5009A22BC7A4E00CB1D98 /* MediaFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFile.swift; sourceTree = "<group>"; };
+		12C43B7022BD5E59003AF7C1 /* HydrusTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusTags.swift; sourceTree = "<group>"; };
+		12C43B7322BD6076003AF7C1 /* HydrusTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusTag.swift; sourceTree = "<group>"; };
+		12C43B7522BD6094003AF7C1 /* HydrusTagNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusTagNamespace.swift; sourceTree = "<group>"; };
+		12D5009A22BC7A4E00CB1D98 /* HydrusFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusFile.swift; sourceTree = "<group>"; };
 		12D5009D22BC7D4100CB1D98 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
-		12D5009F22BC907C00CB1D98 /* MediaMime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMime.swift; sourceTree = "<group>"; };
-		12D500A122BC931400CB1D98 /* MediaMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMetadata.swift; sourceTree = "<group>"; };
+		12D5009F22BC907C00CB1D98 /* HydrusMime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusMime.swift; sourceTree = "<group>"; };
+		12D500A122BC931400CB1D98 /* HydrusMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusMetadata.swift; sourceTree = "<group>"; };
 		12D7B0B122BB6DA000CB740F /* MediaCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCollectionViewItem.swift; sourceTree = "<group>"; };
 		12D7B0B222BB6DA000CB740F /* MediaCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaCollectionViewItem.xib; sourceTree = "<group>"; };
-		12D7B0B722BC237200CB740F /* MediaDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaDatabase.swift; sourceTree = "<group>"; };
+		12D7B0B722BC237200CB740F /* HydrusDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusDatabase.swift; sourceTree = "<group>"; };
+		12E10CF222BE0B3000BD248E /* HydrusCachedTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusCachedTag.swift; sourceTree = "<group>"; };
+		12E10CF522BE10DE00BD248E /* Data+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Hex.swift"; sourceTree = "<group>"; };
+		12E10CF722BE25B700BD248E /* HydrusSubtag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusSubtag.swift; sourceTree = "<group>"; };
 		1B5F8FC2D6AC73ACBE9D4A25 /* Pods-b2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-b2.debug.xcconfig"; path = "Target Support Files/Pods-b2/Pods-b2.debug.xcconfig"; sourceTree = "<group>"; };
 		D3EC2702E763916FA92E3D7E /* Pods_b2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_b2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFF915EA1AF15E6D6A106070 /* Pods-b2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-b2.release.xcconfig"; path = "Target Support Files/Pods-b2/Pods-b2.release.xcconfig"; sourceTree = "<group>"; };
@@ -85,7 +91,9 @@
 		128ED16022AAD1AC00A1DDD6 /* b2 */ = {
 			isa = PBXGroup;
 			children = (
-				12D7B0B522BC1A5200CB740F /* Media */,
+				12E10CF422BE10D000BD248E /* Extensions */,
+				12D7B0B622BC1A5600CB740F /* Collection View */,
+				12D7B0B522BC1A5200CB740F /* Hydrus */,
 				128ED17622AAE25F00A1DDD6 /* Controllers */,
 				128ED17422AAD99700A1DDD6 /* Storyboards */,
 				128ED16122AAD1AC00A1DDD6 /* AppDelegate.swift */,
@@ -117,9 +125,11 @@
 		12C43B7222BD606C003AF7C1 /* Tags */ = {
 			isa = PBXGroup;
 			children = (
-				12C43B7022BD5E59003AF7C1 /* Tags.swift */,
-				12C43B7322BD6076003AF7C1 /* Tag.swift */,
-				12C43B7522BD6094003AF7C1 /* TagNamespace.swift */,
+				12C43B7022BD5E59003AF7C1 /* HydrusTags.swift */,
+				12C43B7322BD6076003AF7C1 /* HydrusTag.swift */,
+				12C43B7522BD6094003AF7C1 /* HydrusTagNamespace.swift */,
+				12E10CF222BE0B3000BD248E /* HydrusCachedTag.swift */,
+				12E10CF722BE25B700BD248E /* HydrusSubtag.swift */,
 			);
 			name = Tags;
 			sourceTree = "<group>";
@@ -127,22 +137,21 @@
 		12C43B7722BD65F1003AF7C1 /* File */ = {
 			isa = PBXGroup;
 			children = (
-				12D5009A22BC7A4E00CB1D98 /* MediaFile.swift */,
-				12D5009F22BC907C00CB1D98 /* MediaMime.swift */,
-				12D500A122BC931400CB1D98 /* MediaMetadata.swift */,
+				12D5009A22BC7A4E00CB1D98 /* HydrusFile.swift */,
+				12D5009F22BC907C00CB1D98 /* HydrusMime.swift */,
+				12D500A122BC931400CB1D98 /* HydrusMetadata.swift */,
 			);
 			name = File;
 			sourceTree = "<group>";
 		};
-		12D7B0B522BC1A5200CB740F /* Media */ = {
+		12D7B0B522BC1A5200CB740F /* Hydrus */ = {
 			isa = PBXGroup;
 			children = (
 				12C43B7722BD65F1003AF7C1 /* File */,
 				12C43B7222BD606C003AF7C1 /* Tags */,
-				12D7B0B622BC1A5600CB740F /* Collection View */,
-				12D7B0B722BC237200CB740F /* MediaDatabase.swift */,
+				12D7B0B722BC237200CB740F /* HydrusDatabase.swift */,
 			);
-			name = Media;
+			name = Hydrus;
 			sourceTree = "<group>";
 		};
 		12D7B0B622BC1A5600CB740F /* Collection View */ = {
@@ -152,6 +161,14 @@
 				12D7B0B222BB6DA000CB740F /* MediaCollectionViewItem.xib */,
 			);
 			name = "Collection View";
+			sourceTree = "<group>";
+		};
+		12E10CF422BE10D000BD248E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				12E10CF522BE10DE00BD248E /* Data+Hex.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		94AF0756A5715ADBC75A2FDA /* Pods */ = {
@@ -306,17 +323,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				128ED17222AAD88300A1DDD6 /* WindowController.swift in Sources */,
-				12D500A022BC907C00CB1D98 /* MediaMime.swift in Sources */,
+				12D500A022BC907C00CB1D98 /* HydrusMime.swift in Sources */,
 				128ED16422AAD1AC00A1DDD6 /* ViewController.swift in Sources */,
-				12D5009B22BC7A4E00CB1D98 /* MediaFile.swift in Sources */,
+				12D5009B22BC7A4E00CB1D98 /* HydrusFile.swift in Sources */,
 				12D7B0B322BB6DA000CB740F /* MediaCollectionViewItem.swift in Sources */,
+				12E10CF622BE10DE00BD248E /* Data+Hex.swift in Sources */,
 				128ED16222AAD1AC00A1DDD6 /* AppDelegate.swift in Sources */,
-				12C43B7422BD6076003AF7C1 /* Tag.swift in Sources */,
+				12E10CF322BE0B3000BD248E /* HydrusCachedTag.swift in Sources */,
+				12C43B7422BD6076003AF7C1 /* HydrusTag.swift in Sources */,
+				12E10CF822BE25B700BD248E /* HydrusSubtag.swift in Sources */,
 				12C43B6F22BCA5DD003AF7C1 /* Utilities.swift in Sources */,
-				12D500A222BC931400CB1D98 /* MediaMetadata.swift in Sources */,
-				12C43B7122BD5E59003AF7C1 /* Tags.swift in Sources */,
-				12C43B7622BD6094003AF7C1 /* TagNamespace.swift in Sources */,
-				12D7B0B822BC237200CB740F /* MediaDatabase.swift in Sources */,
+				12D500A222BC931400CB1D98 /* HydrusMetadata.swift in Sources */,
+				12C43B7122BD5E59003AF7C1 /* HydrusTags.swift in Sources */,
+				12C43B7622BD6094003AF7C1 /* HydrusTagNamespace.swift in Sources */,
+				12D7B0B822BC237200CB740F /* HydrusDatabase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

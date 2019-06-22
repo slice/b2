@@ -1,6 +1,6 @@
 import Foundation
 
-enum MediaMime: Int {
+enum HydrusMime: Int {
     case jpeg = 1
     case png
     case gif

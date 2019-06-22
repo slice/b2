@@ -1,7 +1,7 @@
 import Foundation
 
-struct MediaMetadata {
-    let mime: MediaMime
+struct HydrusMetadata {
+    let mime: HydrusMime
     let size: Int
     let width: Int?
     let height: Int?

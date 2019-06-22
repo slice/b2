@@ -19,7 +19,7 @@ class MediaCollectionViewItem: NSCollectionViewItem {
         }
     }
 
-    var file: MediaFile! {
+    var file: HydrusFile! {
         didSet {
             self.setupImage(path: self.file.path(type: .thumbnail))
             self.view.toolTip = self.toolTip()

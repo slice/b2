@@ -1,13 +1,12 @@
 import Cocoa
-import SQLite
 
 class ViewController: NSViewController {
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var tableView: NSTableView!
 
-    var files: [MediaFile] = []
-    var currentlySelectedFileTags: [Tag]?
-    var currentlySelectedFile: MediaFile? {
+    var files: [HydrusFile] = []
+    var currentlySelectedFileTags: [HydrusTag]?
+    var currentlySelectedFile: HydrusFile? {
         didSet {
             guard let file = self.currentlySelectedFile else {
                 self.currentlySelectedFileTags = []
@@ -16,15 +15,12 @@ class ViewController: NSViewController {
             }
 
             measure("Fetching tags for \(file.hashId)") {
-                guard let tags = try? file.tags() else {
-                    NSLog("Fetching tags failed")
-                    return
-                }
+                let tags = try! file.tags()
 
                 let sorted = tags.sorted(by: { (first, second) in
-                    let firstNamespace = first.namespace?.namespace ?? "zzzz"
-                    let secondNamespace = second.namespace?.namespace ?? "zzzz"
-                    return (firstNamespace, first.tag) < (secondNamespace, second.tag)
+                    let firstNamespace = first.namespace.isDefault ? "zzzz" : first.namespace.text
+                    let secondNamespace = second.namespace.isDefault ? "zzzz" : second.namespace.text
+                    return (firstNamespace, first.subtag.text) < (secondNamespace, second.subtag.text)
                 })
 
                 self.currentlySelectedFileTags = sorted
@@ -34,15 +30,20 @@ class ViewController: NSViewController {
         }
     }
 
-    var database: MediaDatabase {
+    var database: HydrusDatabase {
         let controller = self.view.window!.windowController as! WindowController
         return controller.database
     }
 
     func loadAllMedia() throws {
-        self.files = try measure("Fetching all database files") {
-            return try self.database.media()
+        try self.database.database.read { db in
+            try self.database.masterDatabase.read { masterDb in
+                self.files = try measure("Fetching all database files") {
+                    return try self.database.fetchAllLocalMedia(mainDatabase: db, masterDatabase: masterDb)
+                }
+            }
         }
+
         NSLog("Fetched \(self.files.count) file(s)")
         self.collectionView.reloadData()
     }

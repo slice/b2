@@ -9,8 +9,14 @@ class ViewController: NSViewController {
     var currentlySelectedFileTags: [Tag]?
     var currentlySelectedFile: MediaFile? {
         didSet {
-            measure("Fetching tags for \(self.currentlySelectedFile.hashId)") {
-                guard let tags = try? self.currentlySelectedFile!.tags() else {
+            guard let file = self.currentlySelectedFile else {
+                self.currentlySelectedFileTags = []
+                self.tableView.reloadData()
+                return
+            }
+
+            measure("Fetching tags for \(file.hashId)") {
+                guard let tags = try? file.tags() else {
                     NSLog("Fetching tags failed")
                     return
                 }
@@ -42,6 +48,8 @@ class ViewController: NSViewController {
     }
 
     func performSearch(tags: [String]) throws {
+        self.currentlySelectedFile = nil
+
         self.files = try measure("Query for \(tags)") {
             return try self.database.search(tags: tags)
         }

@@ -27,7 +27,7 @@ let localTagsCache__tagId = Expression<Int>("tag_id")
 let localTagsCache__tag = Expression<String>("tag")
 
 class Tags {
-    var database: MediaDatabase
+    let database: MediaDatabase
 
     var namespaces: [TagNamespace]!
     var namespacesById: [Int: TagNamespace]!

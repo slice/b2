@@ -1,9 +1,12 @@
 import Cocoa
+import Path_swift
 
 class ViewController: NSViewController {
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var tableView: NSTableView!
 
+    let fetchQueue = DispatchQueue(label: "database", attributes: .concurrent)
+    var database: HydrusDatabase!
     var files: [HydrusFile] = []
     var currentlySelectedFileTags: [HydrusTag]?
     var currentlySelectedFile: HydrusFile? {
@@ -30,24 +33,18 @@ class ViewController: NSViewController {
         }
     }
 
-    var database: HydrusDatabase {
-        let controller = self.view.window!.windowController as! WindowController
-        return controller.database
-    }
-
-    func loadAllMedia() throws {
-        try self.database.database.read { db in
-            try self.database.masterDatabase.read { masterDb in
-                self.files = try measure("Fetching all database files") {
-                    return try self.database.fetchAllLocalMedia(mainDatabase: db, masterDatabase: masterDb)
-                }
+    /// Fetch all `HydrusFile`s in the database.
+    func fetchAllFiles() throws -> [HydrusFile] {
+        let files = try self.database.database.read { db in
+            return try self.database.masterDatabase.read { masterDb in
+                return try self.database.fetchAllFiles(mainDatabase: db, masterDatabase: masterDb)
             }
         }
 
-        NSLog("Fetched \(self.files.count) file(s)")
-        self.collectionView.reloadData()
+        return files
     }
 
+    /// Perform a search for files with all specified tags.
     func performSearch(tags: [String]) throws {
         self.currentlySelectedFile = nil
 
@@ -59,6 +56,38 @@ class ViewController: NSViewController {
 
         self.collectionView.reloadData()
     }
+
+    /// Loads the database in ~/Library/Hydrus.
+    func loadDatabase() {
+        do {
+            let path = Path.home / "Library" / "Hydrus"
+            self.database = try HydrusDatabase(databasePath: path)
+        } catch let error {
+            let alert = NSAlert()
+            alert.messageText = "Failed to load database"
+            alert.informativeText = error.localizedDescription
+            alert.alertStyle = .critical
+            alert.beginSheetModal(for: self.view.window!, completionHandler: { _ in
+                self.view.window!.close()
+            })
+        }
+    }
+
+    /// Fetches all files and loads them into the collection view, asynchronously.
+    func loadAllFilesAsync() {
+        self.fetchQueue.async {
+            let files = try! measure("Fetching all files") {
+                return try self.fetchAllFiles()
+            }
+
+            NSLog("Fetched \(files.count) file(s)")
+
+            DispatchQueue.main.async {
+                self.files = files
+                self.collectionView.reloadData()
+            }
+        }
+    }
 }
 
 extension ViewController {
@@ -69,8 +98,13 @@ extension ViewController {
     }
 
     override func viewDidAppear() {
-        NSLog("Database: \(database)")
-        try! self.loadAllMedia()
+        measure("Loading database") {
+            self.loadDatabase()
+        }
+        NSLog("Database: \(self.database!)")
+
+        NSLog("Loading all files")
+        self.loadAllFilesAsync()
     }
 }
 

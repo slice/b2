@@ -105,8 +105,8 @@ class HydrusDatabase {
         return data?.hexEncodedString()
     }
 
-    /// Fetches all local media in the "all local files" service from the main and master databases.
-    func fetchAllLocalMedia(mainDatabase: Database, masterDatabase: Database) throws -> [HydrusFile] {
+    /// Fetches all local files in the "all local files" service from the main and master databases.
+    func fetchAllFiles(mainDatabase: Database, masterDatabase: Database) throws -> [HydrusFile] {
         guard let localFilesServiceId = try self.fetchServiceId(mainDatabase: mainDatabase, name: "all local files") else {
             NSLog("Cannot fetch \"all local files\" service.")
             return []

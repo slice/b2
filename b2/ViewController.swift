@@ -57,19 +57,22 @@ class ViewController: NSViewController {
         self.collectionView.reloadData()
     }
 
-    /// Loads the database in ~/Library/Hydrus.
-    func loadDatabase() {
+    func showDatabaseLoadFailureMessage(_ text: String) {
+        let alert = NSAlert()
+        alert.messageText = "Failed to load database"
+        alert.informativeText = text
+        alert.alertStyle = .critical
+        alert.beginSheetModal(for: self.view.window!, completionHandler: { _ in
+            self.view.window!.close()
+        })
+    }
+
+    /// Loads the databases.
+    func loadDatabases(at path: Path) {
         do {
-            let path = Path.home / "Library" / "Hydrus"
             self.database = try HydrusDatabase(databasePath: path)
         } catch let error {
-            let alert = NSAlert()
-            alert.messageText = "Failed to load database"
-            alert.informativeText = error.localizedDescription
-            alert.alertStyle = .critical
-            alert.beginSheetModal(for: self.view.window!, completionHandler: { _ in
-                self.view.window!.close()
-            })
+            self.showDatabaseLoadFailureMessage(error.localizedDescription)
         }
     }
 
@@ -98,9 +101,21 @@ extension ViewController {
     }
 
     override func viewDidAppear() {
-        measure("Loading database") {
-            self.loadDatabase()
+        let path = Path.home / "Library" / "Hydrus"
+
+        guard path.isDirectory else {
+            self.showDatabaseLoadFailureMessage("No database found at \(path.string)")
+            return
         }
+
+        measure("Loading database") {
+            self.loadDatabases(at: path)
+        }
+
+        guard self.database != nil else {
+            return
+        }
+
         NSLog("Database: \(self.database!)")
 
         NSLog("Loading all files")

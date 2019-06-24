@@ -4,10 +4,26 @@ import Path_swift
 class MainViewController: NSViewController {
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var tableView: NSTableView!
+    @IBOutlet weak var statusBarLabel: NSTextField!
 
+    /// A `DispatchQueue` used for fetching data from the database.
     let fetchQueue = DispatchQueue(label: "database", attributes: .concurrent)
+
+    /// The current `HydrusDatabase`.
     var database: HydrusDatabase!
-    var files: [HydrusFile] = []
+
+    /// An array of currently loaded files.
+    var files: [HydrusFile] = [] {
+        didSet {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            let formatted = formatter.string(from: NSNumber(value: self.files.count)) ?? String(self.files.count)
+            let s = self.files.count == 1 ? "" : "s"
+
+            self.statusBarLabel.stringValue = "\(formatted) file\(s)"
+        }
+    }
+
     var currentlySelectedFileTags: [HydrusTag]?
     var currentlySelectedFile: HydrusFile? {
         didSet {
@@ -78,6 +94,8 @@ class MainViewController: NSViewController {
 
     /// Fetches all files and loads them into the collection view, asynchronously.
     func loadAllFilesAsync() {
+        self.statusBarLabel.stringValue = "Loading files..."
+
         self.fetchQueue.async {
             let files = try! measure("Fetching all files") {
                 return try self.fetchAllFiles()

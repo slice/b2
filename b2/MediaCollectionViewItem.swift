@@ -5,11 +5,11 @@ class MediaCollectionViewItem: NSCollectionViewItem {
     override var isSelected: Bool {
         didSet {
             self.view.layer!.borderColor = self.isSelected
-                ? NSColor.selectedControlColor.highlight(withLevel: 0.2)!.cgColor
+                ? NSColor.selectedContentBackgroundColor.cgColor
                 : NSColor.clear.cgColor
 
             self.view.layer!.backgroundColor = self.isSelected
-                ? NSColor.selectedControlColor.cgColor
+                ? NSColor.selectedContentBackgroundColor.cgColor
                 : NSColor.quaternaryLabelColor.cgColor
 
             if self.isSelected {

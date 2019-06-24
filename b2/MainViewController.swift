@@ -33,19 +33,7 @@ class MainViewController: NSViewController {
                 return
             }
 
-            measure("Fetching tags for \(file.hashId)") {
-                let tags = try! file.tags()
-
-                let sorted = tags.sorted(by: { (first, second) in
-                    let firstNamespace = first.namespace.isDefault ? "zzzz" : first.namespace.text
-                    let secondNamespace = second.namespace.isDefault ? "zzzz" : second.namespace.text
-                    return (firstNamespace, first.subtag.text) < (secondNamespace, second.subtag.text)
-                })
-
-                self.currentlySelectedFileTags = sorted
-            }
-
-            self.tableView.reloadData()
+            self.loadTagsAsync(forFile: file)
         }
     }
 
@@ -99,7 +87,27 @@ class MainViewController: NSViewController {
         }
     }
 
-    /// Fetches all files and loads them into the collection view, asynchronously.
+    /// Asynchronously loads tags for a file and displays them in the table view.
+    func loadTagsAsync(forFile file: HydrusFile) {
+        self.fetchQueue.async {
+            let sorted: [HydrusTag] = measure("Fetching tags for \(file.hashId)") {
+                let tags = try! file.tags()
+
+                return tags.sorted(by: { (first, second) in
+                    let firstNamespace = first.namespace.isDefault ? "zzzz" : first.namespace.text
+                    let secondNamespace = second.namespace.isDefault ? "zzzz" : second.namespace.text
+                    return (firstNamespace, first.subtag.text) < (secondNamespace, second.subtag.text)
+                })
+            }
+
+            DispatchQueue.main.async {
+                self.currentlySelectedFileTags = sorted
+                self.tableView.reloadData()
+            }
+        }
+    }
+
+    /// Asynchronously fetches all files and displays them in the collection view.
     func loadAllFilesAsync() {
         self.statusBarLabel.stringValue = "Loading files..."
 

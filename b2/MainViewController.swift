@@ -157,6 +157,20 @@ extension MainViewController: NSTableViewDelegate {
     }
 }
 
+extension MainViewController: NSCollectionViewDelegate {
+    func collectionView(_ collectionView: NSCollectionView, didDeselectItemsAt indexPaths: Set<IndexPath>) {
+        if collectionView.selectionIndexes.isEmpty {
+            self.currentlySelectedFile = nil
+        }
+    }
+
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        let lastIndexPath = indexPaths.max()!
+        let item = collectionView.item(at: lastIndexPath) as? MediaCollectionViewItem
+        self.currentlySelectedFile = item?.file
+    }
+}
+
 extension MainViewController: NSCollectionViewDataSource {
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.files.count

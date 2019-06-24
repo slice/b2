@@ -112,6 +112,7 @@
                                             <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <connections>
                                                 <outlet property="dataSource" destination="ec3-WX-94a" id="exz-Du-Jm7"/>
+                                                <outlet property="delegate" destination="ec3-WX-94a" id="0m5-H1-YnX"/>
                                             </connections>
                                         </collectionView>
                                     </subviews>

@@ -11,11 +11,6 @@ class MediaCollectionViewItem: NSCollectionViewItem {
             self.view.layer!.backgroundColor = self.isSelected
                 ? NSColor.selectedContentBackgroundColor.cgColor
                 : NSColor.quaternaryLabelColor.cgColor
-
-            if self.isSelected {
-                let viewController = self.collectionView?.dataSource as? MainViewController
-                viewController?.currentlySelectedFile = self.file
-            }
         }
     }
 

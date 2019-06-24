@@ -122,6 +122,12 @@
                                     <action selector="selectAll:" target="-1" id="OMx-fE-5fT"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Deselect All" alternate="YES" keyEquivalent="a" id="Bly-Fh-7kl">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="deselectAll:" target="-1" id="udT-hk-m4W"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>

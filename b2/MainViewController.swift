@@ -60,17 +60,24 @@ class MainViewController: NSViewController {
         return files
     }
 
-    /// Perform a search for files with all specified tags.
-    func performSearch(tags: [String]) throws {
+    /// Asynchronously performs a search for files with tags and displays them
+    /// in the collection view.
+    func searchAsync(tags: [String]) {
         self.currentlySelectedFile = nil
+        self.statusBarLabel.stringValue = "Searching..."
 
-        self.files = try measure("Query for \(tags)") {
-            return try self.database.search(tags: tags)
+        self.fetchQueue.async {
+            let files = try! measure("Query for \(tags)") {
+                return try self.database.search(tags: tags)
+            }
+
+            NSLog("Query returned \(files.count) file(s).")
+
+            DispatchQueue.main.async {
+                self.files = files
+                self.collectionView.reloadData()
+            }
         }
-
-        NSLog("Query returned \(self.files.count) file(s).")
-
-        self.collectionView.reloadData()
     }
 
     func showDatabaseLoadFailureMessage(_ text: String) {

@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="MainWindowController" customModule="b2" customModuleProvider="target">
             <connections>
                 <outlet property="tokenField" destination="wjn-TD-QMV" id="oxs-YT-uKS"/>
+                <outlet property="viewController" destination="ec3-WX-94a" id="AAB-lv-sfC"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="2Ra-tn-tKN"/>
             </connections>
         </customObject>
@@ -183,6 +184,9 @@
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </tokenFieldCell>
+                            <connections>
+                                <action selector="performSearch:" target="-2" id="7UV-IV-XPb"/>
+                            </connections>
                         </tokenField>
                     </toolbarItem>
                 </allowedToolbarItems>

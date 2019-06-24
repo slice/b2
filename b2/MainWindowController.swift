@@ -3,18 +3,18 @@ import Path_swift
 
 class MainWindowController: NSWindowController {
     @IBOutlet weak var tokenField: NSTokenField!
+    @IBOutlet weak var viewController: MainViewController!
     var createdTab: MainWindowController?
     var createdWindow: MainWindowController?
 
     @IBAction func performSearch(_ sender: NSTokenField) {
-        let viewController = self.contentViewController as! MainViewController
         let tags = sender.objectValue as! [String]
 
         if tags.isEmpty {
-            viewController.loadAllFilesAsync()
+            self.viewController.loadAllFilesAsync()
         } else {
             NSLog("Searching for tags: \(tags)")
-            try! viewController.performSearch(tags: tags)
+            self.viewController.searchAsync(tags: tags)
         }
     }
 

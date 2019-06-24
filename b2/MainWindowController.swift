@@ -1,12 +1,13 @@
 import Cocoa
 import Path_swift
 
-class WindowController: NSWindowController {
+class MainWindowController: NSWindowController {
     @IBOutlet weak var tokenField: NSTokenField!
-    var tab: WindowController?
+    var createdTab: MainWindowController?
+    var createdWindow: MainWindowController?
 
     @IBAction func performSearch(_ sender: NSTokenField) {
-        let viewController = self.contentViewController as! ViewController
+        let viewController = self.contentViewController as! MainViewController
         let tags = sender.objectValue as! [String]
 
         if tags.isEmpty {
@@ -18,9 +19,9 @@ class WindowController: NSWindowController {
     }
 
     override func newWindowForTab(_ sender: Any?) {
-        let controller = self.storyboard!.instantiateInitialController() as! WindowController
+        let controller = MainWindowController(windowNibName: self.windowNibName!)
         self.window!.addTabbedWindow(controller.window!, ordered: .above)
         controller.window!.makeKeyAndOrderFront(self)
-        self.tab = controller
+        self.createdTab = controller
     }
 }

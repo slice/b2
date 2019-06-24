@@ -4,7 +4,7 @@ class HydrusFile {
     let hash: String
     let hashId: Int
 
-    var database: HydrusDatabase
+    unowned var database: HydrusDatabase
     var metadata: HydrusMetadata
 
     enum PathType: String {

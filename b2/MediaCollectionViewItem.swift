@@ -13,7 +13,7 @@ class MediaCollectionViewItem: NSCollectionViewItem {
                 : NSColor.quaternaryLabelColor.cgColor
 
             if self.isSelected {
-                let viewController = self.collectionView?.dataSource as? ViewController
+                let viewController = self.collectionView?.dataSource as? MainViewController
                 viewController?.currentlySelectedFile = self.file
             }
         }

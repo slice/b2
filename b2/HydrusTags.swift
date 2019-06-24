@@ -1,7 +1,7 @@
 import GRDB
 
 class HydrusTags {
-    let database: HydrusDatabase
+    unowned let database: HydrusDatabase
 
     var namespaces: [HydrusTagNamespace]!
     var namespacesById: [Int: HydrusTagNamespace]!

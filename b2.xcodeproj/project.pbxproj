@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1254903222C0414F00218DBC /* WindowControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1254903122C0414F00218DBC /* WindowControllerManager.swift */; };
 		128ED16222AAD1AC00A1DDD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128ED16122AAD1AC00A1DDD6 /* AppDelegate.swift */; };
-		128ED16422AAD1AC00A1DDD6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128ED16322AAD1AC00A1DDD6 /* ViewController.swift */; };
+		128ED16422AAD1AC00A1DDD6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128ED16322AAD1AC00A1DDD6 /* MainViewController.swift */; };
 		128ED16622AAD1AE00A1DDD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 128ED16522AAD1AE00A1DDD6 /* Assets.xcassets */; };
-		128ED16922AAD1AE00A1DDD6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 128ED16722AAD1AE00A1DDD6 /* Main.storyboard */; };
-		128ED17222AAD88300A1DDD6 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128ED17122AAD88300A1DDD6 /* WindowController.swift */; };
+		128ED17222AAD88300A1DDD6 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128ED17122AAD88300A1DDD6 /* MainWindowController.swift */; };
+		1298D6EC22C0219900012C37 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1298D6EB22C0219900012C37 /* MainMenu.xib */; };
+		1298D6EE22C0224500012C37 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1298D6ED22C0224500012C37 /* MainWindow.xib */; };
 		12C43B6F22BCA5DD003AF7C1 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B6E22BCA5DD003AF7C1 /* Utilities.swift */; };
 		12C43B7122BD5E59003AF7C1 /* HydrusTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B7022BD5E59003AF7C1 /* HydrusTags.swift */; };
 		12C43B7422BD6076003AF7C1 /* HydrusTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B7322BD6076003AF7C1 /* HydrusTag.swift */; };
@@ -30,14 +32,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1254903122C0414F00218DBC /* WindowControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowControllerManager.swift; sourceTree = "<group>"; };
 		128ED15E22AAD1AC00A1DDD6 /* b2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = b2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		128ED16122AAD1AC00A1DDD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		128ED16322AAD1AC00A1DDD6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		128ED16322AAD1AC00A1DDD6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		128ED16522AAD1AE00A1DDD6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		128ED16822AAD1AE00A1DDD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		128ED16A22AAD1AE00A1DDD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		128ED16B22AAD1AE00A1DDD6 /* b2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = b2.entitlements; sourceTree = "<group>"; };
-		128ED17122AAD88300A1DDD6 /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		128ED17122AAD88300A1DDD6 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		1298D6EB22C0219900012C37 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		1298D6ED22C0224500012C37 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		12C43B6E22BCA5DD003AF7C1 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		12C43B7022BD5E59003AF7C1 /* HydrusTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusTags.swift; sourceTree = "<group>"; };
 		12C43B7322BD6076003AF7C1 /* HydrusTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusTag.swift; sourceTree = "<group>"; };
@@ -69,6 +73,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1254903022C0413C00218DBC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				128ED16122AAD1AC00A1DDD6 /* AppDelegate.swift */,
+				128ED16522AAD1AE00A1DDD6 /* Assets.xcassets */,
+				128ED16A22AAD1AE00A1DDD6 /* Info.plist */,
+				128ED16B22AAD1AE00A1DDD6 /* b2.entitlements */,
+				12C43B6E22BCA5DD003AF7C1 /* Utilities.swift */,
+				1254903122C0414F00218DBC /* WindowControllerManager.swift */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		128ED15522AAD1AC00A1DDD6 = {
 			isa = PBXGroup;
 			children = (
@@ -91,33 +108,30 @@
 		128ED16022AAD1AC00A1DDD6 /* b2 */ = {
 			isa = PBXGroup;
 			children = (
+				1254903022C0413C00218DBC /* Supporting Files */,
 				12E10CF422BE10D000BD248E /* Extensions */,
 				12D7B0B622BC1A5600CB740F /* Collection View */,
 				12D7B0B522BC1A5200CB740F /* Hydrus */,
 				128ED17622AAE25F00A1DDD6 /* Controllers */,
-				128ED17422AAD99700A1DDD6 /* Storyboards */,
-				128ED16122AAD1AC00A1DDD6 /* AppDelegate.swift */,
-				128ED16522AAD1AE00A1DDD6 /* Assets.xcassets */,
-				128ED16A22AAD1AE00A1DDD6 /* Info.plist */,
-				128ED16B22AAD1AE00A1DDD6 /* b2.entitlements */,
-				12C43B6E22BCA5DD003AF7C1 /* Utilities.swift */,
+				128ED17422AAD99700A1DDD6 /* Nibs */,
 			);
 			path = b2;
 			sourceTree = "<group>";
 		};
-		128ED17422AAD99700A1DDD6 /* Storyboards */ = {
+		128ED17422AAD99700A1DDD6 /* Nibs */ = {
 			isa = PBXGroup;
 			children = (
-				128ED16722AAD1AE00A1DDD6 /* Main.storyboard */,
+				1298D6EB22C0219900012C37 /* MainMenu.xib */,
+				1298D6ED22C0224500012C37 /* MainWindow.xib */,
 			);
-			name = Storyboards;
+			name = Nibs;
 			sourceTree = "<group>";
 		};
 		128ED17622AAE25F00A1DDD6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				128ED16322AAD1AC00A1DDD6 /* ViewController.swift */,
-				128ED17122AAD88300A1DDD6 /* WindowController.swift */,
+				128ED16322AAD1AC00A1DDD6 /* MainViewController.swift */,
+				128ED17122AAD88300A1DDD6 /* MainWindowController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -250,9 +264,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				12D5009E22BC7D4100CB1D98 /* .swiftlint.yml in Resources */,
+				1298D6EC22C0219900012C37 /* MainMenu.xib in Resources */,
+				1298D6EE22C0224500012C37 /* MainWindow.xib in Resources */,
 				12D7B0B422BB6DA000CB740F /* MediaCollectionViewItem.xib in Resources */,
 				128ED16622AAD1AE00A1DDD6 /* Assets.xcassets in Resources */,
-				128ED16922AAD1AE00A1DDD6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,9 +337,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				128ED17222AAD88300A1DDD6 /* WindowController.swift in Sources */,
+				128ED17222AAD88300A1DDD6 /* MainWindowController.swift in Sources */,
 				12D500A022BC907C00CB1D98 /* HydrusMime.swift in Sources */,
-				128ED16422AAD1AC00A1DDD6 /* ViewController.swift in Sources */,
+				128ED16422AAD1AC00A1DDD6 /* MainViewController.swift in Sources */,
 				12D5009B22BC7A4E00CB1D98 /* HydrusFile.swift in Sources */,
 				12D7B0B322BB6DA000CB740F /* MediaCollectionViewItem.swift in Sources */,
 				12E10CF622BE10DE00BD248E /* Data+Hex.swift in Sources */,
@@ -332,6 +347,7 @@
 				12E10CF322BE0B3000BD248E /* HydrusCachedTag.swift in Sources */,
 				12C43B7422BD6076003AF7C1 /* HydrusTag.swift in Sources */,
 				12E10CF822BE25B700BD248E /* HydrusSubtag.swift in Sources */,
+				1254903222C0414F00218DBC /* WindowControllerManager.swift in Sources */,
 				12C43B6F22BCA5DD003AF7C1 /* Utilities.swift in Sources */,
 				12D500A222BC931400CB1D98 /* HydrusMetadata.swift in Sources */,
 				12C43B7122BD5E59003AF7C1 /* HydrusTags.swift in Sources */,
@@ -341,17 +357,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		128ED16722AAD1AE00A1DDD6 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				128ED16822AAD1AE00A1DDD6 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		128ED16C22AAD1AE00A1DDD6 /* Debug */ = {

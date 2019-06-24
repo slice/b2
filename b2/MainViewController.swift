@@ -1,7 +1,7 @@
 import Cocoa
 import Path_swift
 
-class ViewController: NSViewController {
+class MainViewController: NSViewController {
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var tableView: NSTableView!
 
@@ -93,7 +93,7 @@ class ViewController: NSViewController {
     }
 }
 
-extension ViewController {
+extension MainViewController {
     override func viewDidLoad() {
         let layout = self.collectionView.collectionViewLayout! as! NSCollectionViewGridLayout
         layout.minimumInteritemSpacing = 1.0
@@ -123,13 +123,13 @@ extension ViewController {
     }
 }
 
-extension ViewController: NSTableViewDataSource {
+extension MainViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return self.currentlySelectedFileTags?.count ?? 0
     }
 }
 
-extension ViewController: NSTableViewDelegate {
+extension MainViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "TagCell"), owner: nil) as! NSTableCellView
         let tag = self.currentlySelectedFileTags![row]
@@ -139,7 +139,7 @@ extension ViewController: NSTableViewDelegate {
     }
 }
 
-extension ViewController: NSCollectionViewDataSource {
+extension MainViewController: NSCollectionViewDataSource {
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.files.count
     }

@@ -1,7 +1,7 @@
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate {
     static let mainWindowNibName = "MainWindow"
 
     var windowReferenceManager: WindowControllerManager = WindowControllerManager()

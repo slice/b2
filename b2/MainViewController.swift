@@ -156,6 +156,8 @@ extension MainViewController {
     }
 }
 
+// MARK: - Table View
+
 extension MainViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return self.currentlySelectedFileTags?.count ?? 0
@@ -171,6 +173,8 @@ extension MainViewController: NSTableViewDelegate {
         return cell
     }
 }
+
+// MARK: - Collection View
 
 extension MainViewController: NSCollectionViewDelegate {
     func collectionView(_ collectionView: NSCollectionView, didDeselectItemsAt indexPaths: Set<IndexPath>) {

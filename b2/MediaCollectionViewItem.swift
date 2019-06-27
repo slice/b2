@@ -29,11 +29,6 @@ class MediaCollectionViewItem: NSCollectionViewItem {
     }
 
     func loadImage(at path: Path) {
-        guard self.imageView!.image == nil else {
-            // Don't load the image more than once.
-            return
-        }
-
         // We manually read the file instead of passing the path because
         // thumbnails have a .thumbnail extension, which bugs out AppKit as it
         // tries to guess what type of image it is.

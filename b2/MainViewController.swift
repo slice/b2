@@ -190,8 +190,19 @@ extension MainViewController: NSCollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: NSCollectionView, willDisplay item: NSCollectionViewItem, forRepresentedObjectAt indexPath: IndexPath) {
-        // Lazily load thumbnails as the user scrolls.
         let mediaItem = item as! MediaCollectionViewItem
+
+        // Only load thumbnails as the user scrolls.
+        //
+        // TODO: Don't call this when the image has already been loaded.
+        //       I don't know how to easily determine this because
+        //       `MediaCollectionViewItem`s can be reused by AppKit, and can
+        //       result in incorrect images displaying when they're reused
+        //       (e.g. when performing a search).
+        //
+        //       Newly created cells will have the proper `file` property, but
+        //       will only ever get loaded once if we simply check if
+        //       `mediaItem.imageView.image` is `nil`.
         mediaItem.loadImage()
     }
 }

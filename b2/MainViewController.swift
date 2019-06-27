@@ -24,6 +24,7 @@ class MainViewController: NSViewController {
         }
     }
 
+    // TODO: This isn't very pretty. Shouldn't this be in the other property?
     var currentlySelectedFileTags: [HydrusTag]?
     var currentlySelectedFile: HydrusFile? {
         didSet {
@@ -36,7 +37,11 @@ class MainViewController: NSViewController {
             self.loadTagsAsync(forFile: file)
         }
     }
+}
 
+// MARK: - Booru
+
+extension MainViewController {
     /// Fetch all `HydrusFile`s in the database.
     func fetchAllFiles() throws -> [HydrusFile] {
         let files = try self.database.database.read { db in

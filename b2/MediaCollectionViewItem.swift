@@ -58,7 +58,7 @@ class MediaCollectionViewItem: NSCollectionViewItem {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.wantsLayer = true
-        self.view.layer!.borderWidth = 1
+        self.view.layer!.borderWidth = 3
         self.view.layer!.borderColor = NSColor.clear.cgColor
         self.view.layer!.backgroundColor = NSColor.quaternaryLabelColor.cgColor
     }

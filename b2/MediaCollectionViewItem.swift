@@ -16,12 +16,24 @@ class MediaCollectionViewItem: NSCollectionViewItem {
 
     var file: HydrusFile! {
         didSet {
-            self.setupImage(path: self.file.path(type: .thumbnail))
             self.view.toolTip = self.toolTip()
         }
     }
 
-    private func setupImage(path: Path) {
+    func loadImage() {
+        self.loadImage(at: self.file)
+    }
+
+    func loadImage(at file: HydrusFile) {
+        self.loadImage(at: file.path(type: .thumbnail))
+    }
+
+    func loadImage(at path: Path) {
+        guard self.imageView!.image == nil else {
+            // Don't load the image more than once.
+            return
+        }
+
         // We manually read the file instead of passing the path because
         // thumbnails have a .thumbnail extension, which bugs out AppKit as it
         // tries to guess what type of image it is.

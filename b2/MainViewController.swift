@@ -188,6 +188,12 @@ extension MainViewController: NSCollectionViewDelegate {
         let item = collectionView.item(at: lastIndexPath) as? MediaCollectionViewItem
         self.currentlySelectedFile = item?.file
     }
+
+    func collectionView(_ collectionView: NSCollectionView, willDisplay item: NSCollectionViewItem, forRepresentedObjectAt indexPath: IndexPath) {
+        // Lazily load thumbnails as the user scrolls.
+        let mediaItem = item as! MediaCollectionViewItem
+        mediaItem.loadImage()
+    }
 }
 
 extension MainViewController: NSCollectionViewDataSource {

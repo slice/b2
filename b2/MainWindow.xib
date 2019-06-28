@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14810.12" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14810.12"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -160,18 +161,42 @@
                     <toolbarItem implicitItemIdentifier="A4CFC748-FC6F-4987-A3E6-CA5ABF3DBDE4" label="Booru" paletteLabel="Booru Picker" sizingBehavior="auto" id="U1I-6W-ynz">
                         <nil key="toolTip"/>
                         <popUpButton key="view" verticalHuggingPriority="750" id="zuQ-f1-ZGE" userLabel="Booru Picker PopUp Button">
-                            <rect key="frame" x="0.0" y="14" width="100" height="24"/>
+                            <rect key="frame" x="0.0" y="14" width="104" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="roundTextured" title="Hydrus Network" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="YXS-qf-nzi" id="LhJ-mH-GN6" userLabel="Item">
+                            <popUpButtonCell key="cell" type="roundTextured" title="None" bezelStyle="texturedRounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" tag="-1" imageScaling="proportionallyDown" inset="2" arrowPosition="arrowAtCenter" autoenablesItems="NO" selectedItem="ClU-yW-6VS" id="LhJ-mH-GN6" userLabel="Item">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
-                                <menu key="menu" id="Y8T-OE-7sj">
+                                <menu key="menu" autoenablesItems="NO" id="Y8T-OE-7sj">
                                     <items>
-                                        <menuItem title="Hydrus Network" state="on" id="YXS-qf-nzi" userLabel="Hydrus"/>
-                                        <menuItem title="e621" id="tw7-3l-KfS"/>
+                                        <menuItem title="None" tag="-1" id="ClU-yW-6VS">
+                                            <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="aqm-2o-99D"/>
+                                        <menuItem title="Local" enabled="NO" id="4nS-mZ-gPH">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Hydrus Network" state="on" keyEquivalent="h" indentationLevel="1" id="YXS-qf-nzi" userLabel="Hydrus">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="FcV-MN-dZl"/>
+                                        <menuItem title="External" enabled="NO" id="3QO-h6-mCT">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="e621" tag="1" keyEquivalent="e" indentationLevel="1" id="tw7-3l-KfS">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="e926" tag="2" keyEquivalent="9" indentationLevel="1" id="B1y-6p-qcn">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </popUpButtonCell>
+                            <connections>
+                                <action selector="changeBooru:" target="ec3-WX-94a" id="2bc-gK-0Vb"/>
+                            </connections>
                         </popUpButton>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="825D4F56-F72F-4405-9242-D29273768CBA" label="Search" paletteLabel="Search" sizingBehavior="auto" id="SFT-w5-e8I">
@@ -204,6 +229,7 @@
         </window>
         <viewController id="ec3-WX-94a" customClass="MainViewController" customModule="b2" customModuleProvider="target">
             <connections>
+                <outlet property="booruSelectorButton" destination="zuQ-f1-ZGE" id="64M-nH-T3h"/>
                 <outlet property="collectionView" destination="dtS-Ef-gAe" id="3kn-Tn-kNQ"/>
                 <outlet property="statusBarLabel" destination="Ttj-dj-Qg9" id="R17-Lt-mhr"/>
                 <outlet property="tableView" destination="HSs-dR-V1e" id="j8O-Ja-PQr"/>

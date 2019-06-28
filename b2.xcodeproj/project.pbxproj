@@ -15,6 +15,7 @@
 		1298D6EC22C0219900012C37 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1298D6EB22C0219900012C37 /* MainMenu.xib */; };
 		1298D6EE22C0224500012C37 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1298D6ED22C0224500012C37 /* MainWindow.xib */; };
 		12A9BB9A22C5F1C30090F503 /* BooruMime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A9BB9922C5F1C30090F503 /* BooruMime.swift */; };
+		12A9BB9C22C60ADE0090F503 /* NoneBooru.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A9BB9B22C60ADE0090F503 /* NoneBooru.swift */; };
 		12C43B6F22BCA5DD003AF7C1 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B6E22BCA5DD003AF7C1 /* Utilities.swift */; };
 		12C43B7122BD5E59003AF7C1 /* HydrusTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B7022BD5E59003AF7C1 /* HydrusTags.swift */; };
 		12C43B7422BD6076003AF7C1 /* HydrusTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B7322BD6076003AF7C1 /* HydrusTag.swift */; };
@@ -47,6 +48,7 @@
 		1298D6EB22C0219900012C37 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		1298D6ED22C0224500012C37 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		12A9BB9922C5F1C30090F503 /* BooruMime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruMime.swift; sourceTree = "<group>"; };
+		12A9BB9B22C60ADE0090F503 /* NoneBooru.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneBooru.swift; sourceTree = "<group>"; };
 		12C43B6E22BCA5DD003AF7C1 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		12C43B7022BD5E59003AF7C1 /* HydrusTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusTags.swift; sourceTree = "<group>"; };
 		12C43B7322BD6076003AF7C1 /* HydrusTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusTag.swift; sourceTree = "<group>"; };
@@ -144,6 +146,14 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		12A9BB9D22C60B0E0090F503 /* Miscellaneous */ = {
+			isa = PBXGroup;
+			children = (
+				12A9BB9B22C60ADE0090F503 /* NoneBooru.swift */,
+			);
+			name = Miscellaneous;
+			sourceTree = "<group>";
+		};
 		12C43B7222BD606C003AF7C1 /* Tags */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +206,7 @@
 		12F7957422C5BB8B002DCBEF /* Booru */ = {
 			isa = PBXGroup;
 			children = (
+				12A9BB9D22C60B0E0090F503 /* Miscellaneous */,
 				12D7B0B522BC1A5200CB740F /* Hydrus */,
 				12F7957522C5BB99002DCBEF /* Booru.swift */,
 				12F7957722C5C092002DCBEF /* BooruFile.swift */,
@@ -373,6 +384,7 @@
 				12E10CF822BE25B700BD248E /* HydrusSubtag.swift in Sources */,
 				1254903222C0414F00218DBC /* WindowControllerManager.swift in Sources */,
 				12C43B6F22BCA5DD003AF7C1 /* Utilities.swift in Sources */,
+				12A9BB9C22C60ADE0090F503 /* NoneBooru.swift in Sources */,
 				12D500A222BC931400CB1D98 /* HydrusMetadata.swift in Sources */,
 				12C43B7122BD5E59003AF7C1 /* HydrusTags.swift in Sources */,
 				12C43B7622BD6094003AF7C1 /* HydrusTagNamespace.swift in Sources */,

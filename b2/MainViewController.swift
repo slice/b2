@@ -5,6 +5,7 @@ class MainViewController: NSViewController {
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var statusBarLabel: NSTextField!
+    @IBOutlet weak var booruSelectorButton: NSPopUpButton!
 
     /// A `DispatchQueue` used for fetching data from the database.
     let fetchQueue = DispatchQueue(label: "database", attributes: .concurrent)
@@ -48,6 +49,13 @@ class MainViewController: NSViewController {
 // MARK: - Booru
 
 extension MainViewController {
+    enum BooruType: Int {
+        case none = -1
+        case hydrusNetwork
+        case e621
+        case e926
+    }
+
     /// Asynchronously performs a search for files with tags and displays them
     /// in the collection view.
     func searchAsync(tags: [String]) {
@@ -97,26 +105,8 @@ extension MainViewController {
         })
     }
 
-    /// Loads the databases.
-    func loadDatabases(at path: Path) {
-        do {
-            self.booru = try HydrusDatabase(databasePath: path)
-        } catch let error {
-            self.showDatabaseLoadFailureMessage(error.localizedDescription)
-        }
-    }
-}
-
-// MARK: - View Controller
-
-extension MainViewController {
-    override func viewDidLoad() {
-        let layout = self.collectionView.collectionViewLayout! as! NSCollectionViewGridLayout
-        layout.minimumInteritemSpacing = 1.0
-        layout.minimumLineSpacing = 1.0
-    }
-
-    override func viewDidAppear() {
+    /// Loads the Hydrus database.
+    func loadHydrusDatabase() {
         let path = Path.home / "Library" / "Hydrus"
 
         guard path.isDirectory else {
@@ -124,17 +114,58 @@ extension MainViewController {
             return
         }
 
-        measure("Loading database") {
-            self.loadDatabases(at: path)
+        do {
+            try measure("Loading database") {
+                self.booru = try HydrusDatabase(databasePath: path)
+            }
+        } catch let error {
+            self.showDatabaseLoadFailureMessage(error.localizedDescription)
         }
+    }
 
-        guard case let booru? = self.booru else {
-            return
+    /// Loads the currently selected booru.
+    func loadCurrentlySelectedBooru() {
+        let booru = BooruType(rawValue: self.booruSelectorButton.selectedItem!.tag)!
+        NSLog("Loading booru: \"\(booru)\"")
+        self.loadBooru(booru)
+    }
+
+    /// Loads a booru.
+    func loadBooru(_ booru: BooruType) {
+        // Reset some state.
+        self.selectedFile = nil
+
+        switch booru {
+        case .none:
+            self.booru = NoneBooru()
+        case .hydrusNetwork:
+            self.loadHydrusDatabase()
+        case .e621:
+            NSLog("TODO")
+        case .e926:
+            NSLog("TODO")
         }
+    }
+}
 
-        NSLog("Booru: \(booru)")
+// MARK: - View Controller
 
-        NSLog("Loading all files")
+extension MainViewController {
+    @IBAction func changeBooru(_ sender: NSPopUpButton) {
+        self.loadCurrentlySelectedBooru()
+        self.loadInitialFiles()
+    }
+
+    override func viewDidLoad() {
+        let layout = self.collectionView.collectionViewLayout! as! NSCollectionViewGridLayout
+        layout.minimumInteritemSpacing = 1.0
+        layout.minimumLineSpacing = 1.0
+    }
+
+    override func viewDidAppear() {
+        self.loadCurrentlySelectedBooru()
+
+        NSLog("Performing first initial files load")
         self.loadInitialFiles()
     }
 }

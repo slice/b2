@@ -118,12 +118,31 @@ class HydrusDatabase {
             let hashId = row["hash_id"] as Int
             let hash = try self.fetchHash(masterDatabase: masterDatabase, id: hashId)!
             let metadata = try self.fetchMetadata(mainDatabase: mainDatabase, hashId: hashId, timestamp: row["timestamp"])!
+
+            guard metadata.mime.booruMime != nil else {
+                // MIME type isn't appropriate.
+                return nil
+            }
+
             return HydrusFile(hash: hash, hashId: hashId, database: self, metadata: metadata)
-        }.filter { $0.metadata.mime.isImage() })
+        }.compactMap({ $0 }))
     }
 
-    /// Search for `HydrusFile`s by tag from the master database.
-    func search(tags: [String]) throws -> [HydrusFile] {
+    deinit {
+        NSLog("Database deinitializing")
+    }
+}
+
+extension HydrusDatabase: Booru {
+    func initialFiles() throws -> [BooruFile] {
+        return try self.database.read { db in
+            return try self.masterDatabase.read { masterDb in
+                return try self.fetchAllFiles(mainDatabase: db, masterDatabase: masterDb)
+            }
+        }
+    }
+
+    func search(forFilesWithTags tags: [String]) throws -> [BooruFile] {
         let cachedTags: [Int?] = try self.cachesDatabase.read { db in
             return try tags.map({ tag in
                 return try HydrusCachedTag.filter(HydrusCachedTag.Columns.tag == tag).fetchOne(db)?.id
@@ -166,9 +185,5 @@ class HydrusDatabase {
                 return HydrusFile(hash: hash, hashId: hashId, database: self, metadata: metadata)
             })).compactMap({ $0 })
         }
-    }
-
-    deinit {
-        NSLog("Database deinitializing")
     }
 }

@@ -14,29 +14,19 @@ class MediaCollectionViewItem: NSCollectionViewItem {
         }
     }
 
-    var file: HydrusFile! {
+    /// The file that this item is associated with.
+    ///
+    /// The thumbnail of the file isn't loaded until you call `loadImage`.
+    var file: BooruFile! {
         didSet {
             self.view.toolTip = self.toolTip()
         }
     }
 
-    func loadImage() {
-        self.loadImage(at: self.file)
-    }
-
-    func loadImage(at file: HydrusFile) {
-        self.loadImage(at: file.path(type: .thumbnail))
-    }
-
-    func loadImage(at path: Path) {
-        // We manually read the file instead of passing the path because
-        // thumbnails have a .thumbnail extension, which bugs out AppKit as it
-        // tries to guess what type of image it is.
-        if let data = try? Data(contentsOf: path) {
-            self.imageView!.image = NSImage(data: data)
-        } else {
-            NSLog("Cannot setup image; failed to read \(path).")
-        }
+    /// Loads the thumbnail image into the item's `imageView`.
+    func loadThumbnail() {
+        let data = try! Data(contentsOf: self.file.thumbnailImageURL)
+        self.imageView!.image = NSImage(data: data)!
     }
 
     private func toolTip() -> String {
@@ -46,9 +36,9 @@ class MediaCollectionViewItem: NSCollectionViewItem {
         dateFormatter.locale = Locale.current
         dateFormatter.doesRelativeDateFormatting = true
 
-        let timestampHumanReadable = dateFormatter.string(from: self.file.metadata.timestamp)
+        let timestampHumanReadable = dateFormatter.string(from: self.file.createdAt)
         let sizeHumanReadable = ByteCountFormatter.string(
-            fromByteCount: Int64(self.file.metadata.size),
+            fromByteCount: Int64(self.file.size),
             countStyle: .file
         )
         return "added \(timestampHumanReadable), \(sizeHumanReadable)"
@@ -58,7 +48,7 @@ class MediaCollectionViewItem: NSCollectionViewItem {
         super.mouseDown(with: event)
 
         if event.clickCount == 2 {
-            NSWorkspace.shared.openFile(self.file.path().string)
+            NSWorkspace.shared.open(self.file.imageURL)
         }
     }
 

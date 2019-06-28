@@ -9,11 +9,11 @@ class MainViewController: NSViewController {
     /// A `DispatchQueue` used for fetching data from the database.
     let fetchQueue = DispatchQueue(label: "database", attributes: .concurrent)
 
-    /// The current `HydrusDatabase`.
-    var database: HydrusDatabase!
+    /// The current `Booru` being used.
+    var booru: Booru!
 
     /// An array of currently loaded files.
-    var files: [HydrusFile] = [] {
+    var files: [BooruFile] = [] {
         didSet {
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal
@@ -24,47 +24,61 @@ class MainViewController: NSViewController {
         }
     }
 
-    // TODO: This isn't very pretty. Shouldn't this be in the other property?
-    var currentlySelectedFileTags: [HydrusTag]?
-    var currentlySelectedFile: HydrusFile? {
+    /// The currently selected file.
+    var selectedFile: BooruFile? {
         didSet {
-            guard let file = self.currentlySelectedFile else {
-                self.currentlySelectedFileTags = []
-                self.tableView.reloadData()
-                return
-            }
-
-            self.loadTagsAsync(forFile: file)
+            self.tableView.reloadData()
         }
+    }
+
+    /// Returns the selected file's tags, sorted for display.
+    var selectedFileTags: [BooruTag] {
+        guard let file = self.selectedFile else {
+            return []
+        }
+
+        return file.tags.sorted(by: { (first, second) in
+            let firstN = first.namespace ?? "zzz"
+            let secondN = second.namespace ?? "zzz"
+            return (firstN, first.subtag) < (secondN, second.subtag)
+        })
     }
 }
 
 // MARK: - Booru
 
 extension MainViewController {
-    /// Fetch all `HydrusFile`s in the database.
-    func fetchAllFiles() throws -> [HydrusFile] {
-        let files = try self.database.database.read { db in
-            return try self.database.masterDatabase.read { masterDb in
-                return try self.database.fetchAllFiles(mainDatabase: db, masterDatabase: masterDb)
-            }
-        }
-
-        return files
-    }
-
     /// Asynchronously performs a search for files with tags and displays them
     /// in the collection view.
     func searchAsync(tags: [String]) {
-        self.currentlySelectedFile = nil
+        self.selectedFile = nil
         self.statusBarLabel.stringValue = "Searching..."
 
         self.fetchQueue.async {
             let files = try! measure("Query for \(tags)") {
-                return try self.database.search(tags: tags)
+                return try self.booru.search(forFilesWithTags: tags)
             }
 
             NSLog("Query returned \(files.count) file(s).")
+
+            DispatchQueue.main.async {
+                self.files = files
+                self.collectionView.reloadData()
+            }
+        }
+    }
+
+    /// Asynchronously fetches the initial files and displays them in the
+    /// collection view.
+    func loadInitialFiles() {
+        self.statusBarLabel.stringValue = "Loading files..."
+
+        self.fetchQueue.async {
+            let files = try! measure("Fetching all files") {
+                return try self.booru.initialFiles()
+            }
+
+            NSLog("Fetched \(files.count) file(s)")
 
             DispatchQueue.main.async {
                 self.files = files
@@ -86,50 +100,14 @@ extension MainViewController {
     /// Loads the databases.
     func loadDatabases(at path: Path) {
         do {
-            self.database = try HydrusDatabase(databasePath: path)
+            self.booru = try HydrusDatabase(databasePath: path)
         } catch let error {
             self.showDatabaseLoadFailureMessage(error.localizedDescription)
         }
     }
-
-    /// Asynchronously loads tags for a file and displays them in the table view.
-    func loadTagsAsync(forFile file: HydrusFile) {
-        self.fetchQueue.async {
-            let sorted: [HydrusTag] = measure("Fetching tags for \(file.hashId)") {
-                let tags = try! file.tags()
-
-                return tags.sorted(by: { (first, second) in
-                    let firstNamespace = first.namespace.isDefault ? "zzzz" : first.namespace.text
-                    let secondNamespace = second.namespace.isDefault ? "zzzz" : second.namespace.text
-                    return (firstNamespace, first.subtag.text) < (secondNamespace, second.subtag.text)
-                })
-            }
-
-            DispatchQueue.main.async {
-                self.currentlySelectedFileTags = sorted
-                self.tableView.reloadData()
-            }
-        }
-    }
-
-    /// Asynchronously fetches all files and displays them in the collection view.
-    func loadAllFilesAsync() {
-        self.statusBarLabel.stringValue = "Loading files..."
-
-        self.fetchQueue.async {
-            let files = try! measure("Fetching all files") {
-                return try self.fetchAllFiles()
-            }
-
-            NSLog("Fetched \(files.count) file(s)")
-
-            DispatchQueue.main.async {
-                self.files = files
-                self.collectionView.reloadData()
-            }
-        }
-    }
 }
+
+// MARK: - View Controller
 
 extension MainViewController {
     override func viewDidLoad() {
@@ -150,14 +128,14 @@ extension MainViewController {
             self.loadDatabases(at: path)
         }
 
-        guard self.database != nil else {
+        guard case let booru? = self.booru else {
             return
         }
 
-        NSLog("Database: \(self.database!)")
+        NSLog("Booru: \(booru)")
 
         NSLog("Loading all files")
-        self.loadAllFilesAsync()
+        self.loadInitialFiles()
     }
 }
 
@@ -165,16 +143,15 @@ extension MainViewController {
 
 extension MainViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return self.currentlySelectedFileTags?.count ?? 0
+        return self.selectedFileTags.count
     }
 }
 
 extension MainViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "TagCell"), owner: nil) as! NSTableCellView
-        let tag = self.currentlySelectedFileTags![row]
+        let tag = self.selectedFileTags[row]
         cell.textField!.stringValue = tag.description
-        cell.toolTip = String(tag.id)
         return cell
     }
 }
@@ -184,14 +161,14 @@ extension MainViewController: NSTableViewDelegate {
 extension MainViewController: NSCollectionViewDelegate {
     func collectionView(_ collectionView: NSCollectionView, didDeselectItemsAt indexPaths: Set<IndexPath>) {
         if collectionView.selectionIndexes.isEmpty {
-            self.currentlySelectedFile = nil
+            self.selectedFile = nil
         }
     }
 
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         let lastIndexPath = indexPaths.max()!
         let item = collectionView.item(at: lastIndexPath) as? MediaCollectionViewItem
-        self.currentlySelectedFile = item?.file
+        self.selectedFile = item?.file
     }
 
     func collectionView(_ collectionView: NSCollectionView, willDisplay item: NSCollectionViewItem, forRepresentedObjectAt indexPath: IndexPath) {
@@ -208,7 +185,7 @@ extension MainViewController: NSCollectionViewDelegate {
         //       Newly created cells will have the proper `file` property, but
         //       will only ever get loaded once if we simply check if
         //       `mediaItem.imageView.image` is `nil`.
-        mediaItem.loadImage()
+        mediaItem.loadThumbnail()
     }
 }
 

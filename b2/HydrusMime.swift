@@ -39,16 +39,22 @@ enum HydrusMime: Int {
     case octetStream = 100
     case unknown = 101
 
-    func isImage() -> Bool {
+    /// Returns this `HydrusMime` as a `BooruMime`; is `nil` when a
+    /// corresponding MIME type isn't found.
+    var booruMime: BooruMime? {
         switch self {
-        case .jpeg, .png, .gif, .apng, .tiff, .webp:
-            return true
-        default:
-            return false
+        case .png: return .png
+        case .jpeg: return .jpeg
+        case .webp: return .webp
+        case .gif: return .gif
+        case .webm: return .webm
+        case .mp4: return .mp4
+        case .flash: return .swf
+        default: return nil
         }
     }
 
-    func `extension`() -> String {
+    var `extension`: String {
         switch self {
         case .jpeg:
             return "jpg"
@@ -57,7 +63,7 @@ enum HydrusMime: Int {
         case .gif:
             return "gif"
         case .mpeg:
-            return "mp4" // Unconfirmed
+            return "mpeg"
         case .webm:
             return "webm"
         case .mov:

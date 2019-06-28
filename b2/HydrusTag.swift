@@ -8,16 +8,13 @@ struct HydrusTag {
     /// The tag's ID.
     let id: Int
 
-    /// The subtag text.
-    let subtag: HydrusSubtag
-
-    /// The namespace that this tag resides in.
-    let namespace: HydrusTagNamespace
+    fileprivate let hydrusSubtag: HydrusSubtag
+    fileprivate let hydrusNamespace: HydrusTagNamespace
 
     init(id: Int, subtag: HydrusSubtag, namespace: HydrusTagNamespace) {
         self.id = id
-        self.subtag = subtag
-        self.namespace = namespace
+        self.hydrusSubtag = subtag
+        self.hydrusNamespace = namespace
     }
 }
 
@@ -27,7 +24,17 @@ extension HydrusTag: TableRecord {
 
 extension HydrusTag: CustomStringConvertible {
     var description: String {
-        let colon = self.namespace.isDefault ? "" : ":"
-        return "\(self.namespace)\(colon)\(self.subtag)"
+        let colon = self.hydrusNamespace.isDefault ? "" : ":"
+        return "\(self.hydrusNamespace)\(colon)\(self.subtag)"
+    }
+}
+
+extension HydrusTag: BooruTag {
+    var subtag: String {
+        return self.hydrusSubtag.text
+    }
+
+    var namespace: String? {
+        return self.hydrusNamespace.isDefault ? nil : self.hydrusNamespace.text
     }
 }

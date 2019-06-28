@@ -14,6 +14,7 @@
 		128ED17222AAD88300A1DDD6 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128ED17122AAD88300A1DDD6 /* MainWindowController.swift */; };
 		1298D6EC22C0219900012C37 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1298D6EB22C0219900012C37 /* MainMenu.xib */; };
 		1298D6EE22C0224500012C37 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1298D6ED22C0224500012C37 /* MainWindow.xib */; };
+		12A9BB9A22C5F1C30090F503 /* BooruMime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A9BB9922C5F1C30090F503 /* BooruMime.swift */; };
 		12C43B6F22BCA5DD003AF7C1 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B6E22BCA5DD003AF7C1 /* Utilities.swift */; };
 		12C43B7122BD5E59003AF7C1 /* HydrusTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B7022BD5E59003AF7C1 /* HydrusTags.swift */; };
 		12C43B7422BD6076003AF7C1 /* HydrusTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B7322BD6076003AF7C1 /* HydrusTag.swift */; };
@@ -28,6 +29,9 @@
 		12E10CF322BE0B3000BD248E /* HydrusCachedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E10CF222BE0B3000BD248E /* HydrusCachedTag.swift */; };
 		12E10CF622BE10DE00BD248E /* Data+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E10CF522BE10DE00BD248E /* Data+Hex.swift */; };
 		12E10CF822BE25B700BD248E /* HydrusSubtag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E10CF722BE25B700BD248E /* HydrusSubtag.swift */; };
+		12F7957622C5BB99002DCBEF /* Booru.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957522C5BB99002DCBEF /* Booru.swift */; };
+		12F7957822C5C092002DCBEF /* BooruFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957722C5C092002DCBEF /* BooruFile.swift */; };
+		12F7957A22C5C3F4002DCBEF /* BooruTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957922C5C3F4002DCBEF /* BooruTag.swift */; };
 		1482C829AB7BE410F16AFC50 /* Pods_b2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3EC2702E763916FA92E3D7E /* Pods_b2.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +46,7 @@
 		128ED17122AAD88300A1DDD6 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		1298D6EB22C0219900012C37 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		1298D6ED22C0224500012C37 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		12A9BB9922C5F1C30090F503 /* BooruMime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruMime.swift; sourceTree = "<group>"; };
 		12C43B6E22BCA5DD003AF7C1 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		12C43B7022BD5E59003AF7C1 /* HydrusTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusTags.swift; sourceTree = "<group>"; };
 		12C43B7322BD6076003AF7C1 /* HydrusTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusTag.swift; sourceTree = "<group>"; };
@@ -56,6 +61,9 @@
 		12E10CF222BE0B3000BD248E /* HydrusCachedTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusCachedTag.swift; sourceTree = "<group>"; };
 		12E10CF522BE10DE00BD248E /* Data+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Hex.swift"; sourceTree = "<group>"; };
 		12E10CF722BE25B700BD248E /* HydrusSubtag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusSubtag.swift; sourceTree = "<group>"; };
+		12F7957522C5BB99002DCBEF /* Booru.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booru.swift; sourceTree = "<group>"; };
+		12F7957722C5C092002DCBEF /* BooruFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruFile.swift; sourceTree = "<group>"; };
+		12F7957922C5C3F4002DCBEF /* BooruTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruTag.swift; sourceTree = "<group>"; };
 		1B5F8FC2D6AC73ACBE9D4A25 /* Pods-b2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-b2.debug.xcconfig"; path = "Target Support Files/Pods-b2/Pods-b2.debug.xcconfig"; sourceTree = "<group>"; };
 		D3EC2702E763916FA92E3D7E /* Pods_b2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_b2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFF915EA1AF15E6D6A106070 /* Pods-b2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-b2.release.xcconfig"; path = "Target Support Files/Pods-b2/Pods-b2.release.xcconfig"; sourceTree = "<group>"; };
@@ -108,10 +116,10 @@
 		128ED16022AAD1AC00A1DDD6 /* b2 */ = {
 			isa = PBXGroup;
 			children = (
+				12F7957422C5BB8B002DCBEF /* Booru */,
 				1254903022C0413C00218DBC /* Supporting Files */,
 				12E10CF422BE10D000BD248E /* Extensions */,
 				12D7B0B622BC1A5600CB740F /* Collection View */,
-				12D7B0B522BC1A5200CB740F /* Hydrus */,
 				128ED17622AAE25F00A1DDD6 /* Controllers */,
 				128ED17422AAD99700A1DDD6 /* Nibs */,
 			);
@@ -183,6 +191,18 @@
 				12E10CF522BE10DE00BD248E /* Data+Hex.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		12F7957422C5BB8B002DCBEF /* Booru */ = {
+			isa = PBXGroup;
+			children = (
+				12D7B0B522BC1A5200CB740F /* Hydrus */,
+				12F7957522C5BB99002DCBEF /* Booru.swift */,
+				12F7957722C5C092002DCBEF /* BooruFile.swift */,
+				12F7957922C5C3F4002DCBEF /* BooruTag.swift */,
+				12A9BB9922C5F1C30090F503 /* BooruMime.swift */,
+			);
+			name = Booru;
 			sourceTree = "<group>";
 		};
 		94AF0756A5715ADBC75A2FDA /* Pods */ = {
@@ -338,14 +358,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				128ED17222AAD88300A1DDD6 /* MainWindowController.swift in Sources */,
+				12A9BB9A22C5F1C30090F503 /* BooruMime.swift in Sources */,
+				12F7957622C5BB99002DCBEF /* Booru.swift in Sources */,
 				12D500A022BC907C00CB1D98 /* HydrusMime.swift in Sources */,
 				128ED16422AAD1AC00A1DDD6 /* MainViewController.swift in Sources */,
 				12D5009B22BC7A4E00CB1D98 /* HydrusFile.swift in Sources */,
 				12D7B0B322BB6DA000CB740F /* MediaCollectionViewItem.swift in Sources */,
 				12E10CF622BE10DE00BD248E /* Data+Hex.swift in Sources */,
+				12F7957822C5C092002DCBEF /* BooruFile.swift in Sources */,
 				128ED16222AAD1AC00A1DDD6 /* AppDelegate.swift in Sources */,
 				12E10CF322BE0B3000BD248E /* HydrusCachedTag.swift in Sources */,
 				12C43B7422BD6076003AF7C1 /* HydrusTag.swift in Sources */,
+				12F7957A22C5C3F4002DCBEF /* BooruTag.swift in Sources */,
 				12E10CF822BE25B700BD248E /* HydrusSubtag.swift in Sources */,
 				1254903222C0414F00218DBC /* WindowControllerManager.swift in Sources */,
 				12C43B6F22BCA5DD003AF7C1 /* Utilities.swift in Sources */,

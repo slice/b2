@@ -11,7 +11,7 @@ class MainWindowController: NSWindowController {
         let tags = sender.objectValue as! [String]
 
         if tags.isEmpty {
-            self.viewController.loadAllFilesAsync()
+            self.viewController.loadInitialFiles()
         } else {
             NSLog("Searching for tags: \(tags)")
             self.viewController.searchAsync(tags: tags)

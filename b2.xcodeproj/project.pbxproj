@@ -160,14 +160,14 @@
 			name = Miscellaneous;
 			sourceTree = "<group>";
 		};
-		12A9BB9E22C74E0E0090F503 /* e621 */ = {
+		12A9BB9E22C74E0E0090F503 /* External */ = {
 			isa = PBXGroup;
 			children = (
 				12A9BB9F22C74E180090F503 /* OuroborosBooru.swift */,
 				127C44C222C7562E003C7BFA /* OuroborosFile.swift */,
 				127C44C422C75FB2003C7BFA /* OuroborosTag.swift */,
 			);
-			name = e621;
+			name = External;
 			sourceTree = "<group>";
 		};
 		12C43B7222BD606C003AF7C1 /* Tags */ = {
@@ -222,7 +222,7 @@
 		12F7957422C5BB8B002DCBEF /* Booru */ = {
 			isa = PBXGroup;
 			children = (
-				12A9BB9E22C74E0E0090F503 /* e621 */,
+				12A9BB9E22C74E0E0090F503 /* External */,
 				12A9BB9D22C60B0E0090F503 /* Miscellaneous */,
 				12D7B0B522BC1A5200CB740F /* Hydrus */,
 				12F7957522C5BB99002DCBEF /* Booru.swift */,

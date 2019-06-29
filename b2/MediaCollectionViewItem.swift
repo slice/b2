@@ -26,9 +26,8 @@ class MediaCollectionViewItem: NSCollectionViewItem {
     private func toolTip() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
+        dateFormatter.timeStyle = .short
         dateFormatter.locale = Locale.current
-        dateFormatter.doesRelativeDateFormatting = true
 
         let timestampHumanReadable = dateFormatter.string(from: self.file.createdAt)
         let sizeHumanReadable = ByteCountFormatter.string(

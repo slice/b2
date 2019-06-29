@@ -59,6 +59,8 @@ extension MainViewController {
     /// Asynchronously performs a search for files with tags and displays them
     /// in the collection view.
     func searchAsync(tags: [String]) {
+        self.files = []
+        self.collectionView.reloadData()
         self.selectedFile = nil
         self.statusBarLabel.stringValue = "Searching..."
 

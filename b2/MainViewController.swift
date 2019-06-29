@@ -133,6 +133,8 @@ extension MainViewController {
     /// Loads a booru.
     func loadBooru(_ booru: BooruType) {
         // Reset some state.
+        self.files = []
+        self.collectionView.reloadData()
         self.selectedFile = nil
 
         switch booru {

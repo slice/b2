@@ -237,6 +237,7 @@ extension MainViewController: NSCollectionViewDataSource {
 
         let file = self.files[indexPath.item]
         item.file = file
+        item.imageView!.image = nil
 
         return item
     }

@@ -23,12 +23,6 @@ class MediaCollectionViewItem: NSCollectionViewItem {
         }
     }
 
-    /// Loads the thumbnail image into the item's `imageView`.
-    func loadThumbnail() {
-        let data = try! Data(contentsOf: self.file.thumbnailImageURL)
-        self.imageView!.image = NSImage(data: data)!
-    }
-
     private func toolTip() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium

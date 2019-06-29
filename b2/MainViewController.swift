@@ -7,8 +7,8 @@ class MainViewController: NSViewController {
     @IBOutlet weak var statusBarLabel: NSTextField!
     @IBOutlet weak var booruSelectorButton: NSPopUpButton!
 
-    /// A `DispatchQueue` used for fetching data from the database.
-    let fetchQueue = DispatchQueue(label: "database", attributes: .concurrent)
+    /// A `DispatchQueue` used for fetching data.
+    let fetchQueue = DispatchQueue(label: "fetch", attributes: .concurrent)
 
     /// The current `Booru` being used.
     var booru: Booru!
@@ -145,9 +145,9 @@ extension MainViewController {
         case .hydrusNetwork:
             self.loadHydrusDatabase()
         case .e621:
-            NSLog("TODO")
+            self.booru = OuroborosBooru(baseUrl: URL(string: "https://e621.net")!)
         case .e926:
-            NSLog("TODO")
+            self.booru = OuroborosBooru(baseUrl: URL(string: "https://e926.net")!)
         }
     }
 }
@@ -220,7 +220,15 @@ extension MainViewController: NSCollectionViewDelegate {
         //       Newly created cells will have the proper `file` property, but
         //       will only ever get loaded once if we simply check if
         //       `mediaItem.imageView.image` is `nil`.
-        mediaItem.loadThumbnail()
+        self.fetchQueue.async {
+            measure("Loading thumbnail for \(mediaItem.file.id)") {
+                let data = try! Data(contentsOf: mediaItem.file.thumbnailImageURL)
+
+                DispatchQueue.main.async {
+                    mediaItem.imageView!.image = NSImage(data: data)!
+                }
+            }
+        }
     }
 }
 

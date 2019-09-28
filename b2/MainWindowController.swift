@@ -1,5 +1,5 @@
 import Cocoa
-import Path_swift
+import Path
 
 class MainWindowController: NSWindowController {
     @IBOutlet weak var tokenField: NSTokenField!

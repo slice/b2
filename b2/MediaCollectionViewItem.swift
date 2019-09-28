@@ -1,5 +1,5 @@
 import Cocoa
-import Path_swift
+import Path
 
 class MediaCollectionViewItem: NSCollectionViewItem {
     override var isSelected: Bool {

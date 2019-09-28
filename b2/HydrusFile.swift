@@ -1,4 +1,5 @@
-import Path_swift
+import Foundation
+import Path
 
 /// A file in a Hydrus database.
 class HydrusFile {

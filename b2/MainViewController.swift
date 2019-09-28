@@ -1,5 +1,5 @@
 import Cocoa
-import Path_swift
+import Path
 
 class MainViewController: NSViewController {
     @IBOutlet weak var collectionView: NSCollectionView!

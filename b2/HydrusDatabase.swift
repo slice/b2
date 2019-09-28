@@ -1,6 +1,6 @@
 import Foundation
 import GRDB
-import Path_swift
+import Path
 
 class HydrusDatabase {
     var databasePath: Path

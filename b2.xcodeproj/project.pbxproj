@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,10 +33,11 @@
 		12E10CF322BE0B3000BD248E /* HydrusCachedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E10CF222BE0B3000BD248E /* HydrusCachedTag.swift */; };
 		12E10CF622BE10DE00BD248E /* Data+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E10CF522BE10DE00BD248E /* Data+Hex.swift */; };
 		12E10CF822BE25B700BD248E /* HydrusSubtag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E10CF722BE25B700BD248E /* HydrusSubtag.swift */; };
+		12F38F9D23401C320011F4FE /* Path in Frameworks */ = {isa = PBXBuildFile; productRef = 12F38F9C23401C320011F4FE /* Path */; };
+		12F38FA023401CF00011F4FE /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 12F38F9F23401CF00011F4FE /* GRDB */; };
 		12F7957622C5BB99002DCBEF /* Booru.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957522C5BB99002DCBEF /* Booru.swift */; };
 		12F7957822C5C092002DCBEF /* BooruFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957722C5C092002DCBEF /* BooruFile.swift */; };
 		12F7957A22C5C3F4002DCBEF /* BooruTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957922C5C3F4002DCBEF /* BooruTag.swift */; };
-		1482C829AB7BE410F16AFC50 /* Pods_b2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3EC2702E763916FA92E3D7E /* Pods_b2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,9 +73,6 @@
 		12F7957522C5BB99002DCBEF /* Booru.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booru.swift; sourceTree = "<group>"; };
 		12F7957722C5C092002DCBEF /* BooruFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruFile.swift; sourceTree = "<group>"; };
 		12F7957922C5C3F4002DCBEF /* BooruTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruTag.swift; sourceTree = "<group>"; };
-		1B5F8FC2D6AC73ACBE9D4A25 /* Pods-b2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-b2.debug.xcconfig"; path = "Target Support Files/Pods-b2/Pods-b2.debug.xcconfig"; sourceTree = "<group>"; };
-		D3EC2702E763916FA92E3D7E /* Pods_b2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_b2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DFF915EA1AF15E6D6A106070 /* Pods-b2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-b2.release.xcconfig"; path = "Target Support Files/Pods-b2/Pods-b2.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +80,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1482C829AB7BE410F16AFC50 /* Pods_b2.framework in Frameworks */,
+				12F38F9D23401C320011F4FE /* Path in Frameworks */,
+				12F38FA023401CF00011F4FE /* GRDB in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,8 +107,6 @@
 				12D5009D22BC7D4100CB1D98 /* .swiftlint.yml */,
 				128ED16022AAD1AC00A1DDD6 /* b2 */,
 				128ED15F22AAD1AC00A1DDD6 /* Products */,
-				94AF0756A5715ADBC75A2FDA /* Pods */,
-				E1E63D7E9D703B36CEACA0CB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -233,23 +230,6 @@
 			name = Booru;
 			sourceTree = "<group>";
 		};
-		94AF0756A5715ADBC75A2FDA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1B5F8FC2D6AC73ACBE9D4A25 /* Pods-b2.debug.xcconfig */,
-				DFF915EA1AF15E6D6A106070 /* Pods-b2.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		E1E63D7E9D703B36CEACA0CB /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D3EC2702E763916FA92E3D7E /* Pods_b2.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -257,18 +237,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 128ED16E22AAD1AE00A1DDD6 /* Build configuration list for PBXNativeTarget "b2" */;
 			buildPhases = (
-				D45E0B18D93216126E3EB15B /* [CP] Check Pods Manifest.lock */,
 				12D5009C22BC7CDC00CB1D98 /* ShellScript */,
 				128ED15A22AAD1AC00A1DDD6 /* Sources */,
 				128ED15B22AAD1AC00A1DDD6 /* Frameworks */,
 				128ED15C22AAD1AC00A1DDD6 /* Resources */,
-				EC6EEBFED0C6A5D93774A21A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = b2;
+			packageProductDependencies = (
+				12F38F9C23401C320011F4FE /* Path */,
+				12F38F9F23401CF00011F4FE /* GRDB */,
+			);
 			productName = b2;
 			productReference = 128ED15E22AAD1AC00A1DDD6 /* b2.app */;
 			productType = "com.apple.product-type.application";
@@ -297,6 +279,10 @@
 				Base,
 			);
 			mainGroup = 128ED15522AAD1AC00A1DDD6;
+			packageReferences = (
+				12F38F9B23401C320011F4FE /* XCRemoteSwiftPackageReference "Path" */,
+				12F38F9E23401CF00011F4FE /* XCRemoteSwiftPackageReference "GRDB" */,
+			);
 			productRefGroup = 128ED15F22AAD1AC00A1DDD6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -338,45 +324,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		D45E0B18D93216126E3EB15B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-b2-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EC6EEBFED0C6A5D93774A21A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-b2/Pods-b2-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-b2/Pods-b2-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-b2/Pods-b2-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -532,7 +479,6 @@
 		};
 		128ED16F22AAD1AE00A1DDD6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B5F8FC2D6AC73ACBE9D4A25 /* Pods-b2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = b2/b2.entitlements;
@@ -551,7 +497,6 @@
 		};
 		128ED17022AAD1AE00A1DDD6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DFF915EA1AF15E6D6A106070 /* Pods-b2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = b2/b2.entitlements;
@@ -590,6 +535,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		12F38F9B23401C320011F4FE /* XCRemoteSwiftPackageReference "Path" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/Path.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.16.3;
+			};
+		};
+		12F38F9E23401CF00011F4FE /* XCRemoteSwiftPackageReference "GRDB" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDB.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		12F38F9C23401C320011F4FE /* Path */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12F38F9B23401C320011F4FE /* XCRemoteSwiftPackageReference "Path" */;
+			productName = Path;
+		};
+		12F38F9F23401CF00011F4FE /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12F38F9E23401CF00011F4FE /* XCRemoteSwiftPackageReference "GRDB" */;
+			productName = GRDB;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 128ED15622AAD1AC00A1DDD6 /* Project object */;
 }

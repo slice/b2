@@ -18,7 +18,7 @@ class OuroborosBooru: Booru {
         let url = components.url! / "post" / "index.json"
 
         var request = URLRequest(url: url)
-        OuroborosBooru.addStandardHeaders(request: &request)
+        Self.addStandardHeaders(request: &request)
 
         let data = try? URLSession.shared.syncDataTask(with: request)
         return try JSONDecoder().decode([OuroborosFile].self, from: data!)
@@ -31,7 +31,7 @@ class OuroborosBooru: Booru {
         let url = components.url! / "post" / "index.json"
 
         var request = URLRequest(url: url)
-        OuroborosBooru.addStandardHeaders(request: &request)
+        Self.addStandardHeaders(request: &request)
 
         let data = try? URLSession.shared.syncDataTask(with: request)
         return try JSONDecoder().decode([OuroborosFile].self, from: data!)

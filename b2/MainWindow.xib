@@ -128,9 +128,9 @@
                         </holdingPriorities>
                     </splitView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ttj-dj-Qg9">
-                        <rect key="frame" x="5" y="5" width="790" height="12"/>
-                        <textFieldCell key="cell" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" alignment="left" title="3,621 files" usesSingleLineMode="YES" id="ThZ-Ca-HaG">
-                            <font key="font" metaFont="smallSystem"/>
+                        <rect key="frame" x="5" y="3" width="58" height="14"/>
+                        <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" alignment="left" title="3,621 files" usesSingleLineMode="YES" id="ThZ-Ca-HaG">
+                            <font key="font" metaFont="message" size="11"/>
                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -140,8 +140,8 @@
                     <constraint firstItem="zIK-GV-snn" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="LbL-s5-qvg"/>
                     <constraint firstItem="zIK-GV-snn" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="OeX-VA-mFt"/>
                     <constraint firstItem="Ttj-dj-Qg9" firstAttribute="top" secondItem="zIK-GV-snn" secondAttribute="bottom" constant="5" id="ZgK-9v-YHO"/>
-                    <constraint firstAttribute="trailing" secondItem="Ttj-dj-Qg9" secondAttribute="trailing" constant="7" id="Zi1-Bz-BP4"/>
-                    <constraint firstAttribute="bottom" secondItem="Ttj-dj-Qg9" secondAttribute="bottom" constant="5" id="bua-oS-4ym"/>
+                    <constraint firstAttribute="trailing" secondItem="Ttj-dj-Qg9" secondAttribute="trailing" constant="739" id="Zi1-Bz-BP4"/>
+                    <constraint firstAttribute="bottom" secondItem="Ttj-dj-Qg9" secondAttribute="bottom" constant="3" id="bua-oS-4ym"/>
                     <constraint firstItem="Ttj-dj-Qg9" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="7" id="hQd-cy-Qhh"/>
                     <constraint firstAttribute="trailing" secondItem="zIK-GV-snn" secondAttribute="trailing" id="mct-lf-3Uq"/>
                     <constraint firstAttribute="bottom" secondItem="zIK-GV-snn" secondAttribute="bottom" constant="22" id="os1-qy-y8A"/>

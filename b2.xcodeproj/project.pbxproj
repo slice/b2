@@ -30,6 +30,7 @@
 		12D7B0B322BB6DA000CB740F /* MediaCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D7B0B122BB6DA000CB740F /* MediaCollectionViewItem.swift */; };
 		12D7B0B422BB6DA000CB740F /* MediaCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12D7B0B222BB6DA000CB740F /* MediaCollectionViewItem.xib */; };
 		12D7B0B822BC237200CB740F /* HydrusDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D7B0B722BC237200CB740F /* HydrusDatabase.swift */; };
+		12DDEF4B2498B5AE004BF47F /* FailedToLoadImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 12DDEF4A2498B5AE004BF47F /* FailedToLoadImage.png */; };
 		12E10CF322BE0B3000BD248E /* HydrusCachedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E10CF222BE0B3000BD248E /* HydrusCachedTag.swift */; };
 		12E10CF622BE10DE00BD248E /* Data+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E10CF522BE10DE00BD248E /* Data+Hex.swift */; };
 		12E10CF822BE25B700BD248E /* HydrusSubtag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E10CF722BE25B700BD248E /* HydrusSubtag.swift */; };
@@ -67,6 +68,7 @@
 		12D7B0B122BB6DA000CB740F /* MediaCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCollectionViewItem.swift; sourceTree = "<group>"; };
 		12D7B0B222BB6DA000CB740F /* MediaCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaCollectionViewItem.xib; sourceTree = "<group>"; };
 		12D7B0B722BC237200CB740F /* HydrusDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusDatabase.swift; sourceTree = "<group>"; };
+		12DDEF4A2498B5AE004BF47F /* FailedToLoadImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FailedToLoadImage.png; sourceTree = "<group>"; };
 		12E10CF222BE0B3000BD248E /* HydrusCachedTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusCachedTag.swift; sourceTree = "<group>"; };
 		12E10CF522BE10DE00BD248E /* Data+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Hex.swift"; sourceTree = "<group>"; };
 		12E10CF722BE25B700BD248E /* HydrusSubtag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusSubtag.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 		128ED16022AAD1AC00A1DDD6 /* b2 */ = {
 			isa = PBXGroup;
 			children = (
+				12DDEF492498B5A2004BF47F /* Images */,
 				12F7957422C5BB8B002DCBEF /* Booru */,
 				1254903022C0413C00218DBC /* Supporting Files */,
 				12E10CF422BE10D000BD248E /* Extensions */,
@@ -206,6 +209,14 @@
 				12D7B0B222BB6DA000CB740F /* MediaCollectionViewItem.xib */,
 			);
 			name = "Collection View";
+			sourceTree = "<group>";
+		};
+		12DDEF492498B5A2004BF47F /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				12DDEF4A2498B5AE004BF47F /* FailedToLoadImage.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		12E10CF422BE10D000BD248E /* Extensions */ = {
@@ -298,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12D5009E22BC7D4100CB1D98 /* .swiftlint.yml in Resources */,
+				12DDEF4B2498B5AE004BF47F /* FailedToLoadImage.png in Resources */,
 				1298D6EC22C0219900012C37 /* MainMenu.xib in Resources */,
 				1298D6EE22C0224500012C37 /* MainWindow.xib in Resources */,
 				12D7B0B422BB6DA000CB740F /* MediaCollectionViewItem.xib in Resources */,

@@ -14,8 +14,8 @@ class HydrusFile {
     /// The ID of the hash of the file in the database.
     let hashId: Int
 
-    /// An unowned reference to the `HydrusDatabase`.
-    unowned var database: HydrusDatabase
+    /// A weak reference to the `HydrusDatabase`.
+    weak var database: HydrusDatabase?
 
     /// The file's metadata.
     private var metadata: HydrusMetadata
@@ -34,9 +34,22 @@ class HydrusFile {
     }
 
     fileprivate func path(ofType type: PathType = .original) -> Path {
+        guard let database = self.database else {
+            // This happens when the file is loaded after the database has been
+            // freed, e.g. if the user switches away from the booru source while
+            // files are being loaded. This causes the database object itself
+            // to be freed, but files will still try to load.
+            //
+            // TODO: This should be fixed by canceling the load when the booru
+            // changes.
+            NSLog("Warning: Attempted to fetch path of a HydrusFile after database was freed.")
+            let url = Bundle.main.url(forResource: "FailedToLoadImage", withExtension: "png")
+            return Path(url: url!)!
+        }
+
         let firstTwo = self.hash[...self.hash.index(hash.startIndex, offsetBy: 1)]
         let sectorId = type.rawValue + firstTwo
-        let sectorPath = self.database.databasePath / "client_files" / sectorId
+        let sectorPath = database.databasePath / "client_files" / sectorId
 
         switch type {
         case .thumbnail:
@@ -48,8 +61,13 @@ class HydrusFile {
     }
 
     fileprivate func fetchTags() throws -> [HydrusTag] {
-        return try self.database.withReadAll({ dbs in
-            return try self.database.tags.tags(
+        guard let database = self.database else {
+            NSLog("Warning: Attempted to fetch tags of a HydrusFile after database was freed.")
+            return []
+        }
+
+        return try database.withReadAll({ dbs in
+            return try database.tags.tags(
                 mappingDatabase: dbs[.mapping]!,
                 masterDatabase: dbs[.master]!,
                 file: self

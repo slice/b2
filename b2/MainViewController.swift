@@ -56,6 +56,16 @@ extension MainViewController {
         case e926
     }
 
+    func errorSheet(title: String, description: String, closesWindow: Bool = false) {
+        let alert = NSAlert()
+        alert.messageText = title
+        alert.informativeText = description
+        alert.alertStyle = .critical
+        let completionHandler: ((NSApplication.ModalResponse) -> Void)? =
+            closesWindow ? { _ in self.view.window!.close() } : nil
+        alert.beginSheetModal(for: self.view.window!, completionHandler: completionHandler)
+    }
+
     /// Asynchronously performs a search for files with tags and displays them
     /// in the collection view.
     func searchAsync(tags: [String]) {
@@ -65,14 +75,27 @@ extension MainViewController {
         self.statusBarLabel.stringValue = "Searching..."
 
         self.fetchQueue.async {
-            let files = try! measure("Query for \(tags)") {
-                return try self.booru.search(forFilesWithTags: tags)
+            var queriedFiles: [BooruFile]
+
+            do {
+                queriedFiles = try measure("Query for \(tags)") {
+                    return try self.booru.search(forFilesWithTags: tags)
+                }
+            } catch {
+                NSLog("Failed to query: \(error)")
+                DispatchQueue.main.async {
+                    self.errorSheet(
+                        title: "Failed to search for files",
+                        description: error.localizedDescription
+                    )
+                }
+                return
             }
 
-            NSLog("Query returned \(files.count) file(s).")
+            NSLog("Query returned \(queriedFiles.count) file(s).")
 
             DispatchQueue.main.async {
-                self.files = files
+                self.files = queriedFiles
                 self.collectionView.reloadData()
             }
         }
@@ -84,27 +107,30 @@ extension MainViewController {
         self.statusBarLabel.stringValue = "Loading files..."
 
         self.fetchQueue.async {
-            let files = try! measure("Fetching all files") {
-                return try self.booru.initialFiles()
+            var fetchedFiles: [BooruFile]
+
+            do {
+                fetchedFiles = try measure("Fetching all files") {
+                    return try self.booru.initialFiles()
+                }
+            } catch {
+                NSLog("Failed to fetch initial files: \(error)")
+                DispatchQueue.main.async {
+                    self.errorSheet(
+                        title: "Failed to fetch initial files",
+                        description: error.localizedDescription
+                    )
+                }
+                return
             }
 
-            NSLog("Fetched \(files.count) file(s)")
+            NSLog("Fetched \(fetchedFiles.count) file(s)")
 
             DispatchQueue.main.async {
-                self.files = files
+                self.files = fetchedFiles
                 self.collectionView.reloadData()
             }
         }
-    }
-
-    func showDatabaseLoadFailureMessage(_ text: String) {
-        let alert = NSAlert()
-        alert.messageText = "Failed to load database"
-        alert.informativeText = text
-        alert.alertStyle = .critical
-        alert.beginSheetModal(for: self.view.window!, completionHandler: { _ in
-            self.view.window!.close()
-        })
     }
 
     /// Loads the Hydrus database.
@@ -112,7 +138,11 @@ extension MainViewController {
         let path = Path.home / "Library" / "Hydrus"
 
         guard path.isDirectory else {
-            self.showDatabaseLoadFailureMessage("No database found at \(path.string)")
+            self.errorSheet(
+                title: "Failed to load database",
+                description: "No database found at \(path.string)...",
+                closesWindow: true
+            )
             return
         }
 
@@ -120,8 +150,13 @@ extension MainViewController {
             try measure("Loading database") {
                 self.booru = try HydrusDatabase(databasePath: path)
             }
-        } catch let error {
-            self.showDatabaseLoadFailureMessage(error.localizedDescription)
+        } catch {
+            NSLog("Failed to load database: \(error)")
+            self.errorSheet(
+                title: "Failed to load database",
+                description: error.localizedDescription,
+                closesWindow: true
+            )
         }
     }
 

@@ -2,19 +2,17 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    static let mainWindowNibName = "MainWindow"
-
     var windowReferenceManager: WindowControllerManager = WindowControllerManager()
 
     @objc func newWindow(_ sender: Any) {
-        let controller = MainWindowController(windowNibName: AppDelegate.mainWindowNibName)
+        let controller = MainWindowController(window: nil)
         controller.showWindow(self)
         controller.window!.delegate = self.windowReferenceManager
         self.windowReferenceManager.add(controller)
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let controller = MainWindowController(windowNibName: AppDelegate.mainWindowNibName)
+        let controller = MainWindowController(window: nil)
         controller.window!.makeKeyAndOrderFront(self)
         controller.window!.delegate = self.windowReferenceManager
         self.windowReferenceManager.add(controller)

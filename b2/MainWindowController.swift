@@ -2,6 +2,10 @@ import Cocoa
 import Path
 
 class MainWindowController: NSWindowController {
+    override var windowNibName: NSNib.Name? {
+        "MainWindow"
+    }
+
     @IBOutlet weak var tokenField: NSTokenField!
     @IBOutlet weak var viewController: MainViewController!
     var createdTab: MainWindowController?

@@ -255,6 +255,9 @@ extension MainViewController: NSCollectionViewDelegate {
         //       Newly created cells will have the proper `file` property, but
         //       will only ever get loaded once if we simply check if
         //       `mediaItem.imageView.image` is `nil`.
+        //
+        // TODO: Don't crash if we can't load the image, because it might fetch
+        //       from the network.
         self.fetchQueue.async {
             measure("Loading thumbnail for \(mediaItem.file.id)") {
                 let data = try! Data(contentsOf: mediaItem.file.thumbnailImageURL)

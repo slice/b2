@@ -10,40 +10,89 @@ struct OuroborosFile: BooruFile {
     var mime: BooruMime
 
     enum CodingKeys: String, CodingKey {
-        case artist
-        case fileExtension = "file_ext"
         case id
-        case size = "file_size"
-        case imageURL = "file_url"
-        case thumbnailImageURL = "preview_url"
         case createdAt = "created_at"
         case tags
+
+        // File information substructure.
+        case file
+
+        // Preview thumbnail substructure.
+        case preview
     }
 
-    enum CreatedAtKeys: String, CodingKey {
-        case timestamp = "s" // ?
+    enum FileKeys: String, CodingKey {
+        case ext
+        case size
+        case md5
+        case url
     }
+
+    enum PreviewKeys: String, CodingKey {
+        case url
+    }
+}
+
+private func extractHashChunks(_ hash: String) -> (Substring, Substring) {
+    let chunk1 = hash[hash.startIndex..<hash.index(hash.startIndex, offsetBy: 2)]
+    let chunk2 = hash[hash.index(hash.startIndex, offsetBy: 2)..<hash.index(hash.startIndex, offsetBy:4)]
+    return (chunk1, chunk2)
 }
 
 extension OuroborosFile: Decodable {
     init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        self.imageURL = try values.decode(URL.self, forKey: .imageURL)
-        self.thumbnailImageURL = try values.decode(URL.self, forKey: .thumbnailImageURL)
-        self.id = try values.decode(Int.self, forKey: .id)
-        self.size = try values.decode(Int.self, forKey: .size)
+        let root = try decoder.container(keyedBy: CodingKeys.self)
 
-        let createdAtInfo = try values.nestedContainer(keyedBy: CreatedAtKeys.self, forKey: .createdAt)
-        self.createdAt = Date(timeIntervalSince1970: try createdAtInfo.decode(Double.self, forKey: .timestamp))
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
 
-        self.mime = BooruMime.fromExtension(try values.decode(String.self, forKey: .fileExtension))!
+        self.id = try root.decode(Int.self, forKey: .id)
+        let createdAtStringDate = try root.decode(String.self, forKey: .createdAt)
+        // TODO: Don't force unwrap.
+        let createdAtDate = dateFormatter.date(from: createdAtStringDate)!
+        self.createdAt = createdAtDate
 
-        let tagsString = try values.decode(String.self, forKey: .tags)
-        let artistsArray = try values.decode([String].self, forKey: .artist)
+        let file = try root.nestedContainer(keyedBy: FileKeys.self, forKey: .file)
+        let ext = try file.decode(String.self, forKey: .ext)
+        // TODO: Don't force unwrap.
+        self.mime = BooruMime.fromExtension(ext)!
+        self.size = try file.decode(Int.self, forKey: .size)
+        let md5 = try file.decode(String.self, forKey: .md5)
 
-        self.tags = tagsString.split(separator: " ")
-            .map { OuroborosTag(text: String($0)) }
-            + artistsArray.map { OuroborosTag(namespace: "artist", subtag: $0) }
+        if let imageURL = try file.decodeIfPresent(URL.self, forKey: .url) {
+            self.imageURL = imageURL
+        } else {
+            // When not authenticated, the URL might be omitted. We can manually construct it instead.
+            // TODO: We are assuming the image to be from e621. This is BAD, BAD, BAD!
+
+            let (chunk1, chunk2) = extractHashChunks(md5)
+            let url = "https://static1.e621.net/data/\(chunk1)/\(chunk2)/\(md5).\(ext)"
+            NSLog("Synthesized URL: \(url)")
+
+            // TODO: Don't force unwrap.
+            self.imageURL = URL(string: url)!
+        }
+
+        let preview = try root.nestedContainer(keyedBy: PreviewKeys.self, forKey: .preview)
+        if let previewURL = try preview.decodeIfPresent(URL.self, forKey: .url) {
+            self.thumbnailImageURL = previewURL
+        } else {
+            // Ditto.
+
+            let (chunk1, chunk2) = extractHashChunks(md5)
+            let url = "https://static1.e621.net/data/preview/\(chunk1)/\(chunk2)/\(md5).jpg"
+            NSLog("Synthesized preview URL: \(url)")
+
+            // TODO: Don't force unwrap.
+            self.thumbnailImageURL = URL(string: url)!
+        }
+
+        let tags = try root.decode([String: [String]].self, forKey: .tags)
+        self.tags = tags.flatMap { namespace, tags in
+            tags.map { OuroborosTag(namespace: namespace, subtag: $0) }
+        }
     }
 }
 

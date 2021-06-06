@@ -1,5 +1,9 @@
 import Foundation
 
+private struct OuroborosPostsResponse: Decodable {
+    var posts: [OuroborosFile]
+}
+
 class OuroborosBooru: Booru {
     let baseUrl: URL
 
@@ -15,26 +19,28 @@ class OuroborosBooru: Booru {
     func initialFiles() throws -> [BooruFile] {
         var components = URLComponents(url: self.baseUrl, resolvingAgainstBaseURL: true)!
         components.appendQuery(name: "limit", value: "100")
-        let url = components.url! / "post" / "index.json"
+        let url = components.url! / "posts.json"
 
         var request = URLRequest(url: url)
         Self.addStandardHeaders(request: &request)
 
         let data = try? URLSession.shared.syncDataTask(with: request)
-        return try JSONDecoder().decode([OuroborosFile].self, from: data!)
+        let response = try JSONDecoder().decode(OuroborosPostsResponse.self, from: data!)
+        return response.posts
     }
 
     func search(forFilesWithTags tags: [String]) throws -> [BooruFile] {
         var components = URLComponents(url: self.baseUrl, resolvingAgainstBaseURL: true)!
         components.appendQuery(name: "limit", value: "100")
         components.appendQuery(name: "tags", value: tags.joined(separator: " "))
-        let url = components.url! / "post" / "index.json"
+        let url = components.url! / "posts.json"
 
         var request = URLRequest(url: url)
         Self.addStandardHeaders(request: &request)
 
         let data = try? URLSession.shared.syncDataTask(with: request)
-        return try JSONDecoder().decode([OuroborosFile].self, from: data!)
+        let response = try JSONDecoder().decode(OuroborosPostsResponse.self, from: data!)
+        return response.posts
     }
 }
 

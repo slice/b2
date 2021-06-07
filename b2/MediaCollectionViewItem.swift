@@ -4,13 +4,10 @@ import Path
 class MediaCollectionViewItem: NSCollectionViewItem {
     override var isSelected: Bool {
         didSet {
-            self.view.layer!.borderColor = self.isSelected
-                ? NSColor.selectedContentBackgroundColor.cgColor
-                : NSColor.clear.cgColor
+            let color = self.isSelected ? NSColor.selectedContentBackgroundColor.cgColor : NSColor.clear.cgColor
 
-            self.view.layer!.backgroundColor = self.isSelected
-                ? NSColor.selectedContentBackgroundColor.cgColor
-                : NSColor.quaternaryLabelColor.cgColor
+            self.view.layer!.borderColor = color
+            self.view.layer!.backgroundColor = color
         }
     }
 
@@ -50,6 +47,6 @@ class MediaCollectionViewItem: NSCollectionViewItem {
         self.view.wantsLayer = true
         self.view.layer!.borderWidth = 3
         self.view.layer!.borderColor = NSColor.clear.cgColor
-        self.view.layer!.backgroundColor = NSColor.quaternaryLabelColor.cgColor
+        self.view.layer!.backgroundColor = NSColor.clear.cgColor
     }
 }

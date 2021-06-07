@@ -14,8 +14,6 @@
 		128ED16422AAD1AC00A1DDD6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128ED16322AAD1AC00A1DDD6 /* MainViewController.swift */; };
 		128ED16622AAD1AE00A1DDD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 128ED16522AAD1AE00A1DDD6 /* Assets.xcassets */; };
 		128ED17222AAD88300A1DDD6 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128ED17122AAD88300A1DDD6 /* MainWindowController.swift */; };
-		1298D6EC22C0219900012C37 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1298D6EB22C0219900012C37 /* MainMenu.xib */; };
-		1298D6EE22C0224500012C37 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1298D6ED22C0224500012C37 /* MainWindow.xib */; };
 		12A9BB9A22C5F1C30090F503 /* BooruMime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A9BB9922C5F1C30090F503 /* BooruMime.swift */; };
 		12A9BB9C22C60ADE0090F503 /* NoneBooru.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A9BB9B22C60ADE0090F503 /* NoneBooru.swift */; };
 		12A9BBA022C74E190090F503 /* OuroborosBooru.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A9BB9F22C74E180090F503 /* OuroborosBooru.swift */; };
@@ -34,6 +32,9 @@
 		12E10CF322BE0B3000BD248E /* HydrusCachedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E10CF222BE0B3000BD248E /* HydrusCachedTag.swift */; };
 		12E10CF622BE10DE00BD248E /* Data+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E10CF522BE10DE00BD248E /* Data+Hex.swift */; };
 		12E10CF822BE25B700BD248E /* HydrusSubtag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E10CF722BE25B700BD248E /* HydrusSubtag.swift */; };
+		12ED8614266DD67800F1303F /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12ED8613266DD67800F1303F /* TagsViewController.swift */; };
+		12ED8616266DD68A00F1303F /* PostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12ED8615266DD68A00F1303F /* PostsViewController.swift */; };
+		12ED8617266DD91C00F1303F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 128A5835266DA66600DADF61 /* Main.storyboard */; };
 		12F38F9D23401C320011F4FE /* Path in Frameworks */ = {isa = PBXBuildFile; productRef = 12F38F9C23401C320011F4FE /* Path */; };
 		12F38FA023401CF00011F4FE /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 12F38F9F23401CF00011F4FE /* GRDB */; };
 		12F7957622C5BB99002DCBEF /* Booru.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957522C5BB99002DCBEF /* Booru.swift */; };
@@ -45,6 +46,7 @@
 		1254903122C0414F00218DBC /* WindowControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowControllerManager.swift; sourceTree = "<group>"; };
 		127C44C222C7562E003C7BFA /* OuroborosFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuroborosFile.swift; sourceTree = "<group>"; };
 		127C44C422C75FB2003C7BFA /* OuroborosTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuroborosTag.swift; sourceTree = "<group>"; };
+		128A5835266DA66600DADF61 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		128ED15E22AAD1AC00A1DDD6 /* b2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = b2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		128ED16122AAD1AC00A1DDD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		128ED16322AAD1AC00A1DDD6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -52,8 +54,6 @@
 		128ED16A22AAD1AE00A1DDD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		128ED16B22AAD1AE00A1DDD6 /* b2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = b2.entitlements; sourceTree = "<group>"; };
 		128ED17122AAD88300A1DDD6 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
-		1298D6EB22C0219900012C37 /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
-		1298D6ED22C0224500012C37 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		12A9BB9922C5F1C30090F503 /* BooruMime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruMime.swift; sourceTree = "<group>"; };
 		12A9BB9B22C60ADE0090F503 /* NoneBooru.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneBooru.swift; sourceTree = "<group>"; };
 		12A9BB9F22C74E180090F503 /* OuroborosBooru.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuroborosBooru.swift; sourceTree = "<group>"; };
@@ -72,6 +72,8 @@
 		12E10CF222BE0B3000BD248E /* HydrusCachedTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusCachedTag.swift; sourceTree = "<group>"; };
 		12E10CF522BE10DE00BD248E /* Data+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Hex.swift"; sourceTree = "<group>"; };
 		12E10CF722BE25B700BD248E /* HydrusSubtag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusSubtag.swift; sourceTree = "<group>"; };
+		12ED8613266DD67800F1303F /* TagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
+		12ED8615266DD68A00F1303F /* PostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewController.swift; sourceTree = "<group>"; };
 		12F7957522C5BB99002DCBEF /* Booru.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booru.swift; sourceTree = "<group>"; };
 		12F7957722C5C092002DCBEF /* BooruFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruFile.swift; sourceTree = "<group>"; };
 		12F7957922C5C3F4002DCBEF /* BooruTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruTag.swift; sourceTree = "<group>"; };
@@ -103,6 +105,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		128A5834266DA65B00DADF61 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				128A5835266DA66600DADF61 /* Main.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
 		128ED15522AAD1AC00A1DDD6 = {
 			isa = PBXGroup;
 			children = (
@@ -129,18 +139,9 @@
 				12E10CF422BE10D000BD248E /* Extensions */,
 				12D7B0B622BC1A5600CB740F /* Collection View */,
 				128ED17622AAE25F00A1DDD6 /* Controllers */,
-				128ED17422AAD99700A1DDD6 /* Nibs */,
+				128A5834266DA65B00DADF61 /* Storyboards */,
 			);
 			path = b2;
-			sourceTree = "<group>";
-		};
-		128ED17422AAD99700A1DDD6 /* Nibs */ = {
-			isa = PBXGroup;
-			children = (
-				1298D6EB22C0219900012C37 /* MainMenu.xib */,
-				1298D6ED22C0224500012C37 /* MainWindow.xib */,
-			);
-			name = Nibs;
 			sourceTree = "<group>";
 		};
 		128ED17622AAE25F00A1DDD6 /* Controllers */ = {
@@ -148,6 +149,8 @@
 			children = (
 				128ED16322AAD1AC00A1DDD6 /* MainViewController.swift */,
 				128ED17122AAD88300A1DDD6 /* MainWindowController.swift */,
+				12ED8613266DD67800F1303F /* TagsViewController.swift */,
+				12ED8615266DD68A00F1303F /* PostsViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -308,10 +311,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12ED8617266DD91C00F1303F /* Main.storyboard in Resources */,
 				12D5009E22BC7D4100CB1D98 /* .swiftlint.yml in Resources */,
 				12DDEF4B2498B5AE004BF47F /* FailedToLoadImage.png in Resources */,
-				1298D6EC22C0219900012C37 /* MainMenu.xib in Resources */,
-				1298D6EE22C0224500012C37 /* MainWindow.xib in Resources */,
 				12D7B0B422BB6DA000CB740F /* MediaCollectionViewItem.xib in Resources */,
 				128ED16622AAD1AE00A1DDD6 /* Assets.xcassets in Resources */,
 			);
@@ -346,6 +348,7 @@
 			files = (
 				128ED17222AAD88300A1DDD6 /* MainWindowController.swift in Sources */,
 				12A9BB9A22C5F1C30090F503 /* BooruMime.swift in Sources */,
+				12ED8614266DD67800F1303F /* TagsViewController.swift in Sources */,
 				12F7957622C5BB99002DCBEF /* Booru.swift in Sources */,
 				12D500A022BC907C00CB1D98 /* HydrusMime.swift in Sources */,
 				127C44C322C7562E003C7BFA /* OuroborosFile.swift in Sources */,
@@ -363,6 +366,7 @@
 				12E10CF822BE25B700BD248E /* HydrusSubtag.swift in Sources */,
 				1254903222C0414F00218DBC /* WindowControllerManager.swift in Sources */,
 				12C43B6F22BCA5DD003AF7C1 /* Utilities.swift in Sources */,
+				12ED8616266DD68A00F1303F /* PostsViewController.swift in Sources */,
 				12A9BB9C22C60ADE0090F503 /* NoneBooru.swift in Sources */,
 				12D500A222BC931400CB1D98 /* HydrusMetadata.swift in Sources */,
 				12C43B7122BD5E59003AF7C1 /* HydrusTags.swift in Sources */,
@@ -425,7 +429,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -480,7 +484,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -501,6 +505,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = zone.slice.b2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -519,6 +524,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = zone.slice.b2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

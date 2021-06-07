@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1254903222C0414F00218DBC /* WindowControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1254903122C0414F00218DBC /* WindowControllerManager.swift */; };
 		127C44C322C7562E003C7BFA /* OuroborosFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C44C222C7562E003C7BFA /* OuroborosFile.swift */; };
 		127C44C522C75FB2003C7BFA /* OuroborosTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C44C422C75FB2003C7BFA /* OuroborosTag.swift */; };
 		128ED16222AAD1AC00A1DDD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128ED16122AAD1AC00A1DDD6 /* AppDelegate.swift */; };
@@ -43,7 +42,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1254903122C0414F00218DBC /* WindowControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowControllerManager.swift; sourceTree = "<group>"; };
 		127C44C222C7562E003C7BFA /* OuroborosFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuroborosFile.swift; sourceTree = "<group>"; };
 		127C44C422C75FB2003C7BFA /* OuroborosTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuroborosTag.swift; sourceTree = "<group>"; };
 		128A5835266DA66600DADF61 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -100,7 +98,6 @@
 				128ED16A22AAD1AE00A1DDD6 /* Info.plist */,
 				128ED16B22AAD1AE00A1DDD6 /* b2.entitlements */,
 				12C43B6E22BCA5DD003AF7C1 /* Utilities.swift */,
-				1254903122C0414F00218DBC /* WindowControllerManager.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -364,7 +361,6 @@
 				12C43B7422BD6076003AF7C1 /* HydrusTag.swift in Sources */,
 				12F7957A22C5C3F4002DCBEF /* BooruTag.swift in Sources */,
 				12E10CF822BE25B700BD248E /* HydrusSubtag.swift in Sources */,
-				1254903222C0414F00218DBC /* WindowControllerManager.swift in Sources */,
 				12C43B6F22BCA5DD003AF7C1 /* Utilities.swift in Sources */,
 				12ED8616266DD68A00F1303F /* PostsViewController.swift in Sources */,
 				12A9BB9C22C60ADE0090F503 /* NoneBooru.swift in Sources */,

@@ -401,7 +401,7 @@ CA
         <scene sceneID="5Wi-1q-Ckr">
             <objects>
                 <viewController id="Rdk-ZL-7B3" customClass="PostsViewController" customModule="b2" customModuleProvider="target" sceneMemberID="viewController">
-                    <visualEffectView key="view" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" id="aDZ-Qj-TdM">
+                    <visualEffectView key="view" blendingMode="behindWindow" material="fullScreenUI" state="followsWindowActiveState" id="aDZ-Qj-TdM">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>

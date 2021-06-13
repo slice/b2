@@ -11,9 +11,6 @@ import Cocoa
 class PostsViewController: NSViewController {
     @IBOutlet weak var collectionView: NSCollectionView!
 
-    /// The currently selected file.
-    var selectedFile: BooruFile?
-
     /// An array of files to display.
     var files: [BooruFile] = []
 
@@ -36,17 +33,10 @@ class PostsViewController: NSViewController {
 }
 
 extension PostsViewController: NSCollectionViewDelegate {
-    func collectionView(_ collectionView: NSCollectionView, didDeselectItemsAt indexPaths: Set<IndexPath>) {
-        if collectionView.selectionIndexes.isEmpty {
-            self.selectedFile = nil
-        }
-    }
-
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         let lastIndexPath = indexPaths.max()!
         let item = collectionView.item(at: lastIndexPath) as? MediaCollectionViewItem
 
-        self.selectedFile = item?.file
         if let file = item?.file {
             self.onFileSelected?(file)
         }

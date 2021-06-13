@@ -69,7 +69,7 @@ class MainViewController: NSSplitViewController {
     }
 
     private func resetPostsViewController() {
-        self.postsViewController.selectedFile = nil
+        self.postsViewController.collectionView.deselectAll(nil)
         self.postsViewController.collectionView.reloadData()
     }
 }

@@ -2,13 +2,27 @@ import Cocoa
 import Path
 
 class MediaCollectionViewItem: NSCollectionViewItem {
+    override var highlightState: NSCollectionViewItem.HighlightState {
+        didSet {
+            if self.isSelected {
+                return
+            }
+
+            let isHighlighted = self.highlightState == .forSelection
+            self.updateAppearance(isHighlighted: isHighlighted)
+        }
+    }
+
     override var isSelected: Bool {
         didSet {
-            let color = self.isSelected ? NSColor.selectedContentBackgroundColor.cgColor : NSColor.clear.cgColor
-
-            self.view.layer!.borderColor = color
-            self.view.layer!.backgroundColor = color
+            self.updateAppearance(isHighlighted: self.isSelected)
         }
+    }
+
+    private func updateAppearance(isHighlighted: Bool) {
+        let color = isHighlighted ? NSColor.selectedContentBackgroundColor.cgColor : NSColor.clear.cgColor
+        self.view.layer?.borderColor = color
+        self.view.layer?.backgroundColor = color
     }
 
     /// The file that this item is associated with.

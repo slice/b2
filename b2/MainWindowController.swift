@@ -58,7 +58,7 @@ class MainWindowController: NSWindowController {
 
         do {
             try measure("Loading database") {
-                self.booru = try HydrusDatabase(databasePath: path)
+                self.booru = try HydrusDatabase(atBasePath: path)
             }
         } catch {
             self.presentError(B2Error.hydrusDatabaseFailedToLoad(error))
@@ -99,55 +99,38 @@ class MainWindowController: NSWindowController {
         self.createdTab = controller
     }
 
+    private func handleQueryResult(_ result: Result<[BooruFile], Error>) {
+        switch result {
+        case .success(let files):
+            NSLog("query returned \(files.count) file(s)")
+            DispatchQueue.main.async {
+                self.files = files
+            }
+        case .failure(let error):
+            NSLog("failed to query: \(error)")
+            DispatchQueue.main.async {
+                self.presentError(B2Error.searchFailure(error))
+            }
+        }
+    }
+
     /// Asynchronously performs a search for files with tags and displays them
     /// in the collection view.
     func searchAsynchronously(withTags tags: [String]) {
         self.files = []
 
-        self.fetchQueue.async {
-            var queriedFiles: [BooruFile]
+        NSLog("querying: \(tags)")
 
-            do {
-                queriedFiles = try measure("Query for \(tags)") {
-                    return try self.booru.search(forFilesWithTags: tags)
-                }
-            } catch {
-                NSLog("Failed to query: \(error)")
-                DispatchQueue.main.async {
-                    self.presentError(B2Error.searchFailure(error))
-                }
-                return
-            }
-
-            NSLog("Query returned \(queriedFiles.count) file(s).")
-
-            DispatchQueue.main.async {
-                self.files = queriedFiles
-            }
+        self.booru.search(forTags: tags) { result in
+            self.handleQueryResult(result)
         }
     }
 
     /// Asynchronously fetches the initial files and displays them in the
     /// collection view.
     func loadInitialFiles() {
-        self.fetchQueue.async {
-            var fetchedFiles: [BooruFile]
-
-            do {
-                fetchedFiles = try measure("Fetching all files") {
-                    return try self.booru.initialFiles()
-                }
-            } catch {
-                NSLog("Failed to fetch initial files: \(error)")
-                self.presentError(B2Error.initialLoadFailure(error))
-                return
-            }
-
-            NSLog("Fetched \(fetchedFiles.count) file(s)")
-
-            DispatchQueue.main.async {
-                self.files = fetchedFiles
-            }
+        self.booru.initialFiles { result in
+            self.handleQueryResult(result)
         }
     }
 }

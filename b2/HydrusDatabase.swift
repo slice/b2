@@ -3,63 +3,48 @@ import GRDB
 import Path
 
 class HydrusDatabase {
-    var databasePath: Path
+    /// The base database folder path.
+    ///
+    /// This is not a path to any actual database file.
+    var base: Path
 
-    var database: DatabasePool!
-    var mappingDatabase: DatabasePool!
-    var masterDatabase: DatabasePool!
-    var cachesDatabase: DatabasePool!
+    /// The GRDB database queue.
+    var queue: DatabaseQueue!
 
     var tags: HydrusTags!
 
-    init(databasePath path: Path) throws {
-        self.databasePath = path
+    init(atBasePath basePath: Path) throws {
+        self.base = basePath
 
-        func connect(_ file: String, labeled label: String) throws -> DatabasePool {
-            let databaseFilePath = path / file
-            var config = Configuration()
-            config.label = label
-            return try DatabasePool(path: databaseFilePath.string, configuration: config)
+        NSLog("loading hydrus database (base path: \(basePath))")
+
+        var config = Configuration()
+        config.qos = .userInitiated
+        self.queue = try DatabaseQueue(path: (basePath / "client.db").string, configuration: config)
+
+        try self.queue.inDatabase { db in
+            let mappingsPath = basePath / "client.mappings.db"
+            let masterPath = basePath / "client.master.db"
+            let cachesPath = basePath / "client.caches.db"
+
+            // Attach additional databases. This is much more ergonomic than
+            // having multiple database queues or pools.
+            try db.execute(sql: "ATTACH DATABASE '\(mappingsPath.string)' AS mappings")
+            try db.execute(sql: "ATTACH DATABASE '\(masterPath.string)' AS master")
+            try db.execute(sql: "ATTACH DATABASE '\(cachesPath.string)' AS caches")
         }
-
-        NSLog("Loading database at \(path.string)")
-        self.database = try connect("client.db", labeled: "main")
-        self.mappingDatabase = try connect("client.mappings.db", labeled: "mappings")
-        self.masterDatabase = try connect("client.master.db", labeled: "master")
-        self.cachesDatabase = try connect("client.caches.db", labeled: "caches")
 
         self.tags = HydrusTags(database: self)
         try self.tags.cacheNamespaces()
     }
 
-    enum DatabaseIndex {
-        case main
-        case master
-        case mapping
-        case caches
-    }
-
-    /// Runs a function with simultaneous read access to all databases.
-    func withReadAll<T>(_ block: ([DatabaseIndex: Database]) throws -> T) throws -> T {
-        return try self.database.read { main in
-            return try self.masterDatabase.read { master in
-                return try self.mappingDatabase.read { mapping in
-                    return try self.cachesDatabase.read { caches in
-                        return try block([
-                            .main: main,
-                            .master: master,
-                            .mapping: mapping,
-                            .caches: caches
-                        ])
-                    }
-                }
-            }
-        }
-    }
-
     /// Fetches a `MediaMetadata` from the main database.
-    func fetchMetadata(mainDatabase db: Database, hashId: Int, timestamp: Int) throws -> HydrusMetadata? {
-        let row = try Row.fetchOne(db, sql: "SELECT * FROM files_info WHERE hash_id = ?", arguments: [hashId])
+    func fetchMetadataForFile(withHashID hashID: Int, timestamp: Int, database: Database) throws -> HydrusMetadata? {
+        let row = try Row.fetchOne(
+            database,
+            sql: "SELECT * FROM files_info WHERE hash_id = ?",
+            arguments: [hashID]
+        )
 
         if let row = row, let mime = HydrusMime(rawValue: row["mime"]) {
             return HydrusMetadata(
@@ -75,19 +60,19 @@ class HydrusDatabase {
     }
 
     /// Fetches a hash's associated timestamp from the main database.
-    func fetchTimestamp(mainDatabase db: Database, hashId: Int) throws -> Int? {
+    func fetchTimestampForFile(withHashID hashID: Int, database: Database) throws -> Int? {
         let row = try Row.fetchOne(
-            db,
+            database,
             sql: "SELECT timestamp FROM current_files WHERE hash_id = ?",
-            arguments: [hashId]
+            arguments: [hashID]
         )
         return row?["timestamp"]
     }
 
     /// Fetches a service ID from its name from the main database.
-    func fetchServiceId(mainDatabase db: Database, name: String) throws -> Int? {
+    func fetchServiceID(fromName name: String, database: Database) throws -> Int? {
         let row = try Row.fetchOne(
-            db,
+            database,
             sql: "SELECT service_id FROM services WHERE name = ?",
             arguments: [name]
         )
@@ -95,95 +80,118 @@ class HydrusDatabase {
     }
 
     /// Fetches a hash from its ID from the master database.
-    func fetchHash(masterDatabase db: Database, id: Int) throws -> String? {
+    func fetchHash(fromID id: Int, database: Database) throws -> String? {
         let row = try Row.fetchOne(
-            db,
-            sql: "SELECT hash FROM hashes WHERE hash_id = ?",
+            database,
+            sql: "SELECT hash FROM master.hashes WHERE hash_id = ?",
             arguments: [id]
         )
+
         let data = row?["hash"] as? Data
         return data?.hexEncodedString()
     }
 
     /// Fetches all local files in the "all local files" service from the main and master databases.
-    func fetchAllFiles(mainDatabase: Database, masterDatabase: Database) throws -> [HydrusFile] {
-        guard let localFilesServiceId = try self.fetchServiceId(mainDatabase: mainDatabase, name: "all local files") else {
-            NSLog("Cannot fetch \"all local files\" service.")
-            return []
-        }
-
-        let sql = "SELECT hash_id, timestamp FROM current_files WHERE service_id = ?"
-        let cursor = try Row.fetchCursor(mainDatabase, sql: sql, arguments: [localFilesServiceId])
-        return try Array(cursor.map { row in
-            let hashId = row["hash_id"] as Int
-            let hash = try self.fetchHash(masterDatabase: masterDatabase, id: hashId)!
-            let metadata = try self.fetchMetadata(mainDatabase: mainDatabase, hashId: hashId, timestamp: row["timestamp"])!
-
-            guard metadata.mime.booruMime != nil else {
-                // MIME type isn't appropriate.
-                return nil
+    func fetchAllFiles() throws -> [HydrusFile] {
+        return try self.queue.read { db -> [HydrusFile] in
+            guard let localFilesServiceId = try self.fetchServiceID(fromName: "all local files", database: db) else {
+                NSLog("Cannot fetch \"all local files\" service.")
+                return []
             }
 
-            return HydrusFile(hash: hash, hashId: hashId, database: self, metadata: metadata)
-        }.compactMap({ $0 }))
+            // Select all files from the local files service.
+            let sql = "SELECT hash_id, timestamp FROM current_files WHERE service_id = ?"
+            let cursor = try Row.fetchCursor(db, sql: sql, arguments: [localFilesServiceId])
+
+            // TODO: We shouldn't be making queries in a loop like this; instead
+            // we can make one query across the tables.
+            return try Array(cursor.map { row in
+                let hashID = row["hash_id"] as Int
+                let hash = try self.fetchHash(fromID: hashID, database: db)!
+                let metadata = try self.fetchMetadataForFile(withHashID: hashID, timestamp: row["timestamp"], database: db)!
+
+                guard metadata.mime.booruMime != nil else {
+                    // MIME type isn't appropriate.
+                    return nil
+                }
+
+                return HydrusFile(hash: hash, hashId: hashID, database: self, metadata: metadata)
+            }.compactMap({ $0 }))
+        }
     }
 
     deinit {
-        NSLog("Database deinitializing")
+        NSLog("hydrus database deinitializing")
     }
 }
 
 extension HydrusDatabase: Booru {
-    func initialFiles() throws -> [BooruFile] {
-        return try self.database.read { db in
-            return try self.masterDatabase.read { masterDb in
-                return try self.fetchAllFiles(mainDatabase: db, masterDatabase: masterDb)
-            }
+    func initialFiles(completionHandler: @escaping (Result<[BooruFile], Error>) -> Void) {
+        do {
+            let files = try self.fetchAllFiles()
+            completionHandler(.success(files))
+        } catch {
+            completionHandler(.failure(error))
         }
     }
 
-    func search(forFilesWithTags tags: [String]) throws -> [BooruFile] {
-        let cachedTags: [Int?] = try self.cachesDatabase.read { db in
+    private func performSearch(forTags tags: [String]) throws -> [BooruFile] {
+        // Resolve the given tags to their IDs with the cache.
+        let cachedTags: [Int?] = try self.queue.read { db in
             return try tags.map({ tag in
                 return try HydrusCachedTag.filter(HydrusCachedTag.Columns.tag == tag).fetchOne(db)?.id
             })
         }
 
-        // If `nil` is in `cachedTags`, a tag wasn't found.
+        // If `nil` appears in `cachedTags`, then a tag wasn't found.
         if cachedTags.isEmpty || cachedTags.contains(nil) {
             NSLog("Search made with no valid tags.")
             return []
         }
 
-        // Convert type from `[Int?]` to `[Int]`.
-        let tagIds = cachedTags.compactMap({ $0 })
+        let tagIDs = cachedTags.compactMap({ $0 })
 
+        // TODO: Figure out how this monster of an SQL query works and document it.
         let request = SQLRequest<Any>(literal: """
             SELECT DISTINCT hash_id
-            FROM current_mappings_5
-            WHERE tag_id IN \(tagIds)
+            FROM mappings.current_mappings_5
+            WHERE tag_id IN \(tagIDs)
             GROUP BY hash_id
-            HAVING COUNT(DISTINCT tag_id) = \(tagIds.count)
+            HAVING COUNT(DISTINCT tag_id) = \(tagIDs.count)
         """)
 
-        return try self.withReadAll { dbs in
-            let cursor = try Row.fetchCursor(dbs[.mapping]!, request)
+        return try self.queue.read { db in
+            let cursor = try Row.fetchCursor(db, request)
+
             return try Array(cursor.map({ row in
-                let hashId = row["hash_id"] as Int
-                let hash = try self.fetchHash(masterDatabase: dbs[.master]!, id: hashId)!
+                let hashID = row["hash_id"] as Int
 
-                guard let timestamp = try self.fetchTimestamp(mainDatabase: dbs[.main]!, hashId: hashId) else {
-                    NSLog("Failed to locate \(hashId) in current_files table.")
+                guard let hash = try self.fetchHash(fromID: hashID, database: db) else {
+                    NSLog("Failed to locate hash \(hashID).")
                     return nil
                 }
 
-                guard let metadata = try self.fetchMetadata(mainDatabase: dbs[.main]!, hashId: hashId, timestamp: timestamp) else {
-                    NSLog("Failed to locate \(hashId) in files_info table.")
+                guard let timestamp = try self.fetchTimestampForFile(withHashID: hashID, database: db) else {
+                    NSLog("Failed to locate \(hashID) in current_files table.")
                     return nil
                 }
 
-                return HydrusFile(hash: hash, hashId: hashId, database: self, metadata: metadata)
+                guard let metadata = try self.fetchMetadataForFile(withHashID: hashID, timestamp: timestamp, database: db) else {
+                    NSLog("Failed to locate \(hashID) in files_info table.")
+                    return nil
+                }
+
+                return HydrusFile(hash: hash, hashId: hashID, database: self, metadata: metadata)
             })).compactMap({ $0 })
+        }
+    }
+
+    func search(forTags tags: [String], completionHandler: @escaping (Result<[BooruFile], Error>) -> Void) {
+        do {
+            let files = try self.performSearch(forTags: tags)
+            completionHandler(.success(files))
+        } catch {
+            completionHandler(.failure(error))
         }
     }
 }

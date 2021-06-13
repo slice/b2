@@ -49,7 +49,7 @@ class HydrusFile {
 
         let firstTwo = self.hash[...self.hash.index(hash.startIndex, offsetBy: 1)]
         let sectorId = type.rawValue + firstTwo
-        let sectorPath = database.databasePath / "client_files" / sectorId
+        let sectorPath = database.base / "client_files" / sectorId
 
         switch type {
         case .thumbnail:
@@ -66,13 +66,9 @@ class HydrusFile {
             return []
         }
 
-        return try database.withReadAll({ dbs in
-            return try database.tags.tags(
-                mappingDatabase: dbs[.mapping]!,
-                masterDatabase: dbs[.master]!,
-                file: self
-            )
-        })
+        return try database.queue.read { db in
+            return try database.tags.tags(forFile: self, database: db)
+        }
     }
 }
 

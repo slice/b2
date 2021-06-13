@@ -24,7 +24,7 @@ extension HydrusSubtag: FetchableRecord {
 }
 
 extension HydrusSubtag: TableRecord {
-    static let databaseTableName = "subtags"
+    static let databaseTableName = "master.subtags"
 }
 
 extension HydrusSubtag: CustomStringConvertible {

@@ -4,6 +4,10 @@ private struct OuroborosPostsResponse: Decodable {
     var posts: [OuroborosFile]
 }
 
+enum OuroborosBooruError: Error {
+    case noData
+}
+
 class OuroborosBooru: Booru {
     let baseUrl: URL
 
@@ -16,71 +20,42 @@ class OuroborosBooru: Booru {
         request.addValue("b2/0.0", forHTTPHeaderField: "User-Agent")
     }
 
-    func initialFiles() throws -> [BooruFile] {
+    func search(forTags tags: [String], completionHandler: @escaping (Result<[BooruFile], Error>) -> Void) {
         var components = URLComponents(url: self.baseUrl, resolvingAgainstBaseURL: true)!
-        components.appendQuery(name: "limit", value: "100")
-        let url = components.url! / "posts.json"
+
+        var queries = [
+            URLQueryItem(name: "limit", value: "100")
+        ]
+
+        if !tags.isEmpty {
+            queries.append(
+                URLQueryItem(name: "tags", value: tags.joined(separator: " "))
+            )
+        }
+
+        components.queryItems = queries
+        let url = components.url!.appendingPathComponent("posts.json")
 
         var request = URLRequest(url: url)
         Self.addStandardHeaders(request: &request)
 
-        let data = try? URLSession.shared.syncDataTask(with: request)
-        let response = try JSONDecoder().decode(OuroborosPostsResponse.self, from: data!)
-        return response.posts
-    }
-
-    func search(forFilesWithTags tags: [String]) throws -> [BooruFile] {
-        var components = URLComponents(url: self.baseUrl, resolvingAgainstBaseURL: true)!
-        components.appendQuery(name: "limit", value: "100")
-        components.appendQuery(name: "tags", value: tags.joined(separator: " "))
-        let url = components.url! / "posts.json"
-
-        var request = URLRequest(url: url)
-        Self.addStandardHeaders(request: &request)
-
-        let data = try? URLSession.shared.syncDataTask(with: request)
-        let response = try JSONDecoder().decode(OuroborosPostsResponse.self, from: data!)
-        return response.posts
-    }
-}
-
-private extension URLComponents {
-    mutating func appendQuery(name: String, value: String) {
-        var queryItems = self.queryItems ?? []
-        queryItems.append(URLQueryItem(name: name, value: value))
-        self.queryItems = queryItems
-    }
-}
-
-private extension URL {
-    static func / (left: URL, right: String) -> URL {
-        return left.appendingPathComponent(right)
-    }
-}
-
-private extension URLSession {
-    func syncDataTask(with url: URLRequest) throws -> Data? {
-        let semaphore = DispatchSemaphore(value: 0)
-
-        var result: Data?
-        var resultingError: Error?
-
-        let task = self.dataTask(with: url) { (data, _, error) in
-            if error != nil {
-                resultingError = error
-            } else if let data = data {
-                result = data
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completionHandler(.failure(error))
+                return
             }
-            semaphore.signal()
+
+            guard let data = data else {
+                completionHandler(.failure(OuroborosBooruError.noData))
+                return
+            }
+
+            do {
+                let response = try JSONDecoder().decode(OuroborosPostsResponse.self, from: data)
+                completionHandler(.success(response.posts))
+            } catch {
+                completionHandler(.failure(error))
+            }
         }
-
-        task.resume()
-        semaphore.wait()
-
-        if let error = resultingError {
-            throw error
-        }
-
-        return result
     }
 }

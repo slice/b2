@@ -2,11 +2,7 @@ import Foundation
 
 /// A dummy booru that returns an empty array for all requests.
 class NoneBooru: Booru {
-    func initialFiles() throws -> [BooruFile] {
-        return []
-    }
-
-    func search(forFilesWithTags tags: [String]) throws -> [BooruFile] {
-        return []
+    func search(forTags tags: [String], completionHandler: @escaping (Result<[BooruFile], Error>) -> Void) {
+        completionHandler(.success([]))
     }
 }

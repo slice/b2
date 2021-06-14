@@ -39,7 +39,7 @@ class OuroborosBooru: Booru {
         var request = URLRequest(url: url)
         Self.addStandardHeaders(request: &request)
 
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 completionHandler(.failure(error))
                 return
@@ -57,5 +57,7 @@ class OuroborosBooru: Booru {
                 completionHandler(.failure(error))
             }
         }
+
+        task.resume()
     }
 }

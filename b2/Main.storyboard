@@ -198,8 +198,12 @@
                             </menuItem>
                         </items>
                     </menu>
+                    <connections>
+                        <outlet property="delegate" destination="jTr-Sv-HQN" id="gwY-Yh-QoT"/>
+                    </connections>
                 </application>
                 <customObject id="h0z-e5-cfs" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="jTr-Sv-HQN" customClass="AppDelegate" customModule="b2" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="5" y="-360"/>
         </scene>

@@ -83,6 +83,11 @@ class MainWindowController: NSWindowController {
     }
 
     @IBAction func performSearch(_ sender: NSSearchField) {
+        // Clear the views.
+        self.files = []
+        self.viewController.tagsViewController.tags = []
+        self.viewController.tagsViewController.tableView.reloadData()
+
         let tags = sender.stringValue.split(separator: " ").map { String($0) }
 
         if tags.isEmpty {
@@ -117,8 +122,6 @@ class MainWindowController: NSWindowController {
     /// Asynchronously performs a search for files with tags and displays them
     /// in the collection view.
     func searchAsynchronously(withTags tags: [String]) {
-        self.files = []
-
         NSLog("querying: \(tags)")
 
         self.booru.search(forTags: tags) { result in

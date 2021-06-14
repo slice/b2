@@ -5,12 +5,12 @@ let sortBottom = String(repeating: "z", count: 10)
 
 class MainViewController: NSSplitViewController {
     @IBOutlet weak var tagsSplitItem: NSSplitViewItem!
-    private var tagsViewController: TagsViewController! {
+    var tagsViewController: TagsViewController! {
         return self.tagsSplitItem.viewController as? TagsViewController
     }
 
     @IBOutlet weak var postsSplitItem: NSSplitViewItem!
-    private var postsViewController: PostsViewController! {
+    var postsViewController: PostsViewController! {
         return self.postsSplitItem.viewController as? PostsViewController
     }
 

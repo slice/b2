@@ -439,16 +439,22 @@ CA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="5aV-Wv-e92">
+                                <rect key="frame" x="209" y="134" width="32" height="32"/>
+                            </progressIndicator>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="5aV-Wv-e92" firstAttribute="centerY" secondItem="aDZ-Qj-TdM" secondAttribute="centerY" id="8L9-K7-Ivh"/>
                             <constraint firstItem="KU2-1j-akO" firstAttribute="top" secondItem="aDZ-Qj-TdM" secondAttribute="top" id="CMM-wj-Hh4"/>
                             <constraint firstAttribute="trailing" secondItem="KU2-1j-akO" secondAttribute="trailing" id="M1w-ip-X98"/>
+                            <constraint firstItem="5aV-Wv-e92" firstAttribute="centerX" secondItem="aDZ-Qj-TdM" secondAttribute="centerX" id="VLy-ho-syS"/>
                             <constraint firstAttribute="bottom" secondItem="KU2-1j-akO" secondAttribute="bottom" id="Xwo-Lr-CZp"/>
                             <constraint firstItem="KU2-1j-akO" firstAttribute="leading" secondItem="aDZ-Qj-TdM" secondAttribute="leading" id="n6G-uA-5de"/>
                         </constraints>
                     </visualEffectView>
                     <connections>
                         <outlet property="collectionView" destination="fA5-6O-SIQ" id="c4X-0K-TmY"/>
+                        <outlet property="progressIndicator" destination="5aV-Wv-e92" id="xKn-Aa-fQu"/>
                     </connections>
                 </viewController>
                 <customObject id="4Pj-fe-1Xh" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

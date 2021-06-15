@@ -10,6 +10,7 @@ import Cocoa
 
 class PostsViewController: NSViewController {
     @IBOutlet weak var collectionView: NSCollectionView!
+    @IBOutlet weak var progressIndicator: NSProgressIndicator!
 
     /// An array of files to display.
     var files: [BooruFile] = []

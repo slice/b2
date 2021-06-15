@@ -105,6 +105,10 @@ class MainWindowController: NSWindowController {
     }
 
     private func handleQueryResult(_ result: Result<[BooruFile], Error>) {
+        DispatchQueue.main.async {
+            self.viewController.postsViewController.progressIndicator.stopAnimation(nil)
+        }
+
         switch result {
         case .success(let files):
             NSLog("query returned \(files.count) file(s)")
@@ -122,6 +126,7 @@ class MainWindowController: NSWindowController {
     /// Asynchronously performs a search for files with tags and displays them
     /// in the collection view.
     func searchAsynchronously(withTags tags: [String]) {
+        self.viewController.postsViewController.progressIndicator.startAnimation(nil)
         NSLog("querying: \(tags)")
 
         self.booru.search(forTags: tags) { result in
@@ -132,6 +137,8 @@ class MainWindowController: NSWindowController {
     /// Asynchronously fetches the initial files and displays them in the
     /// collection view.
     func loadInitialFiles() {
+        self.viewController.postsViewController.progressIndicator.startAnimation(nil)
+
         self.booru.initialFiles { result in
             self.handleQueryResult(result)
         }

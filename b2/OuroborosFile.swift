@@ -90,8 +90,9 @@ extension OuroborosFile: Decodable {
         }
 
         let tags = try root.decode([String: [String]].self, forKey: .tags)
-        self.tags = tags.flatMap { namespace, tags in
-            tags.map { OuroborosTag(namespace: namespace, subtag: $0) }
+        self.tags = tags.flatMap { namespace, tags -> [OuroborosTag] in
+            let normalizedNamespace: String? = namespace == "general" ? nil : namespace
+            return tags.map { OuroborosTag(namespace: normalizedNamespace, subtag: $0) }
         }
     }
 }

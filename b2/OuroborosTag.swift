@@ -6,7 +6,7 @@ struct OuroborosTag: BooruTag {
         self.subtag = text
     }
 
-    init(namespace: String, subtag: String) {
+    init(namespace: String?, subtag: String) {
         self.namespace = namespace
         self.subtag = subtag
     }

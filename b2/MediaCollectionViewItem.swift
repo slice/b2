@@ -63,4 +63,8 @@ class MediaCollectionViewItem: NSCollectionViewItem {
         self.view.layer!.borderColor = NSColor.clear.cgColor
         self.view.layer!.backgroundColor = NSColor.clear.cgColor
     }
+
+    override func prepareForReuse() {
+        self.imageView?.image = nil
+    }
 }

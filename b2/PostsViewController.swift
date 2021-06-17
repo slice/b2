@@ -17,19 +17,39 @@ class PostsViewController: NSViewController {
 
     var onFileSelected: ((BooruFile) -> Void)?
 
+    private var defaultsObserver: NSObjectProtocol?
+
     /// A `DispatchQueue` used for loading thumbnails.
     private let thumbnailsQueue = DispatchQueue(label: "thumbnails", attributes: .concurrent)
+
+    private func updateCollectionViewLayout() {
+        let spacing: Int = Preferences.shared.get(.imageGridSpacing)
+        let size: Int = Preferences.shared.get(.imageGridThumbnailSize)
+
+        let layout = self.collectionView.collectionViewLayout! as! NSCollectionViewGridLayout
+        layout.minimumInteritemSpacing = CGFloat(spacing)
+        layout.minimumLineSpacing = CGFloat(spacing)
+        layout.minimumItemSize = NSSize(width: size, height: size)
+        layout.maximumItemSize = NSSize(width: size, height: size)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Reduce the spacing between items.
-        let layout = self.collectionView.collectionViewLayout! as! NSCollectionViewGridLayout
-        layout.minimumInteritemSpacing = 1.0
-        layout.minimumLineSpacing = 1.0
-
         // Don't draw a background color.
         self.collectionView.backgroundColors = [.clear]
+
+        self.updateCollectionViewLayout()
+
+        self.defaultsObserver = NotificationCenter.default.addObserver(forName: .preferencesChanged, object: nil, queue: nil) { [weak self] notification in
+            self?.updateCollectionViewLayout()
+        }
+    }
+
+    deinit {
+        if let observer = self.defaultsObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
 }
 

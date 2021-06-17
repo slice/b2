@@ -9,13 +9,31 @@
 import Cocoa
 
 class TagsViewController: NSViewController {
-
     @IBOutlet weak var tableView: NSTableView!
     var tags: [BooruTag] = []
 
+    private var defaultsObserver: NSObjectProtocol?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
+        self.updateSizing()
+
+        self.defaultsObserver = NotificationCenter.default.addObserver(forName: .preferencesChanged, object: nil, queue: nil) { [weak self] _ in
+            self?.updateSizing()
+        }
+    }
+
+    private func updateSizing() {
+        let smallTagsEnabled: Bool = Preferences.shared.get(.smallTagsEnabled)
+        // Refer to macOS HIG.
+        // TODO: Maybe don't hardcode these. Use row styles?
+        self.tableView.rowHeight = smallTagsEnabled ? 17 : 24
+    }
+
+    deinit {
+        if let observer = self.defaultsObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
 }
 

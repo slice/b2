@@ -23,7 +23,11 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="ndC-xY-lh2"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="XZo-87-nGr"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="XZo-87-nGr">
+                                            <connections>
+                                                <segue destination="K4r-cW-ANv" kind="show" id="j1P-qw-uJs"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="1ZU-sC-BzT"/>
                                         <menuItem title="Services" id="EBc-Y0-t9G">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -206,6 +210,14 @@
             </objects>
             <point key="canvasLocation" x="5" y="-360"/>
         </scene>
+        <!--Preferences-->
+        <scene sceneID="1ie-CA-xFs">
+            <objects>
+                <controllerPlaceholder storyboardName="Preferences" id="K4r-cW-ANv" sceneMemberID="viewController"/>
+                <customObject id="1c8-Wt-0Zv" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="336" y="-360"/>
+        </scene>
         <!--Window Controller-->
         <scene sceneID="5Un-QP-7OH">
             <objects>
@@ -296,7 +308,7 @@ CA
                 </windowController>
                 <customObject id="3h1-Vd-SJQ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="22" y="58"/>
+            <point key="canvasLocation" x="5" y="62"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="LsU-Ar-2Ue">
@@ -323,7 +335,7 @@ CA
                 </splitViewController>
                 <customObject id="DMU-cD-m97" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="597" y="26"/>
+            <point key="canvasLocation" x="597" y="41"/>
         </scene>
         <!--Tags View Controller-->
         <scene sceneID="dLt-Nr-oib">
@@ -336,7 +348,7 @@ CA
                             <rect key="frame" x="0.0" y="0.0" width="150" height="300"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="inset" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="medium" viewBased="YES" id="hH6-zz-5zM">
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="inset" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" viewBased="YES" id="hH6-zz-5zM">
                                     <rect key="frame" x="0.0" y="0.0" width="150" height="300"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="17" height="0.0"/>

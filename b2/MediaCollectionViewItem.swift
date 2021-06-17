@@ -65,6 +65,7 @@ class MediaCollectionViewItem: NSCollectionViewItem {
     }
 
     override func prepareForReuse() {
+        self.updateAppearance(isHighlighted: false)
         self.imageView?.image = nil
     }
 }

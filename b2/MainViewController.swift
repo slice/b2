@@ -17,15 +17,15 @@ class MainViewController: NSSplitViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.postsViewController.onFileSelected = { file in
+        self.postsViewController.onFileSelected = { [weak self] file in
             let tags = file.tags.sorted(by: { (first, second) in
                 let firstN = first.namespace ?? sortBottom
                 let secondN = second.namespace ?? sortBottom
                 return (firstN, first.subtag) < (secondN, second.subtag)
             })
 
-            self.tagsViewController.tags = tags
-            self.tagsViewController.tableView.reloadData()
+            self?.tagsViewController.tags = tags
+            self?.tagsViewController.tableView.reloadData()
         }
     }
 

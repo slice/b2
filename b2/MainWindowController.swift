@@ -17,7 +17,7 @@ enum B2Error: Error {
 }
 
 class MainWindowController: NSWindowController {
-    var createdTab: MainWindowController?
+    private var createdTab: MainWindowController?
     @IBOutlet weak var booruPickerButton: NSPopUpButton!
 
     /// A `DispatchQueue` used for fetching data.

@@ -68,7 +68,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="122"/>
                                 <subviews>
                                     <gridView xPlacement="leading" yPlacement="bottom" rowAlignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="PSN-h8-Smy">
-                                        <rect key="frame" x="67" y="27" width="316" height="68"/>
+                                        <rect key="frame" x="73" y="27" width="305" height="68"/>
                                         <rows>
                                             <gridRow id="4ZX-HU-CAV"/>
                                             <gridRow id="XmK-bh-RSt"/>
@@ -81,8 +81,8 @@
                                         <gridCells>
                                             <gridCell row="4ZX-HU-CAV" column="cFo-Vy-1de" id="tu8-KG-Ykj">
                                                 <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Ls-yo-CHC">
-                                                    <rect key="frame" x="-2" y="51" width="164" height="16"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Image grid thumbnail size:" id="7xx-Hq-kld">
+                                                    <rect key="frame" x="-2" y="51" width="153" height="16"/>
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Post grid thumbnail size:" id="7xx-Hq-kld">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -91,7 +91,7 @@
                                             </gridCell>
                                             <gridCell row="4ZX-HU-CAV" column="mmn-7t-FOB" id="wb6-QX-4K8">
                                                 <slider key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WpK-1F-gXc">
-                                                    <rect key="frame" x="164" y="42" width="154" height="28"/>
+                                                    <rect key="frame" x="153" y="42" width="154" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="bYD-HW-jhd"/>
                                                     </constraints>
@@ -104,8 +104,8 @@
                                             </gridCell>
                                             <gridCell row="XmK-bh-RSt" column="cFo-Vy-1de" id="lWH-bf-ZLP">
                                                 <textField key="contentView" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VYH-6q-fRz">
-                                                    <rect key="frame" x="38" y="25" width="124" height="16"/>
-                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Image grid spacing:" id="eQ7-qT-p6J">
+                                                    <rect key="frame" x="38" y="25" width="113" height="16"/>
+                                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Post grid spacing:" id="eQ7-qT-p6J">
                                                         <font key="font" usesAppearanceFont="YES"/>
                                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -114,7 +114,7 @@
                                             </gridCell>
                                             <gridCell row="XmK-bh-RSt" column="mmn-7t-FOB" id="zMV-em-bGl">
                                                 <slider key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H3U-kZ-rGv">
-                                                    <rect key="frame" x="164" y="16" width="154" height="28"/>
+                                                    <rect key="frame" x="153" y="16" width="154" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="fxt-sr-ZfX"/>
                                                     </constraints>
@@ -127,7 +127,7 @@
                                             <gridCell row="OnF-mW-4mP" column="cFo-Vy-1de" id="dsi-zC-bpy"/>
                                             <gridCell row="OnF-mW-4mP" column="mmn-7t-FOB" id="fnq-3b-wcl">
                                                 <button key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tHC-i4-UoN">
-                                                    <rect key="frame" x="164" y="-1" width="89" height="18"/>
+                                                    <rect key="frame" x="153" y="-1" width="89" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Small tags" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Vx5-DJ-Ne7">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>

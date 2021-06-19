@@ -36,7 +36,7 @@ class PostsViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Don't draw a background color.
+        // Let the NSVisualEffectView show through.
         self.collectionView.backgroundColors = [.clear]
 
         self.updateCollectionViewLayout()

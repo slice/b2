@@ -34,18 +34,6 @@ class MainWindowController: NSWindowController {
         self.loadInitialFiles()
     }
 
-    var booru: Booru = NoneBooru() {
-        didSet {
-            self.viewController.booru = self.booru
-        }
-    }
-
-    var files: [BooruFile] = [] {
-        didSet {
-            self.viewController.files = self.files
-        }
-    }
-
     /// Loads the Hydrus database.
     private func loadHydrusDatabase() {
         // oh yeah, we're hardcoding this
@@ -58,7 +46,7 @@ class MainWindowController: NSWindowController {
 
         do {
             try measure("Loading database") {
-                self.booru = try HydrusDatabase(atBasePath: path)
+                self.viewController.booru = try HydrusDatabase(atBasePath: path)
             }
         } catch {
             self.presentError(B2Error.hydrusDatabaseFailedToLoad(error))
@@ -68,23 +56,23 @@ class MainWindowController: NSWindowController {
     /// Loads a booru.
     func loadBooru(ofType booru: BooruType) {
         // Reset some state.
-        self.files = []
+        self.viewController.files = []
 
         switch booru {
         case .none:
-            self.booru = NoneBooru()
+            self.viewController.booru = NoneBooru()
         case .hydrusNetwork:
             self.loadHydrusDatabase()
         case .e621:
-            self.booru = OuroborosBooru(baseUrl: URL(string: "https://e621.net")!)
+            self.viewController.booru = OuroborosBooru(baseUrl: URL(string: "https://e621.net")!)
         case .e926:
-            self.booru = OuroborosBooru(baseUrl: URL(string: "https://e926.net")!)
+            self.viewController.booru = OuroborosBooru(baseUrl: URL(string: "https://e926.net")!)
         }
     }
 
     @IBAction func performSearch(_ sender: NSSearchField) {
         // Clear the views.
-        self.files = []
+        self.viewController.files = []
         self.viewController.tagsViewController.tags = []
         self.viewController.tagsViewController.tableView.reloadData()
 
@@ -113,7 +101,7 @@ class MainWindowController: NSWindowController {
         case .success(let files):
             NSLog("query returned \(files.count) file(s)")
             DispatchQueue.main.async {
-                self.files = files
+                self.viewController.files = files
             }
         case .failure(let error):
             NSLog("failed to query: \(error)")
@@ -129,7 +117,7 @@ class MainWindowController: NSWindowController {
         self.viewController.postsViewController.progressIndicator.startAnimation(nil)
         NSLog("querying: \(tags)")
 
-        self.booru.search(forTags: tags) { result in
+        self.viewController.booru.search(forTags: tags) { result in
             self.handleQueryResult(result)
         }
     }
@@ -139,7 +127,7 @@ class MainWindowController: NSWindowController {
     func loadInitialFiles() {
         self.viewController.postsViewController.progressIndicator.startAnimation(nil)
 
-        self.booru.initialFiles { result in
+        self.viewController.booru.initialFiles { result in
             self.handleQueryResult(result)
         }
     }

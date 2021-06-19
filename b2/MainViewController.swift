@@ -29,7 +29,7 @@ class MainViewController: NSSplitViewController {
         }
     }
 
-    /// The current `Booru` being used.
+    /// The `Booru` to load and search from.
     var booru: Booru = NoneBooru() {
         didSet {
             // Reset the displayed tags.
@@ -38,7 +38,7 @@ class MainViewController: NSSplitViewController {
         }
     }
 
-    /// An array of currently loaded files.
+    /// The `BooruFile`s being viewed in the post grid.
     var files: [BooruFile] = [] {
         didSet {
             self.updateFileCountSubtitle()

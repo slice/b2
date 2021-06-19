@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import os.log
 
 extension NSUserInterfaceItemIdentifier {
     static let postsGridItem = Self(rawValue: "PostsGridCollectionViewItem")
@@ -22,6 +23,11 @@ class PostsViewController: NSViewController {
     var onFileSelected: ((BooruFile) -> Void)?
 
     private var defaultsObserver: NSObjectProtocol?
+
+    private let fetchLog = Logger(subsystem: loggingSubsystem, category: "fetch")
+
+    /// A cache for thumbnail image data.
+    private var thumbnailCache: NSCache<NSNumber, NSImage> = NSCache()
 
     /// A `DispatchQueue` used for loading thumbnails.
     private let thumbnailsQueue = DispatchQueue(label: "thumbnails", attributes: .concurrent)
@@ -74,24 +80,38 @@ extension PostsViewController: NSCollectionViewDelegate {
 
         // Only load thumbnails as the user scrolls.
         //
-        // TODO: Don't call this when the image has already been loaded.
-        //       I don't know how to easily determine this because
-        //       `MediaCollectionViewItem`s can be reused by AppKit, and can
-        //       result in incorrect images displaying when they're reused
-        //       (e.g. when performing a search).
-        //
-        //       Newly created cells will have the proper `file` property, but
-        //       will only ever get loaded once if we simply check if
-        //       `mediaItem.imageView.image` is `nil`.
-        //
         // TODO: Don't crash if we can't load the image, because it might fetch
         //       from the network.
         self.thumbnailsQueue.async {
-            measure("Loading thumbnail for \(postsGridItem.file.id)") {
-                let data = try! Data(contentsOf: postsGridItem.file.thumbnailImageURL)
+            guard let file = postsGridItem.file else {
+                return
+            }
+
+            let key = NSNumber(value: file.id)
+
+            if let image = self.thumbnailCache.object(forKey: key) {
+                self.fetchLog.debug("using cached thumbnail for \(file.id)")
 
                 DispatchQueue.main.async {
-                    postsGridItem.selectableImageView.image = NSImage(data: data)!
+                    postsGridItem.selectableImageView.image = image
+                }
+            } else {
+                self.fetchLog.info("fetching thumbnail for \(file.id)")
+
+                guard let data = try? Data(contentsOf: file.thumbnailImageURL) else {
+                    // TODO: Don't die, this code path is not fatal.
+                    fatalError("failed to fetch image")
+                }
+
+                guard let image = NSImage(data: data) else {
+                    // TODO: Don't die.
+                    fatalError("failed to read image from fetched data")
+                }
+
+                self.thumbnailCache.setObject(image, forKey: key)
+
+                DispatchQueue.main.async {
+                    postsGridItem.selectableImageView.image = image
                 }
             }
         }

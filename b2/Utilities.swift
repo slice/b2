@@ -1,5 +1,7 @@
 import Foundation
 
+let loggingSubsystem = "zone.slice.b2"
+
 func measure<T>(_ name: String, task: () throws -> T) rethrows -> T {
     let start = DispatchTime.now()
     let returnValue = try task()

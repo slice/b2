@@ -85,7 +85,8 @@ extension PostsViewController: NSCollectionViewDelegate {
                 let data = try! Data(contentsOf: mediaItem.file.thumbnailImageURL)
 
                 DispatchQueue.main.async {
-                    mediaItem.imageView!.image = NSImage(data: data)!
+                    let view = mediaItem.view as! SelectableImageView
+                    view.image = NSImage(data: data)!
                 }
             }
         }

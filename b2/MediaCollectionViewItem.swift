@@ -2,6 +2,10 @@ import Cocoa
 import Path
 
 class MediaCollectionViewItem: NSCollectionViewItem {
+    var selectableImageView: SelectableImageView {
+        self.view as! SelectableImageView
+    }
+
     override var highlightState: NSCollectionViewItem.HighlightState {
         didSet {
             if self.isSelected {
@@ -9,20 +13,15 @@ class MediaCollectionViewItem: NSCollectionViewItem {
             }
 
             let isHighlighted = self.highlightState == .forSelection
-            self.updateAppearance(isHighlighted: isHighlighted)
+            self.selectableImageView.isSelected = isHighlighted
+
         }
     }
 
     override var isSelected: Bool {
         didSet {
-            self.updateAppearance(isHighlighted: self.isSelected)
+            self.selectableImageView.isSelected = self.isSelected
         }
-    }
-
-    private func updateAppearance(isHighlighted: Bool) {
-        let color = isHighlighted ? NSColor.selectedContentBackgroundColor.cgColor : NSColor.clear.cgColor
-        self.view.layer?.borderColor = color
-        self.view.layer?.backgroundColor = color
     }
 
     /// The file that this item is associated with.
@@ -56,16 +55,8 @@ class MediaCollectionViewItem: NSCollectionViewItem {
         }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.wantsLayer = true
-        self.view.layer!.borderWidth = 3
-        self.view.layer!.borderColor = NSColor.clear.cgColor
-        self.view.layer!.backgroundColor = NSColor.clear.cgColor
-    }
-
     override func prepareForReuse() {
-        self.updateAppearance(isHighlighted: false)
+        self.selectableImageView.isSelected = false
         self.imageView?.image = nil
     }
 }

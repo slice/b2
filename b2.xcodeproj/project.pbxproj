@@ -43,6 +43,7 @@
 		12F7957622C5BB99002DCBEF /* Booru.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957522C5BB99002DCBEF /* Booru.swift */; };
 		12F7957822C5C092002DCBEF /* BooruFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957722C5C092002DCBEF /* BooruFile.swift */; };
 		12F7957A22C5C3F4002DCBEF /* BooruTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957922C5C3F4002DCBEF /* BooruTag.swift */; };
+		12FC13DD267DAB71009561B5 /* SelectableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FC13DC267DAB71009561B5 /* SelectableImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +84,7 @@
 		12F7957522C5BB99002DCBEF /* Booru.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booru.swift; sourceTree = "<group>"; };
 		12F7957722C5C092002DCBEF /* BooruFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruFile.swift; sourceTree = "<group>"; };
 		12F7957922C5C3F4002DCBEF /* BooruTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruTag.swift; sourceTree = "<group>"; };
+		12FC13DC267DAB71009561B5 /* SelectableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 		128ED16022AAD1AC00A1DDD6 /* b2 */ = {
 			isa = PBXGroup;
 			children = (
+				12FC13DE267DAB82009561B5 /* Views */,
 				122AD8AA267B019A001F3A94 /* Preferences.swift */,
 				12DDEF492498B5A2004BF47F /* Images */,
 				12F7957422C5BB8B002DCBEF /* Booru */,
@@ -251,6 +254,14 @@
 				12A9BB9922C5F1C30090F503 /* BooruMime.swift */,
 			);
 			name = Booru;
+			sourceTree = "<group>";
+		};
+		12FC13DE267DAB82009561B5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				12FC13DC267DAB71009561B5 /* SelectableImageView.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -381,6 +392,7 @@
 				122AD8AB267B019A001F3A94 /* Preferences.swift in Sources */,
 				124A55E9267AE2F200FFDA1F /* AppearanceSettingsViewController.swift in Sources */,
 				12C43B7122BD5E59003AF7C1 /* HydrusTags.swift in Sources */,
+				12FC13DD267DAB71009561B5 /* SelectableImageView.swift in Sources */,
 				12C43B7622BD6094003AF7C1 /* HydrusTagNamespace.swift in Sources */,
 				12D7B0B822BC237200CB740F /* HydrusDatabase.swift in Sources */,
 				124A55EB267AE4BB00FFDA1F /* BooruSettingsViewController.swift in Sources */,

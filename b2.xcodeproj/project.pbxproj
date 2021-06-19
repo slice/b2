@@ -28,8 +28,7 @@
 		12D5009E22BC7D4100CB1D98 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 12D5009D22BC7D4100CB1D98 /* .swiftlint.yml */; };
 		12D500A022BC907C00CB1D98 /* HydrusMime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5009F22BC907C00CB1D98 /* HydrusMime.swift */; };
 		12D500A222BC931400CB1D98 /* HydrusMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D500A122BC931400CB1D98 /* HydrusMetadata.swift */; };
-		12D7B0B322BB6DA000CB740F /* MediaCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D7B0B122BB6DA000CB740F /* MediaCollectionViewItem.swift */; };
-		12D7B0B422BB6DA000CB740F /* MediaCollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12D7B0B222BB6DA000CB740F /* MediaCollectionViewItem.xib */; };
+		12D7B0B322BB6DA000CB740F /* PostsGridCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D7B0B122BB6DA000CB740F /* PostsGridCollectionViewItem.swift */; };
 		12D7B0B822BC237200CB740F /* HydrusDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D7B0B722BC237200CB740F /* HydrusDatabase.swift */; };
 		12DDEF4B2498B5AE004BF47F /* FailedToLoadImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 12DDEF4A2498B5AE004BF47F /* FailedToLoadImage.png */; };
 		12E10CF322BE0B3000BD248E /* HydrusCachedTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E10CF222BE0B3000BD248E /* HydrusCachedTag.swift */; };
@@ -72,8 +71,7 @@
 		12D5009D22BC7D4100CB1D98 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		12D5009F22BC907C00CB1D98 /* HydrusMime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusMime.swift; sourceTree = "<group>"; };
 		12D500A122BC931400CB1D98 /* HydrusMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusMetadata.swift; sourceTree = "<group>"; };
-		12D7B0B122BB6DA000CB740F /* MediaCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCollectionViewItem.swift; sourceTree = "<group>"; };
-		12D7B0B222BB6DA000CB740F /* MediaCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaCollectionViewItem.xib; sourceTree = "<group>"; };
+		12D7B0B122BB6DA000CB740F /* PostsGridCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsGridCollectionViewItem.swift; sourceTree = "<group>"; };
 		12D7B0B722BC237200CB740F /* HydrusDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusDatabase.swift; sourceTree = "<group>"; };
 		12DDEF4A2498B5AE004BF47F /* FailedToLoadImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FailedToLoadImage.png; sourceTree = "<group>"; };
 		12E10CF222BE0B3000BD248E /* HydrusCachedTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusCachedTag.swift; sourceTree = "<group>"; };
@@ -247,8 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				12FC13DC267DAB71009561B5 /* SelectableImageView.swift */,
-				12D7B0B122BB6DA000CB740F /* MediaCollectionViewItem.swift */,
-				12D7B0B222BB6DA000CB740F /* MediaCollectionViewItem.xib */,
+				12D7B0B122BB6DA000CB740F /* PostsGridCollectionViewItem.swift */,
 				12ED8615266DD68A00F1303F /* PostsViewController.swift */,
 			);
 			name = "Posts Grid";
@@ -343,7 +340,6 @@
 				12D5009E22BC7D4100CB1D98 /* .swiftlint.yml in Resources */,
 				12DDEF4B2498B5AE004BF47F /* FailedToLoadImage.png in Resources */,
 				122B3C7F267ABECB0035C938 /* Preferences.storyboard in Resources */,
-				12D7B0B422BB6DA000CB740F /* MediaCollectionViewItem.xib in Resources */,
 				128ED16622AAD1AE00A1DDD6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,7 +380,7 @@
 				128ED16422AAD1AC00A1DDD6 /* MainViewController.swift in Sources */,
 				12A9BBA022C74E190090F503 /* OuroborosBooru.swift in Sources */,
 				12D5009B22BC7A4E00CB1D98 /* HydrusFile.swift in Sources */,
-				12D7B0B322BB6DA000CB740F /* MediaCollectionViewItem.swift in Sources */,
+				12D7B0B322BB6DA000CB740F /* PostsGridCollectionViewItem.swift in Sources */,
 				12E10CF622BE10DE00BD248E /* Data+Hex.swift in Sources */,
 				12F7957822C5C092002DCBEF /* BooruFile.swift in Sources */,
 				127C44C522C75FB2003C7BFA /* OuroborosTag.swift in Sources */,

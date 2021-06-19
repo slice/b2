@@ -8,6 +8,10 @@
 
 import Cocoa
 
+extension NSUserInterfaceItemIdentifier {
+    static let postsGridItem = Self(rawValue: "PostsGridCollectionViewItem")
+}
+
 class PostsViewController: NSViewController {
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var progressIndicator: NSProgressIndicator!
@@ -44,6 +48,8 @@ class PostsViewController: NSViewController {
         self.defaultsObserver = NotificationCenter.default.addObserver(forName: .preferencesChanged, object: nil, queue: nil) { [weak self] notification in
             self?.updateCollectionViewLayout()
         }
+
+        self.collectionView.register(PostsGridCollectionViewItem.self, forItemWithIdentifier: .postsGridItem)
     }
 
     deinit {
@@ -56,7 +62,7 @@ class PostsViewController: NSViewController {
 extension PostsViewController: NSCollectionViewDelegate {
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         let lastIndexPath = indexPaths.max()!
-        let item = collectionView.item(at: lastIndexPath) as? MediaCollectionViewItem
+        let item = collectionView.item(at: lastIndexPath) as? PostsGridCollectionViewItem
 
         if let file = item?.file {
             self.onFileSelected?(file)
@@ -64,7 +70,7 @@ extension PostsViewController: NSCollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: NSCollectionView, willDisplay item: NSCollectionViewItem, forRepresentedObjectAt indexPath: IndexPath) {
-        let mediaItem = item as! MediaCollectionViewItem
+        let postsGridItem = item as! PostsGridCollectionViewItem
 
         // Only load thumbnails as the user scrolls.
         //
@@ -81,12 +87,11 @@ extension PostsViewController: NSCollectionViewDelegate {
         // TODO: Don't crash if we can't load the image, because it might fetch
         //       from the network.
         self.thumbnailsQueue.async {
-            measure("Loading thumbnail for \(mediaItem.file.id)") {
-                let data = try! Data(contentsOf: mediaItem.file.thumbnailImageURL)
+            measure("Loading thumbnail for \(postsGridItem.file.id)") {
+                let data = try! Data(contentsOf: postsGridItem.file.thumbnailImageURL)
 
                 DispatchQueue.main.async {
-                    let view = mediaItem.view as! SelectableImageView
-                    view.image = NSImage(data: data)!
+                    postsGridItem.selectableImageView.image = NSImage(data: data)!
                 }
             }
         }
@@ -100,9 +105,9 @@ extension PostsViewController: NSCollectionViewDataSource {
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
         let item = self.collectionView.makeItem(
-            withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "MediaCollectionViewItem"),
+            withIdentifier: .postsGridItem,
             for: indexPath
-        ) as! MediaCollectionViewItem
+        ) as! PostsGridCollectionViewItem
 
         let file = self.files[indexPath.item]
         item.file = file

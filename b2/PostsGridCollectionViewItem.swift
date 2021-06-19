@@ -1,9 +1,13 @@
 import Cocoa
 import Path
 
-class MediaCollectionViewItem: NSCollectionViewItem {
-    var selectableImageView: SelectableImageView {
-        self.view as! SelectableImageView
+class PostsGridCollectionViewItem: NSCollectionViewItem {
+    var selectableImageView: SelectableImageView!
+
+    override func loadView() {
+        // The frame is determined by the collection view.
+        self.selectableImageView = SelectableImageView(frame: .zero)
+        self.view = self.selectableImageView
     }
 
     override var highlightState: NSCollectionViewItem.HighlightState {
@@ -57,6 +61,6 @@ class MediaCollectionViewItem: NSCollectionViewItem {
 
     override func prepareForReuse() {
         self.selectableImageView.isSelected = false
-        self.imageView?.image = nil
+        self.selectableImageView.image = nil
     }
 }

@@ -100,25 +100,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1254903022C0413C00218DBC /* Supporting Files */ = {
+		1254903022C0413C00218DBC /* Support */ = {
 			isa = PBXGroup;
 			children = (
 				128ED16122AAD1AC00A1DDD6 /* AppDelegate.swift */,
-				128ED16522AAD1AE00A1DDD6 /* Assets.xcassets */,
 				128ED16A22AAD1AE00A1DDD6 /* Info.plist */,
 				128ED16B22AAD1AE00A1DDD6 /* b2.entitlements */,
 				12C43B6E22BCA5DD003AF7C1 /* Utilities.swift */,
+				12E10CF522BE10DE00BD248E /* Data+Hex.swift */,
 			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		128A5834266DA65B00DADF61 /* Storyboards */ = {
-			isa = PBXGroup;
-			children = (
-				128A5835266DA66600DADF61 /* Main.storyboard */,
-				122B3C7E267ABECB0035C938 /* Preferences.storyboard */,
-			);
-			name = Storyboards;
+			name = Support;
 			sourceTree = "<group>";
 		};
 		128ED15522AAD1AC00A1DDD6 = {
@@ -141,48 +132,30 @@
 		128ED16022AAD1AC00A1DDD6 /* b2 */ = {
 			isa = PBXGroup;
 			children = (
-				12FC13DE267DAB82009561B5 /* Views */,
-				122AD8AA267B019A001F3A94 /* Preferences.swift */,
-				12DDEF492498B5A2004BF47F /* Images */,
-				12F7957422C5BB8B002DCBEF /* Booru */,
-				1254903022C0413C00218DBC /* Supporting Files */,
-				12E10CF422BE10D000BD248E /* Extensions */,
-				12D7B0B622BC1A5600CB740F /* Collection View */,
-				128ED17622AAE25F00A1DDD6 /* Controllers */,
-				128A5834266DA65B00DADF61 /* Storyboards */,
+				12FC13E3267DB133009561B5 /* Model */,
+				12FC13E8267DB239009561B5 /* UI */,
+				12DDEF492498B5A2004BF47F /* Assets */,
+				1254903022C0413C00218DBC /* Support */,
 			);
 			path = b2;
 			sourceTree = "<group>";
 		};
-		128ED17622AAE25F00A1DDD6 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				128ED16322AAD1AC00A1DDD6 /* MainViewController.swift */,
-				128ED17122AAD88300A1DDD6 /* MainWindowController.swift */,
-				12ED8613266DD67800F1303F /* TagsViewController.swift */,
-				12ED8615266DD68A00F1303F /* PostsViewController.swift */,
-				124A55E8267AE2F200FFDA1F /* AppearanceSettingsViewController.swift */,
-				124A55EA267AE4BB00FFDA1F /* BooruSettingsViewController.swift */,
-			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
-		12A9BB9D22C60B0E0090F503 /* Miscellaneous */ = {
+		12A9BB9D22C60B0E0090F503 /* None */ = {
 			isa = PBXGroup;
 			children = (
 				12A9BB9B22C60ADE0090F503 /* NoneBooru.swift */,
 			);
-			name = Miscellaneous;
+			name = None;
 			sourceTree = "<group>";
 		};
-		12A9BB9E22C74E0E0090F503 /* External */ = {
+		12A9BB9E22C74E0E0090F503 /* Ouroboros */ = {
 			isa = PBXGroup;
 			children = (
 				12A9BB9F22C74E180090F503 /* OuroborosBooru.swift */,
 				127C44C222C7562E003C7BFA /* OuroborosFile.swift */,
 				127C44C422C75FB2003C7BFA /* OuroborosTag.swift */,
 			);
-			name = External;
+			name = Ouroboros;
 			sourceTree = "<group>";
 		};
 		12C43B7222BD606C003AF7C1 /* Tags */ = {
@@ -217,37 +190,21 @@
 			name = Hydrus;
 			sourceTree = "<group>";
 		};
-		12D7B0B622BC1A5600CB740F /* Collection View */ = {
+		12DDEF492498B5A2004BF47F /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				12D7B0B122BB6DA000CB740F /* MediaCollectionViewItem.swift */,
-				12D7B0B222BB6DA000CB740F /* MediaCollectionViewItem.xib */,
-			);
-			name = "Collection View";
-			sourceTree = "<group>";
-		};
-		12DDEF492498B5A2004BF47F /* Images */ = {
-			isa = PBXGroup;
-			children = (
+				128ED16522AAD1AE00A1DDD6 /* Assets.xcassets */,
 				12DDEF4A2498B5AE004BF47F /* FailedToLoadImage.png */,
 			);
-			name = Images;
-			sourceTree = "<group>";
-		};
-		12E10CF422BE10D000BD248E /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				12E10CF522BE10DE00BD248E /* Data+Hex.swift */,
-			);
-			name = Extensions;
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		12F7957422C5BB8B002DCBEF /* Booru */ = {
 			isa = PBXGroup;
 			children = (
-				12A9BB9E22C74E0E0090F503 /* External */,
-				12A9BB9D22C60B0E0090F503 /* Miscellaneous */,
 				12D7B0B522BC1A5200CB740F /* Hydrus */,
+				12A9BB9E22C74E0E0090F503 /* Ouroboros */,
+				12A9BB9D22C60B0E0090F503 /* None */,
 				12F7957522C5BB99002DCBEF /* Booru.swift */,
 				12F7957722C5C092002DCBEF /* BooruFile.swift */,
 				12F7957922C5C3F4002DCBEF /* BooruTag.swift */,
@@ -256,12 +213,63 @@
 			name = Booru;
 			sourceTree = "<group>";
 		};
-		12FC13DE267DAB82009561B5 /* Views */ = {
+		12FC13E3267DB133009561B5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				122AD8AA267B019A001F3A94 /* Preferences.swift */,
+				12F7957422C5BB8B002DCBEF /* Booru */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		12FC13E8267DB239009561B5 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				12FC13EB267DB24D009561B5 /* Preferences */,
+				12FC13EA267DB24A009561B5 /* Posts Grid */,
+				12FC13E9267DB246009561B5 /* Main Window */,
+				12FC13EC267DB26B009561B5 /* Tags */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		12FC13E9267DB246009561B5 /* Main Window */ = {
+			isa = PBXGroup;
+			children = (
+				128A5835266DA66600DADF61 /* Main.storyboard */,
+				128ED16322AAD1AC00A1DDD6 /* MainViewController.swift */,
+				128ED17122AAD88300A1DDD6 /* MainWindowController.swift */,
+			);
+			name = "Main Window";
+			sourceTree = "<group>";
+		};
+		12FC13EA267DB24A009561B5 /* Posts Grid */ = {
 			isa = PBXGroup;
 			children = (
 				12FC13DC267DAB71009561B5 /* SelectableImageView.swift */,
+				12D7B0B122BB6DA000CB740F /* MediaCollectionViewItem.swift */,
+				12D7B0B222BB6DA000CB740F /* MediaCollectionViewItem.xib */,
+				12ED8615266DD68A00F1303F /* PostsViewController.swift */,
 			);
-			name = Views;
+			name = "Posts Grid";
+			sourceTree = "<group>";
+		};
+		12FC13EB267DB24D009561B5 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				122B3C7E267ABECB0035C938 /* Preferences.storyboard */,
+				124A55E8267AE2F200FFDA1F /* AppearanceSettingsViewController.swift */,
+				124A55EA267AE4BB00FFDA1F /* BooruSettingsViewController.swift */,
+			);
+			name = Preferences;
+			sourceTree = "<group>";
+		};
+		12FC13EC267DB26B009561B5 /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				12ED8613266DD67800F1303F /* TagsViewController.swift */,
+			);
+			name = Tags;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

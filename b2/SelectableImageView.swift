@@ -9,6 +9,12 @@
 import Cocoa
 
 class SelectableImageView: NSView {
+    var contentsGravity: CALayerContentsGravity = .resizeAspect {
+        didSet {
+            self.needsDisplay = true
+        }
+    }
+
     var image: NSImage? = nil {
         didSet {
             self.needsDisplay = true
@@ -32,9 +38,7 @@ class SelectableImageView: NSView {
     }
 
     override func updateLayer() {
-        // Resize the image to fit within the frame bounds.
-        // TODO: Make this configurable by the user?
-        self.layer?.contentsGravity = .resizeAspect
+        self.layer?.contentsGravity = self.contentsGravity
         self.layer?.contents = self.image
         self.layer?.borderWidth = CGFloat(self.selectionBorderWidth)
         let color = self.isSelected ? NSColor.selectedContentBackgroundColor.cgColor : NSColor.clear.cgColor

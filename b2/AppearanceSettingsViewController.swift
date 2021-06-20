@@ -24,14 +24,26 @@ class AppearanceSettingsViewController: NSViewController {
         return slider
     }()
 
+    lazy var imageGridScalingPopUpButton: NSPopUpButton = {
+        let button = NSPopUpButton()
+        let resizeToFitItem = NSMenuItem(title: "Resize to fit", action: #selector(action), keyEquivalent: "")
+        resizeToFitItem.tag = PostsGridScalingMode.resizeToFit.rawValue
+        button.menu?.addItem(resizeToFitItem)
+        let fillItem = NSMenuItem(title: "Fill", action: #selector(action), keyEquivalent: "")
+        fillItem.tag = PostsGridScalingMode.fill.rawValue
+        button.menu?.addItem(fillItem)
+        return button
+    }()
+
     lazy var compactTagsCheckbox: NSButton = {
         return NSButton(checkboxWithTitle: "Compact tags", target: nil, action: #selector(action))
     }()
 
     lazy var settingsGridView: NSGridView = {
         let gridView = NSGridView(views: [
-            [NSTextField(labelWithString: "Posts grid thumbnail size:"), self.imageGridThumbnailSizeSlider],
-            [NSTextField(labelWithString: "Posts grid spacing:"), self.imageGridSpacingSlider],
+            [NSTextField(labelWithString: "Grid thumbnail size:"), self.imageGridThumbnailSizeSlider],
+            [NSTextField(labelWithString: "Grid spacing:"), self.imageGridSpacingSlider],
+            [NSTextField(labelWithString: "Grid thumbnail scaling:"), self.imageGridScalingPopUpButton],
             [NSView(), self.compactTagsCheckbox]
         ])
         gridView.translatesAutoresizingMaskIntoConstraints = false
@@ -65,6 +77,7 @@ class AppearanceSettingsViewController: NSViewController {
         self.imageGridThumbnailSizeSlider.integerValue = p.get(.imageGridThumbnailSize)
         self.imageGridSpacingSlider.integerValue = p.get(.imageGridSpacing)
         self.compactTagsCheckbox.state = p.get(.compactTagsEnabled) ? .on : .off
+        self.imageGridScalingPopUpButton.selectItem(withTag: p.get(.imageGridScalingMode))
     }
 
     @IBAction private func action(sender: Any?) {
@@ -72,5 +85,6 @@ class AppearanceSettingsViewController: NSViewController {
         p.set(.imageGridThumbnailSize, to: self.imageGridThumbnailSizeSlider.integerValue)
         p.set(.imageGridSpacing, to: self.imageGridSpacingSlider.integerValue)
         p.set(.compactTagsEnabled, to: self.compactTagsCheckbox.state == .on)
+        p.set(.imageGridScalingMode, to: self.imageGridScalingPopUpButton.selectedItem!.tag)
     }
 }

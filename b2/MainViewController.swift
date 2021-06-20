@@ -41,21 +41,10 @@ class MainViewController: NSSplitViewController {
     /// The `BooruFile`s being viewed in the post grid.
     var files: [BooruFile] = [] {
         didSet {
-            self.updateFileCountSubtitle()
-
             self.postsViewController.files = self.files
             // Reset the currently selected file and reload the collection view.
             self.resetPostsViewController()
         }
-    }
-
-    private func updateFileCountSubtitle() {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        let formatted = formatter.string(from: NSNumber(value: self.files.count)) ?? String(self.files.count)
-        let s = self.files.count == 1 ? "" : "s"
-
-        self.view.window!.subtitle = "\(formatted) file\(s)"
     }
 
     func errorSheet(title: String, description: String, closesWindow: Bool = false) {

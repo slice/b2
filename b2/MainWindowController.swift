@@ -103,6 +103,22 @@ class MainWindowController: NSWindowController {
         self.createdTab = nil
     }
 
+    private func updateFileCountSubtitle() {
+        let fileCount = self.viewController.files.count
+
+        if fileCount == 0 {
+            self.window?.subtitle = ""
+            return
+        }
+
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        let formatted = formatter.string(from: NSNumber(value: fileCount)) ?? String(fileCount)
+        let s = fileCount == 1 ? "" : "s"
+
+        self.window?.subtitle = "\(formatted) post\(s)"
+    }
+
     private func handleQueryResult(_ result: Result<[BooruFile], Error>) {
         DispatchQueue.main.async {
             self.viewController.postsViewController.progressIndicator.stopAnimation(nil)
@@ -119,6 +135,10 @@ class MainWindowController: NSWindowController {
             DispatchQueue.main.async {
                 self.presentError(B2Error.searchFailure(error))
             }
+        }
+
+        DispatchQueue.main.async {
+            self.updateFileCountSubtitle()
         }
     }
 

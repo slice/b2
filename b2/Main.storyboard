@@ -222,7 +222,7 @@
         <scene sceneID="5Un-QP-7OH">
             <objects>
                 <windowController id="zmA-tV-kk1" customClass="MainWindowController" customModule="b2" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="b2" subtitle="0 images (None)" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="bNx-rR-BTM">
+                    <window key="window" title="b2" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="bNx-rR-BTM">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="239" width="514" height="304"/>

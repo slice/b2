@@ -36,8 +36,8 @@ class MainWindowController: NSWindowController {
 
     /// Loads the Hydrus database.
     private func loadHydrusDatabase() {
-        // oh yeah, we're hardcoding this
-        let path = Path(url: URL(string: "file:///Volumes/launchpad/media/hydrus2")!)!
+        let filePath = UserDefaults.standard.string(forKey: "hydrusDatabaseBasePath") ?? "/Volumes/launchpad/media/hydrus2"
+        let path = Path(url: URL(fileURLWithPath: filePath))!
 
         guard path.isDirectory else {
             self.presentError(B2Error.hydrusDatabaseNotFound)

@@ -28,9 +28,6 @@ class PostsViewController: NSViewController {
     private let postsLog = Logger(subsystem: loggingSubsystem, category: "posts")
     private let fetchLog = Logger(subsystem: loggingSubsystem, category: "fetch")
 
-    /// A cache for thumbnail image data.
-    private var thumbnailCache: NSCache<NSNumber, NSImage> = NSCache()
-
     /// A `DispatchQueue` used for loading thumbnails.
     private let thumbnailsQueue = DispatchQueue(label: "thumbnails", attributes: .concurrent)
 
@@ -118,6 +115,7 @@ extension PostsViewController: NSCollectionViewDelegate {
 
     func collectionView(_ collectionView: NSCollectionView, willDisplay item: NSCollectionViewItem, forRepresentedObjectAt indexPath: IndexPath) {
         let postsGridItem = item as! PostsGridCollectionViewItem
+        let cache = ImageCache.shared
 
         // Only load thumbnails as the user scrolls.
         //
@@ -128,9 +126,7 @@ extension PostsViewController: NSCollectionViewDelegate {
                 return
             }
 
-            let key = NSNumber(value: file.id)
-
-            if let image = self.thumbnailCache.object(forKey: key) {
+            if let image = cache.image(forID: file.id) {
                 self.fetchLog.debug("using cached thumbnail for \(file.id)")
 
                 DispatchQueue.main.async {
@@ -149,7 +145,7 @@ extension PostsViewController: NSCollectionViewDelegate {
                     fatalError("failed to read image from fetched data")
                 }
 
-                self.thumbnailCache.setObject(image, forKey: key)
+                cache.insert(image, forID: file.id)
 
                 DispatchQueue.main.async {
                     postsGridItem.selectableImageView.image = image

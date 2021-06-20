@@ -10,6 +10,7 @@
 		12187445267F17FC00A78791 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12187444267F17FC00A78791 /* PreferencesWindowController.swift */; };
 		12187469267F2BEE00A78791 /* ResizingTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12187468267F2BEE00A78791 /* ResizingTabViewController.swift */; };
 		1218746B267F323C00A78791 /* PostsGridScalingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1218746A267F323C00A78791 /* PostsGridScalingMode.swift */; };
+		1218746D267F398500A78791 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1218746C267F398500A78791 /* ImageCache.swift */; };
 		122AD8AB267B019A001F3A94 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122AD8AA267B019A001F3A94 /* Preferences.swift */; };
 		124A55E9267AE2F200FFDA1F /* AppearanceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A55E8267AE2F200FFDA1F /* AppearanceSettingsViewController.swift */; };
 		124A55EB267AE4BB00FFDA1F /* BooruSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A55EA267AE4BB00FFDA1F /* BooruSettingsViewController.swift */; };
@@ -51,6 +52,7 @@
 		12187444267F17FC00A78791 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 		12187468267F2BEE00A78791 /* ResizingTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizingTabViewController.swift; sourceTree = "<group>"; };
 		1218746A267F323C00A78791 /* PostsGridScalingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsGridScalingMode.swift; sourceTree = "<group>"; };
+		1218746C267F398500A78791 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		122AD8AA267B019A001F3A94 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		124A55E8267AE2F200FFDA1F /* AppearanceSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsViewController.swift; sourceTree = "<group>"; };
 		124A55EA267AE4BB00FFDA1F /* BooruSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruSettingsViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				128ED16B22AAD1AE00A1DDD6 /* b2.entitlements */,
 				12C43B6E22BCA5DD003AF7C1 /* Utilities.swift */,
 				12E10CF522BE10DE00BD248E /* Data+Hex.swift */,
+				1218746C267F398500A78791 /* ImageCache.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1218746D267F398500A78791 /* ImageCache.swift in Sources */,
 				128ED17222AAD88300A1DDD6 /* MainWindowController.swift in Sources */,
 				12A9BB9A22C5F1C30090F503 /* BooruMime.swift in Sources */,
 				12ED8614266DD67800F1303F /* TagsViewController.swift in Sources */,

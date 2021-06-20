@@ -162,4 +162,8 @@ class MainWindowController: NSWindowController {
             self.handleQueryResult(result)
         }
     }
+
+    deinit {
+        NSLog("MainWindowController deinit")
+    }
 }

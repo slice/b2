@@ -23,7 +23,9 @@ class PostsViewController: NSViewController {
     var onFileSelected: ((BooruFile) -> Void)?
 
     private var defaultsObserver: NSObjectProtocol?
+    private var scrollViewMagnifyEndObserver: NSObjectProtocol?
 
+    private let postsLog = Logger(subsystem: loggingSubsystem, category: "posts")
     private let fetchLog = Logger(subsystem: loggingSubsystem, category: "fetch")
 
     /// A cache for thumbnail image data.
@@ -49,9 +51,23 @@ class PostsViewController: NSViewController {
         // Let the NSVisualEffectView show through.
         self.collectionView.backgroundColors = [.clear]
 
+        let scrollView = self.collectionView.enclosingScrollView!
+
+        if Preferences.shared.get(.imageGridPinchZoomEnabled) {
+            scrollView.allowsMagnification = true
+
+            self.scrollViewMagnifyEndObserver = NotificationCenter.default.addObserver(forName: NSScrollView.didEndLiveMagnifyNotification, object: scrollView, queue: nil) { [weak self] _ in
+                let currentSize: Int = Preferences.shared.get(.imageGridThumbnailSize)
+                let newSize = Int(Float(currentSize) * Float(scrollView.magnification))
+                self?.postsLog.info("setting image grid thumbnail size to \(newSize) after magnifying to \(scrollView.magnification) (from \(currentSize))")
+                Preferences.shared.set(.imageGridThumbnailSize, to: newSize)
+                scrollView.magnification = 1
+            }
+        }
+
         self.updateCollectionViewLayout()
 
-        self.defaultsObserver = NotificationCenter.default.addObserver(forName: .preferencesChanged, object: nil, queue: nil) { [weak self] notification in
+        self.defaultsObserver = NotificationCenter.default.addObserver(forName: .preferencesChanged, object: nil, queue: nil) { [weak self] _ in
             self?.updateCollectionViewLayout()
         }
 
@@ -59,7 +75,13 @@ class PostsViewController: NSViewController {
     }
 
     deinit {
+        self.postsLog.notice("PostsViewController deinit")
+
         if let observer = self.defaultsObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+
+        if let observer = self.scrollViewMagnifyEndObserver {
             NotificationCenter.default.removeObserver(observer)
         }
     }

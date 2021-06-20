@@ -26,6 +26,7 @@ extension PreferenceKey where Value == Int {
 
 extension PreferenceKey where Value == Bool {
     static let compactTagsEnabled = Self("compactTagsEnabled", defaultingTo: false)
+    static let imageGridPinchZoomEnabled = Self("imageGridPinchZoomEnabled", defaultingTo: false)
 }
 
 extension Notification.Name {

@@ -25,7 +25,7 @@ extension PreferenceKey where Value == Int {
 }
 
 extension PreferenceKey where Value == Bool {
-    static let smallTagsEnabled = Self("smallTagsEnabled", defaultingTo: false)
+    static let compactTagsEnabled = Self("compactTagsEnabled", defaultingTo: false)
 }
 
 extension Notification.Name {

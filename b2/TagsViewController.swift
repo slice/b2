@@ -24,10 +24,10 @@ class TagsViewController: NSViewController {
     }
 
     private func updateSizing() {
-        let smallTagsEnabled: Bool = Preferences.shared.get(.smallTagsEnabled)
+        let compactTagsEnabled: Bool = Preferences.shared.get(.compactTagsEnabled)
         // Refer to macOS HIG.
         // TODO: Maybe don't hardcode these. Use row styles?
-        self.tableView.rowHeight = smallTagsEnabled ? 17 : 24
+        self.tableView.rowHeight = compactTagsEnabled ? 17 : 24
     }
 
     deinit {

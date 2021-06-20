@@ -127,8 +127,8 @@
                                             <gridCell row="OnF-mW-4mP" column="cFo-Vy-1de" id="dsi-zC-bpy"/>
                                             <gridCell row="OnF-mW-4mP" column="mmn-7t-FOB" id="fnq-3b-wcl">
                                                 <button key="contentView" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tHC-i4-UoN">
-                                                    <rect key="frame" x="153" y="-1" width="89" height="18"/>
-                                                    <buttonCell key="cell" type="check" title="Small tags" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Vx5-DJ-Ne7">
+                                                    <rect key="frame" x="153" y="-1" width="111" height="18"/>
+                                                    <buttonCell key="cell" type="check" title="Compact tags" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Vx5-DJ-Ne7">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="system"/>
                                                     </buttonCell>
@@ -156,9 +156,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="compactTagsCheckbox" destination="tHC-i4-UoN" id="eut-D3-60q"/>
                         <outlet property="imageGridSpacingSlider" destination="H3U-kZ-rGv" id="raf-8v-YIN"/>
                         <outlet property="imageGridThumbnailSizeSlider" destination="WpK-1F-gXc" id="RdB-Ol-dKU"/>
-                        <outlet property="smallTagsCheckbox" destination="tHC-i4-UoN" id="eut-D3-60q"/>
                     </connections>
                 </viewController>
                 <customObject id="NbZ-Oq-4Nb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

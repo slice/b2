@@ -20,12 +20,12 @@ class BooruSettingsViewController: NSViewController {
     override func loadView() {
         self.view = self.containerView
 
-        let placeholderButton = NSButton(title: "🦆", target: nil, action: nil)
-        placeholderButton.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(placeholderButton)
+        let placeholder = NSTextField(labelWithString: "placeholder")
+        placeholder.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(placeholder)
         NSLayoutConstraint.activate([
-            placeholderButton.centerXAnchor.constraint(equalTo: self.containerView.centerXAnchor),
-            placeholderButton.centerYAnchor.constraint(equalTo: self.containerView.centerYAnchor)
+            placeholder.centerXAnchor.constraint(equalTo: self.containerView.centerXAnchor),
+            placeholder.centerYAnchor.constraint(equalTo: self.containerView.centerYAnchor)
         ])
     }
 }

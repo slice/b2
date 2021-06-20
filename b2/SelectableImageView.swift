@@ -21,7 +21,7 @@ class SelectableImageView: NSView {
         }
     }
 
-    var selectionBorderWidth: Int = 3 {
+    var selectionBorderWidth: Int = 10 {
         didSet {
             self.needsDisplay = true
         }

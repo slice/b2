@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12187445267F17FC00A78791 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12187444267F17FC00A78791 /* PreferencesWindowController.swift */; };
+		12187469267F2BEE00A78791 /* ResizingTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12187468267F2BEE00A78791 /* ResizingTabViewController.swift */; };
 		122AD8AB267B019A001F3A94 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122AD8AA267B019A001F3A94 /* Preferences.swift */; };
-		122B3C7F267ABECB0035C938 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 122B3C7E267ABECB0035C938 /* Preferences.storyboard */; };
 		124A55E9267AE2F200FFDA1F /* AppearanceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A55E8267AE2F200FFDA1F /* AppearanceSettingsViewController.swift */; };
 		124A55EB267AE4BB00FFDA1F /* BooruSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A55EA267AE4BB00FFDA1F /* BooruSettingsViewController.swift */; };
 		127C44C322C7562E003C7BFA /* OuroborosFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C44C222C7562E003C7BFA /* OuroborosFile.swift */; };
@@ -46,8 +47,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		12187444267F17FC00A78791 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
+		12187468267F2BEE00A78791 /* ResizingTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizingTabViewController.swift; sourceTree = "<group>"; };
 		122AD8AA267B019A001F3A94 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
-		122B3C7E267ABECB0035C938 /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
 		124A55E8267AE2F200FFDA1F /* AppearanceSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsViewController.swift; sourceTree = "<group>"; };
 		124A55EA267AE4BB00FFDA1F /* BooruSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruSettingsViewController.swift; sourceTree = "<group>"; };
 		127C44C222C7562E003C7BFA /* OuroborosFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuroborosFile.swift; sourceTree = "<group>"; };
@@ -254,9 +256,10 @@
 		12FC13EB267DB24D009561B5 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
-				122B3C7E267ABECB0035C938 /* Preferences.storyboard */,
 				124A55E8267AE2F200FFDA1F /* AppearanceSettingsViewController.swift */,
 				124A55EA267AE4BB00FFDA1F /* BooruSettingsViewController.swift */,
+				12187444267F17FC00A78791 /* PreferencesWindowController.swift */,
+				12187468267F2BEE00A78791 /* ResizingTabViewController.swift */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -339,7 +342,6 @@
 				12ED8617266DD91C00F1303F /* Main.storyboard in Resources */,
 				12D5009E22BC7D4100CB1D98 /* .swiftlint.yml in Resources */,
 				12DDEF4B2498B5AE004BF47F /* FailedToLoadImage.png in Resources */,
-				122B3C7F267ABECB0035C938 /* Preferences.storyboard in Resources */,
 				128ED16622AAD1AE00A1DDD6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,6 +385,8 @@
 				12D7B0B322BB6DA000CB740F /* PostsGridCollectionViewItem.swift in Sources */,
 				12E10CF622BE10DE00BD248E /* Data+Hex.swift in Sources */,
 				12F7957822C5C092002DCBEF /* BooruFile.swift in Sources */,
+				12187445267F17FC00A78791 /* PreferencesWindowController.swift in Sources */,
+				12187469267F2BEE00A78791 /* ResizingTabViewController.swift in Sources */,
 				127C44C522C75FB2003C7BFA /* OuroborosTag.swift in Sources */,
 				128ED16222AAD1AC00A1DDD6 /* AppDelegate.swift in Sources */,
 				12E10CF322BE0B3000BD248E /* HydrusCachedTag.swift in Sources */,

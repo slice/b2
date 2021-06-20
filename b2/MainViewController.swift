@@ -47,16 +47,6 @@ class MainViewController: NSSplitViewController {
         }
     }
 
-    func errorSheet(title: String, description: String, closesWindow: Bool = false) {
-        let alert = NSAlert()
-        alert.messageText = title
-        alert.informativeText = description
-        alert.alertStyle = .critical
-        let completionHandler: ((NSApplication.ModalResponse) -> Void)? =
-            closesWindow ? { _ in self.view.window!.close() } : nil
-        alert.beginSheetModal(for: self.view.window!, completionHandler: completionHandler)
-    }
-
     private func resetPostsViewController() {
         self.postsViewController.collectionView.deselectAll(nil)
         self.postsViewController.collectionView.reloadData()

@@ -90,6 +90,17 @@ class MainWindowController: NSWindowController {
         self.window!.addTabbedWindow(controller.window!, ordered: .above)
         controller.window!.makeKeyAndOrderFront(self)
         self.createdTab = controller
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(createdTabWillClose),
+            name: NSWindow.willCloseNotification,
+            object: controller.window
+        )
+    }
+
+    @objc private func createdTabWillClose(notification: Notification) {
+        self.createdTab = nil
     }
 
     private func handleQueryResult(_ result: Result<[BooruFile], Error>) {

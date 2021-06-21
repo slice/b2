@@ -8,6 +8,19 @@
 
 import Cocoa
 
+private extension NSImage {
+    func tinted(with color: NSColor) -> NSImage {
+        guard let tinted = self.copy() as? NSImage else { return self }
+
+        tinted.lockFocus()
+            color.withAlphaComponent(0.5).set()
+            NSRect(origin: .zero, size: self.size).fill()
+        tinted.unlockFocus()
+
+        return tinted
+    }
+}
+
 class SelectableImageView: NSView {
     var contentsGravity: CALayerContentsGravity = .resizeAspect {
         didSet {
@@ -38,11 +51,13 @@ class SelectableImageView: NSView {
     }
 
     override func updateLayer() {
-        self.layer?.contentsGravity = self.contentsGravity
-        self.layer?.contents = self.image
-        self.layer?.borderWidth = CGFloat(self.selectionBorderWidth)
-        let color = self.isSelected ? NSColor.selectedContentBackgroundColor.cgColor : NSColor.clear.cgColor
-        self.layer?.backgroundColor = color
-        self.layer?.borderColor = color
+        let color = self.isSelected ? NSColor.selectedContentBackgroundColor : NSColor.clear
+
+        let layer = self.layer!
+        layer.backgroundColor = color.cgColor
+        layer.borderColor = color.cgColor
+        layer.borderWidth = CGFloat(self.selectionBorderWidth)
+        layer.contentsGravity = self.contentsGravity
+        layer.contents = self.isSelected ? self.image?.tinted(with: color) : image
     }
 }

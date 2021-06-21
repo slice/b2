@@ -12,7 +12,14 @@ class PostsGridCollectionViewItem: NSCollectionViewItem {
 
     override var highlightState: NSCollectionViewItem.HighlightState {
         didSet {
-            if self.isSelected {
+            // Make the item immediately appear selected if we're being
+            // highlighted for selection, instead of waiting for the selection
+            // to be finalized. (This means that we get immediate visual
+            // feedback when clicking.)
+            //
+            // Ignore this if we're already selected, except for when we're
+            // being deselected.
+            if self.isSelected && self.highlightState != .forDeselection {
                 return
             }
 

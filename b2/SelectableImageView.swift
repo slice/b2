@@ -22,6 +22,13 @@ private extension NSImage {
 }
 
 class SelectableImageView: NSView {
+    var selectionColor: NSColor = .selectedContentBackgroundColor {
+        didSet {
+            self.cachedTintedImage = nil
+            self.needsDisplay = true
+        }
+    }
+
     var contentsGravity: CALayerContentsGravity = .resizeAspect {
         didSet {
             self.needsDisplay = true
@@ -30,6 +37,7 @@ class SelectableImageView: NSView {
 
     var image: NSImage? = nil {
         didSet {
+            self.cachedTintedImage = nil
             self.needsDisplay = true
         }
     }
@@ -50,14 +58,33 @@ class SelectableImageView: NSView {
         true
     }
 
+    // TODO: Is it possible to just use `draw` instead of `updateLayer` here?
+    // Then we wouldn't have to tint the image at all; we could just draw a
+    // semitransparent fill over the image.
+
+    private var tintedImage: NSImage? {
+        if self.cachedTintedImage == nil {
+            self.cacheTintedImage()
+        }
+
+        return self.cachedTintedImage
+    }
+
+    private var cachedTintedImage: NSImage?
+
+    private func cacheTintedImage() {
+        guard let image = self.image else { return }
+        self.cachedTintedImage = image.tinted(with: self.selectionColor)
+    }
+
     override func updateLayer() {
-        let color = self.isSelected ? NSColor.selectedContentBackgroundColor : NSColor.clear
+        let color = self.isSelected ? self.selectionColor : NSColor.clear
 
         let layer = self.layer!
         layer.backgroundColor = color.cgColor
         layer.borderColor = color.cgColor
         layer.borderWidth = CGFloat(self.selectionBorderWidth)
         layer.contentsGravity = self.contentsGravity
-        layer.contents = self.isSelected ? self.image?.tinted(with: color) : image
+        layer.contents = self.isSelected ? self.tintedImage : image
     }
 }

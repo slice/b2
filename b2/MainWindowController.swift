@@ -37,10 +37,11 @@ class MainWindowController: NSWindowController {
     /// Loads the Hydrus database.
     private func loadHydrusDatabase() {
         let filePath = UserDefaults.standard.string(forKey: "hydrusDatabaseBasePath") ?? "/Volumes/launchpad/media/hydrus2"
-        let path = Path(url: URL(fileURLWithPath: filePath))!
+        let fileURL = URL(fileURLWithPath: filePath)
+        let path = Path(url: fileURL)!
 
         guard path.isDirectory else {
-            self.presentError(B2Error.hydrusDatabaseNotFound)
+            self.presentError(CocoaError.error(.fileReadNoSuchFile, userInfo: nil, url: fileURL))
             return
         }
 
@@ -49,7 +50,7 @@ class MainWindowController: NSWindowController {
                 self.viewController.booru = try HydrusDatabase(atBasePath: path)
             }
         } catch {
-            self.presentError(B2Error.hydrusDatabaseFailedToLoad(error))
+            self.presentError(CocoaError.error(.fileReadCorruptFile, userInfo: nil, url: fileURL))
         }
     }
 

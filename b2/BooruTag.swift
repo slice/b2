@@ -1,7 +1,7 @@
 import Foundation
 
 /// A tag describes a quality of an image.
-protocol BooruTag: CustomStringConvertible {
+public protocol BooruTag: CustomStringConvertible {
     /// The namespace as text.
     var namespace: String? { get }
 

@@ -41,13 +41,12 @@ class MainViewController: NSSplitViewController {
     /// The `BooruFile`s being viewed in the post grid.
     var files: [BooruFile] = [] {
         didSet {
-            self.postsViewController.files = self.files
-            // Reset the currently selected file and reload the collection view.
-            self.resetPostsViewController()
+            self.postsViewController.listing = self.files.isEmpty ? nil : BooruListing(files: self.files, fromBooru: self.booru)
+            self.reloadPostsGrid()
         }
     }
 
-    private func resetPostsViewController() {
+    private func reloadPostsGrid() {
         self.postsViewController.collectionView.deselectAll(nil)
         self.postsViewController.collectionView.reloadData()
     }

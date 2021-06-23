@@ -8,7 +8,11 @@ enum OuroborosBooruError: Error {
     case noData
 }
 
+/// The booru used by e621 and e926. It's actually just called "e621", but
+/// "Ouroboros" is a cooler name.
 class OuroborosBooru: Booru {
+    let supportedPaginationTypes: [BooruPaginationType] = [.pages, .relativeToLowestPreviousID]
+
     let baseUrl: URL
 
     init(baseUrl: URL) {
@@ -20,10 +24,11 @@ class OuroborosBooru: Booru {
         request.addValue("b2/0.0", forHTTPHeaderField: "User-Agent")
     }
 
-    func search(forTags tags: [String], completionHandler: @escaping (Result<[BooruFile], Error>) -> Void) {
+    func search(forTags tags: [String], offsetBy offset: BooruQueryOffset, completionHandler: @escaping (Result<[BooruFile], Error>) -> Void) {
         var components = URLComponents(url: self.baseUrl, resolvingAgainstBaseURL: true)!
 
         var queries = [
+            // TODO: make this configurable?
             URLQueryItem(name: "limit", value: "100")
         ]
 
@@ -31,6 +36,16 @@ class OuroborosBooru: Booru {
             queries.append(
                 URLQueryItem(name: "tags", value: tags.joined(separator: " "))
             )
+        }
+
+        if case .pageNumber(let pageNumber) = offset {
+            queries.append(URLQueryItem(name: "page", value: String(pageNumber)))
+        } else if case .previousChunk(let posts) = offset {
+            let lowestPost = posts.min { a, b in a.id < b.id }
+            guard let lowestPost = lowestPost else {
+                fatalError("empty array passed as previousChunk")
+            }
+            queries.append(URLQueryItem(name: "page", value: "b\(lowestPost.id)"))
         }
 
         components.queryItems = queries

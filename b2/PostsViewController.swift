@@ -17,10 +17,11 @@ class PostsViewController: NSViewController {
     @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet weak var progressIndicator: NSProgressIndicator!
 
-    /// An array of files to display.
-    var files: [BooruFile] = []
+    /// The listing that this controller is displaying.
+    public var listing: BooruListing?
 
-    var onFileSelected: ((BooruFile) -> Void)?
+    /// A closure to call when a new file is selected.
+    public var onFileSelected: ((BooruFile) -> Void)?
 
     private var defaultsObserver: NSObjectProtocol?
     private var scrollViewMagnifyEndObserver: NSObjectProtocol?
@@ -157,7 +158,7 @@ extension PostsViewController: NSCollectionViewDelegate {
 
 extension PostsViewController: NSCollectionViewDataSource {
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.files.count
+        return self.listing?.count ?? 0
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
@@ -166,7 +167,7 @@ extension PostsViewController: NSCollectionViewDataSource {
             for: indexPath
         ) as! PostsGridCollectionViewItem
 
-        let file = self.files[indexPath.item]
+        let file = self.listing!.posts[indexPath.item]
         item.selectableImageView.contentsGravity = self.imageLayerGravity()
         item.file = file
 

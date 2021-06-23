@@ -13,6 +13,8 @@ class HydrusDatabase {
 
     var tags: HydrusTags!
 
+    let supportedPaginationTypes: [BooruPaginationType] = [.none]
+
     init(atBasePath basePath: Path) throws {
         self.base = basePath
 
@@ -186,7 +188,7 @@ extension HydrusDatabase: Booru {
         }
     }
 
-    func search(forTags tags: [String], completionHandler: @escaping (Result<[BooruFile], Error>) -> Void) {
+    func search(forTags tags: [String], offsetBy offset: BooruQueryOffset, completionHandler: @escaping (Result<[BooruFile], Error>) -> Void) {
         do {
             let files = try self.performSearch(forTags: tags)
             completionHandler(.success(files))

@@ -2,7 +2,7 @@ import Foundation
 import Cocoa
 
 /// A file in a booru.
-protocol BooruFile {
+public protocol BooruFile {
     /// The URL for this file.
     var imageURL: URL { get }
 

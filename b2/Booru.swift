@@ -1,16 +1,55 @@
 import Foundation
 
+public enum BooruPaginationType: Comparable {
+    /// Pagination does not occur at all.
+    case none
+
+    /// Pagination occurs with incrementing page numbers.
+    case pages
+
+    /// Pagination occurs by providing the lowest ID of the previous chunk.
+    case relativeToLowestPreviousID
+}
+
+/// The offset by which posts should be loaded relative to. This is essential
+/// for pagination purposes, e.g. loading "more" posts from an existing
+/// collection of posts.
+public enum BooruQueryOffset {
+    case none
+    case pageNumber(Int)
+    case previousChunk([BooruFile])
+}
+
 /// An imageboard where images are categorized by tags.
-protocol Booru {
-    /// Returns an array of initial files to display by default.
+public protocol Booru: AnyObject {
+    /// The supported pagination types of this booru, which determines how the
+    /// booru handles query offsets.
+    var supportedPaginationTypes: [BooruPaginationType] { get }
+
+    /// Fetches an initial set of posts to display by default.
     func initialFiles(completionHandler: @escaping (Result<[BooruFile], Error>) -> Void)
 
-    /// Returns an array of files that have all of the specified tags.
+    /// Fetches all posts with the specified tags, offset by a pagination query.
+    func search(forTags tags: [String], offsetBy: BooruQueryOffset, completionHandler: @escaping (Result<[BooruFile], Error>) -> Void)
+
+    /// Fetches all posts with the specified tags.
     func search(forTags tags: [String], completionHandler: @escaping (Result<[BooruFile], Error>) -> Void)
 }
 
 extension Booru {
     func initialFiles(completionHandler: @escaping (Result<[BooruFile], Error>) -> Void) {
         self.search(forTags: [], completionHandler: completionHandler)
+    }
+
+    func search(forTags tags: [String], completionHandler: @escaping (Result<[BooruFile], Error>) -> Void) {
+        var queryOffset: BooruQueryOffset = .none
+
+        if self.supportedPaginationTypes.contains(.pages) {
+            queryOffset = .pageNumber(0)
+        } else if self.supportedPaginationTypes.contains(.relativeToLowestPreviousID) {
+            queryOffset = .previousChunk([])
+        }
+
+        self.search(forTags: tags, offsetBy: queryOffset, completionHandler: completionHandler)
     }
 }

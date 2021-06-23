@@ -1,5 +1,5 @@
 /// An enumeration representing the MIME type of a file.
-enum BooruMime: String {
+public enum BooruMime: String {
     case png = "image/png"
     case jpeg = "image/jpeg"
     case webp = "image/webp"

@@ -66,9 +66,9 @@ class MainWindowController: NSWindowController {
         case .hydrusNetwork:
             self.loadHydrusDatabase()
         case .e621:
-            self.viewController.booru = OuroborosBooru(baseUrl: URL(string: "https://e621.net")!)
+            self.viewController.booru = OuroborosBooru(named: "e621", baseUrl: URL(string: "https://e621.net")!)
         case .e926:
-            self.viewController.booru = OuroborosBooru(baseUrl: URL(string: "https://e926.net")!)
+            self.viewController.booru = OuroborosBooru(named: "e926", baseUrl: URL(string: "https://e926.net")!)
         }
     }
 

@@ -20,17 +20,20 @@ class HydrusFile {
     /// The file's metadata.
     private var metadata: HydrusMetadata
 
+    let globalID: String
+
     lazy fileprivate var cachedTags: [HydrusTag] = {
         return try! measure("Initial Hydrus tag fetch for \(self.hashId)") {
             return try self.fetchTags()
         }
     }()
 
-    init(hash: String, hashId: Int, database: HydrusDatabase, metadata: HydrusMetadata) {
+    init(hash: String, hashId: Int, database: HydrusDatabase, metadata: HydrusMetadata, globalID: String) {
         self.hash = hash
         self.hashId = hashId
         self.database = database
         self.metadata = metadata
+        self.globalID = globalID
     }
 
     fileprivate func path(ofType type: PathType = .original) -> Path {
@@ -74,7 +77,7 @@ class HydrusFile {
 
 extension HydrusFile: BooruFile {
     var id: Int {
-        return self.hashId
+        self.hashId
     }
 
     var imageURL: URL {

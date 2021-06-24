@@ -9,8 +9,11 @@ public protocol BooruFile {
     /// The URL for the thumbnail image of this file.
     var thumbnailImageURL: URL { get }
 
-    /// An identifier for this file.
+    /// A booru-specific identifier for this file.
     var id: Int { get }
+
+    /// A globally unique identifier for this file.
+    var globalID: String { get }
 
     /// The `Date` that this file was created at.
     var createdAt: Date { get }

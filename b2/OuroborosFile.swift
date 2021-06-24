@@ -1,6 +1,7 @@
 import Foundation
 
 struct OuroborosFile: BooruFile {
+    var globalID: String = ""
     var imageURL: URL
     var thumbnailImageURL: URL
     var id: Int

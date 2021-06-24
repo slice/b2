@@ -15,6 +15,10 @@ class HydrusDatabase {
 
     let supportedPaginationTypes: [BooruPaginationType] = [.none]
 
+    var id = UUID()
+
+    var name: String = "Hydrus"
+
     init(atBasePath basePath: Path) throws {
         self.base = basePath
 
@@ -117,7 +121,8 @@ class HydrusDatabase {
                     return nil
                 }
 
-                return HydrusFile(hash: hash, hashId: hashID, database: self, metadata: metadata)
+                let globalID = self.formGlobalID(withBooruID: hashID)
+                return HydrusFile(hash: hash, hashId: hashID, database: self, metadata: metadata, globalID: globalID)
             }.compactMap({ $0 }))
         }
     }
@@ -183,7 +188,8 @@ extension HydrusDatabase: Booru {
                     return nil
                 }
 
-                return HydrusFile(hash: hash, hashId: hashID, database: self, metadata: metadata)
+                let globalID = self.formGlobalID(withBooruID: hashID)
+                return HydrusFile(hash: hash, hashId: hashID, database: self, metadata: metadata, globalID: globalID)
             })).compactMap({ $0 })
         }
     }

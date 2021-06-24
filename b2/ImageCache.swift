@@ -12,7 +12,7 @@ import os.log
 class ImageCache: NSObject, NSCacheDelegate {
     static let shared = ImageCache()
 
-    var cache: NSCache<NSNumber, NSImage> = NSCache()
+    var cache: NSCache<NSString, NSImage> = NSCache()
     private let log = Logger(subsystem: loggingSubsystem, category: "image-cache")
 
     override init() {
@@ -25,13 +25,13 @@ class ImageCache: NSObject, NSCacheDelegate {
         self.log.info("\(image) will be evicted")
     }
 
-    func image(forID id: Int) -> NSImage? {
-        return self.cache.object(forKey: NSNumber(value: id))
+    func image(forGlobalID id: String) -> NSImage? {
+        return self.cache.object(forKey: NSString(string: id))
     }
 
-    func insert(_ image: NSImage, forID id: Int) {
+    func insert(_ image: NSImage, forGlobalID id: String) {
         self.log.info("inserting image (id: \(id)) into cache")
-        self.cache.setObject(image, forKey: NSNumber(value: id))
+        self.cache.setObject(image, forKey: NSString(string: id))
     }
 
     deinit {

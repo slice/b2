@@ -22,6 +22,15 @@ public enum BooruQueryOffset {
 
 /// An imageboard where images are categorized by tags.
 public protocol Booru: AnyObject {
+    /// The identifier for the instance of this booru.
+    var id: UUID { get }
+
+    /// The name of this booru.
+    var name: String { get }
+
+    /// The name as it should be presented to the user.
+    var humanName: String { get }
+
     /// The supported pagination types of this booru, which determines how the
     /// booru handles query offsets.
     var supportedPaginationTypes: [BooruPaginationType] { get }
@@ -37,6 +46,10 @@ public protocol Booru: AnyObject {
 }
 
 extension Booru {
+    var humanName: String {
+        self.name
+    }
+
     func initialFiles(completionHandler: @escaping (Result<[BooruFile], Error>) -> Void) {
         self.search(forTags: [], completionHandler: completionHandler)
     }
@@ -51,5 +64,9 @@ extension Booru {
         }
 
         self.search(forTags: tags, offsetBy: queryOffset, completionHandler: completionHandler)
+    }
+
+    func formGlobalID(withBooruID id: Int) -> String {
+        return "\(self.id).\(id)"
     }
 }

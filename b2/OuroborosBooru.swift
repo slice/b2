@@ -11,11 +11,16 @@ enum OuroborosBooruError: Error {
 /// The booru used by e621 and e926. It's actually just called "e621", but
 /// "Ouroboros" is a cooler name.
 class OuroborosBooru: Booru {
+    let id = UUID()
+
+    let name: String
+
     let supportedPaginationTypes: [BooruPaginationType] = [.pages, .relativeToLowestPreviousID]
 
     let baseUrl: URL
 
-    init(baseUrl: URL) {
+    init(named name: String, baseUrl: URL) {
+        self.name = name
         self.baseUrl = baseUrl
     }
 
@@ -67,7 +72,13 @@ class OuroborosBooru: Booru {
 
             do {
                 let response = try JSONDecoder().decode(OuroborosPostsResponse.self, from: data)
-                completionHandler(.success(response.posts))
+                // *sigh*
+                let posts = response.posts.map { post -> OuroborosFile in
+                    var newPost = post
+                    newPost.globalID = self.formGlobalID(withBooruID: post.id)
+                    return newPost
+                }
+                completionHandler(.success(posts))
             } catch {
                 completionHandler(.failure(error))
             }

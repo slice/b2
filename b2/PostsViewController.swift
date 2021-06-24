@@ -156,14 +156,14 @@ extension PostsViewController: NSCollectionViewDelegate {
                 return
             }
 
-            if let image = cache.image(forID: file.id) {
-                self.fetchLog.debug("using cached thumbnail for \(file.id)")
+            if let image = cache.image(forGlobalID: file.globalID) {
+                self.fetchLog.debug("using cached thumbnail for \(file.globalID)")
 
                 DispatchQueue.main.async {
                     postsGridItem.selectableImageView.image = image
                 }
             } else {
-                self.fetchLog.info("fetching thumbnail for \(file.id)")
+                self.fetchLog.info("fetching thumbnail for \(file.globalID)")
 
                 guard let data = try? Data(contentsOf: file.thumbnailImageURL) else {
                     // TODO: Don't die, this code path is not fatal.
@@ -175,7 +175,7 @@ extension PostsViewController: NSCollectionViewDelegate {
                     fatalError("failed to read image from fetched data")
                 }
 
-                cache.insert(image, forID: file.id)
+                cache.insert(image, forGlobalID: file.globalID)
 
                 DispatchQueue.main.async {
                     postsGridItem.selectableImageView.image = image

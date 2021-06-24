@@ -7,6 +7,6 @@
 //
 
 enum PostsGridScalingMode: Int {
-    case resizeToFit
-    case fill
+  case resizeToFit
+  case fill
 }

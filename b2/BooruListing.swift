@@ -29,6 +29,9 @@ public class BooruListing {
         self.chunks.map(\.count).reduce(0, +)
     }
 
+    /// Whether no more posts can be fetched.
+    var isExhausted: Bool = false
+
     /// The booru the files are associated with.
     unowned var booru: Booru
 
@@ -73,9 +76,19 @@ public class BooruListing {
     }
 
     func loadMorePosts(withTags tags: [String], completionHandler: @escaping (Result<[BooruFile], Error>) -> Void) {
+        guard !self.isExhausted else {
+            self.log.info("not loading more posts, listing is exhausted")
+            return
+        }
         self.nextQuery = self.computeNewNextQuery()
         self.booru.search(forTags: tags, offsetBy: self.nextQuery) { result in
             if case .success(let posts) = result {
+                guard !posts.isEmpty else {
+                    self.log.info("no more posts")
+                    self.isExhausted = true
+                    return
+                }
+
                 self.log.info("new chunk has \(posts.count) post(s)")
                 self.chunks.append(posts)
             }

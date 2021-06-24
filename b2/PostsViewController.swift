@@ -20,11 +20,16 @@ class PostsViewController: NSViewController {
     /// The listing that this controller is displaying.
     public var listing: BooruListing?
 
-    /// A closure to call when a new file is selected.
+    /// A closure to be called when a new file is selected.
     public var onFileSelected: ((BooruFile) -> Void)?
+
+    /// A closure to be called when scrolling nearly reaches the end of the
+    /// listing.
+    public var onScrolledNearEnd: (() -> Void)?
 
     private var defaultsObserver: NSObjectProtocol?
     private var scrollViewMagnifyEndObserver: NSObjectProtocol?
+    private var clipViewBoundsChangedObserver: NSObjectProtocol?
 
     private let postsLog = Logger(subsystem: loggingSubsystem, category: "posts")
     private let fetchLog = Logger(subsystem: loggingSubsystem, category: "fetch")
@@ -88,7 +93,27 @@ class PostsViewController: NSViewController {
             self?.updateCollectionViewLayout()
         }
 
+        let clipView = scrollView.contentView
+        clipView.postsBoundsChangedNotifications = true
+        self.clipViewBoundsChangedObserver = NotificationCenter.default.addObserver(forName: NSView.boundsDidChangeNotification, object: clipView, queue: nil) { notification in
+            self.loadMoreIfNearEnd(scrollView: scrollView)
+        }
+
         self.collectionView.register(PostsGridCollectionViewItem.self, forItemWithIdentifier: .postsGridItem)
+    }
+
+    private func loadMoreIfNearEnd(scrollView: NSScrollView) {
+        let clipView = scrollView.contentView
+        let documentView = scrollView.documentView!
+//        guard documentView.frame.height > clipView.bounds.height else {
+//            self.postsLog.info("not triggering a fetch due to a bounds change because the grid content doesn't fit within the frame")
+//            return
+//        }
+        let percentageScrolled = clipView.bounds.origin.y / (documentView.frame.height - clipView.bounds.height)
+        if percentageScrolled >= 0.9 {
+            self.postsLog.info("reached scrolling threshold")
+            self.onScrolledNearEnd?()
+        }
     }
 
     deinit {
@@ -99,6 +124,10 @@ class PostsViewController: NSViewController {
         }
 
         if let observer = self.scrollViewMagnifyEndObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+
+        if let observer = self.clipViewBoundsChangedObserver {
             NotificationCenter.default.removeObserver(observer)
         }
     }

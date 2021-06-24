@@ -295,6 +295,7 @@ CA
                     </window>
                     <connections>
                         <outlet property="booruPickerButton" destination="SQk-Js-Zf5" id="ZTr-2P-A2h"/>
+                        <outlet property="searchField" destination="ojS-10-ux2" id="UQl-eM-Tg6"/>
                         <segue destination="iXt-VD-jVa" kind="relationship" relationship="window.shadowedContentViewController" id="Lgd-WS-MlX"/>
                     </connections>
                 </windowController>

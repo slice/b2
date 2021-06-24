@@ -19,6 +19,7 @@ enum B2Error: Error {
 class MainWindowController: NSWindowController {
     private var createdTab: MainWindowController?
     @IBOutlet weak var booruPickerButton: NSPopUpButton!
+    @IBOutlet weak var searchField: NSSearchField!
 
     /// A `DispatchQueue` used for fetching data.
     private let fetchQueue = DispatchQueue(label: "fetch", attributes: .concurrent)
@@ -57,7 +58,7 @@ class MainWindowController: NSWindowController {
     /// Loads a booru.
     func loadBooru(ofType booru: BooruType) {
         // Reset some state.
-        self.viewController.files = []
+        self.viewController.setInitialListing(fromFiles: [])
 
         switch booru {
         case .none:
@@ -71,13 +72,17 @@ class MainWindowController: NSWindowController {
         }
     }
 
+    var query: [String] {
+        self.searchField.stringValue.split(separator: " ").map { String($0) }
+    }
+
     @IBAction func performSearch(_ sender: NSSearchField) {
         // Clear the views.
-        self.viewController.files = []
+        self.viewController.setInitialListing(fromFiles: [])
         self.viewController.tagsViewController.tags = []
         self.viewController.tagsViewController.tableView.reloadData()
 
-        let tags = sender.stringValue.split(separator: " ").map { String($0) }
+        let tags = self.query
 
         if tags.isEmpty {
             self.loadInitialFiles()
@@ -104,8 +109,8 @@ class MainWindowController: NSWindowController {
         self.createdTab = nil
     }
 
-    private func updateFileCountSubtitle() {
-        let fileCount = self.viewController.files.count
+    func updateFileCountSubtitle() {
+        let fileCount = self.viewController.postsViewController.listing?.count ?? 0
 
         if fileCount == 0 {
             self.window?.subtitle = ""
@@ -129,7 +134,7 @@ class MainWindowController: NSWindowController {
         case .success(let files):
             NSLog("query returned \(files.count) file(s)")
             DispatchQueue.main.async {
-                self.viewController.files = files
+                self.viewController.setInitialListing(fromFiles: files)
             }
         case .failure(let error):
             NSLog("failed to query: \(error)")

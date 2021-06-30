@@ -59,7 +59,7 @@ extension OuroborosFile: Decodable {
     let file = try root.nestedContainer(keyedBy: FileKeys.self, forKey: .file)
     let ext = try file.decode(String.self, forKey: .ext)
     // TODO: Don't force unwrap.
-    self.mime = BooruMime.fromExtension(ext)!
+    self.mime = BooruMime(extension: ext)!
     self.size = try file.decode(Int.self, forKey: .size)
     let md5 = try file.decode(String.self, forKey: .md5)
 
@@ -95,19 +95,6 @@ extension OuroborosFile: Decodable {
     self.tags = tags.flatMap { namespace, tags -> [OuroborosTag] in
       let normalizedNamespace: String? = namespace == "general" ? nil : namespace
       return tags.map { OuroborosTag(namespace: normalizedNamespace, subtag: $0) }
-    }
-  }
-}
-
-extension BooruMime {
-  fileprivate static func fromExtension(_ ext: String) -> Self? {
-    switch ext {
-    case "png": return .png
-    case "jpg": return .jpeg
-    case "gif": return .gif
-    case "webm": return .webm
-    case "swf": return .swf
-    default: return nil
     }
   }
 }

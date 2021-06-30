@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Combine
 import os.log
 
 extension NSUserInterfaceItemIdentifier {
@@ -27,9 +28,9 @@ class PostsViewController: NSViewController {
   /// listing.
   public var onScrolledNearEnd: (() -> Void)?
 
-  private var defaultsObserver: NSObjectProtocol?
-  private var scrollViewMagnifyEndObserver: NSObjectProtocol?
-  private var clipViewBoundsChangedObserver: NSObjectProtocol?
+  private var defaultsObserver: AnyCancellable!
+  private var scrollViewMagnifyEndObserver: AnyCancellable!
+  private var clipViewBoundsChangedObserver: AnyCancellable!
 
   private let postsLog = Logger(subsystem: loggingSubsystem, category: "posts")
   private let fetchLog = Logger(subsystem: loggingSubsystem, category: "fetch")
@@ -79,9 +80,10 @@ class PostsViewController: NSViewController {
     if Preferences.shared.get(.imageGridPinchZoomEnabled) {
       scrollView.allowsMagnification = true
 
-      self.scrollViewMagnifyEndObserver = NotificationCenter.default.addObserver(
-        forName: NSScrollView.didEndLiveMagnifyNotification, object: scrollView, queue: nil
-      ) { [weak self] _ in
+      self.scrollViewMagnifyEndObserver = NotificationCenter.default.publisher(
+        for: NSScrollView.didEndLiveMagnifyNotification, object: scrollView
+      )
+      .sink { [weak self] _ in
         let currentSize: Int = Preferences.shared.get(.imageGridThumbnailSize)
         let newSize = Int(Float(currentSize) * Float(scrollView.magnification))
         self?.postsLog.info(
@@ -94,18 +96,18 @@ class PostsViewController: NSViewController {
 
     self.updateCollectionViewLayout()
 
-    self.defaultsObserver = NotificationCenter.default.addObserver(
-      forName: .preferencesChanged, object: nil, queue: nil
-    ) { [weak self] _ in
-      self?.updateCollectionViewLayout()
-    }
+    self.defaultsObserver = NotificationCenter.default.publisher(for: .preferencesChanged)
+      .sink { [weak self] _ in
+        self?.updateCollectionViewLayout()
+      }
 
     let clipView = scrollView.contentView
     clipView.postsBoundsChangedNotifications = true
-    self.clipViewBoundsChangedObserver = NotificationCenter.default.addObserver(
-      forName: NSView.boundsDidChangeNotification, object: clipView, queue: nil
-    ) { notification in
-      self.loadMoreIfNearEnd(scrollView: scrollView)
+    self.clipViewBoundsChangedObserver = NotificationCenter.default.publisher(
+      for: NSView.boundsDidChangeNotification, object: clipView
+    )
+    .sink { [weak self] _ in
+      self?.loadMoreIfNearEnd(scrollView: scrollView)
     }
 
     self.collectionView.register(
@@ -129,18 +131,6 @@ class PostsViewController: NSViewController {
 
   deinit {
     self.postsLog.notice("PostsViewController deinit")
-
-    if let observer = self.defaultsObserver {
-      NotificationCenter.default.removeObserver(observer)
-    }
-
-    if let observer = self.scrollViewMagnifyEndObserver {
-      NotificationCenter.default.removeObserver(observer)
-    }
-
-    if let observer = self.clipViewBoundsChangedObserver {
-      NotificationCenter.default.removeObserver(observer)
-    }
   }
 }
 

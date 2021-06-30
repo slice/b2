@@ -124,7 +124,6 @@ class PostsViewController: NSViewController {
     let percentageScrolled =
       clipView.bounds.origin.y / (documentView.frame.height - clipView.bounds.height)
     if percentageScrolled >= 0.9 {
-      self.postsLog.info("reached scrolling threshold")
       self.onScrolledNearEnd?()
     }
   }

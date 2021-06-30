@@ -32,7 +32,6 @@ class MainViewController: NSSplitViewController {
 
     self.postsViewController.onScrolledNearEnd = { [weak self] in
       guard let isAlreadyLoading = self?.isLoadingMorePosts, !isAlreadyLoading else {
-        NSLog("is already loading")
         return
       }
       self?.isLoadingMorePosts = true

@@ -1,3 +1,4 @@
+import Carbon.HIToolbox.Events
 import Cocoa
 import Path
 
@@ -81,6 +82,14 @@ class MainWindowController: NSWindowController {
   }
 
   @IBAction func performSearch(_ sender: NSSearchField) {
+    if let currentEvent = NSApp.currentEvent,
+      currentEvent.type == .keyDown && currentEvent.keyCode == kVK_Delete
+    {
+      // For some reason, the action is dispatched if the user empties the
+      // search field while a "searching session" is not active. Ignore this.
+      return
+    }
+
     // Clear the views.
     self.viewController.setInitialListing(fromFiles: [])
     self.viewController.tagsViewController.tags = []

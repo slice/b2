@@ -236,7 +236,7 @@
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </searchFieldCell>
                                         <connections>
-                                            <action selector="performSearch:" target="zmA-tV-kk1" id="WE9-co-9IX"/>
+                                            <action selector="performSearch:" target="zmA-tV-kk1" id="02r-wd-w7Y"/>
                                         </connections>
                                     </searchField>
                                 </searchToolbarItem>

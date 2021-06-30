@@ -19,7 +19,7 @@ class MainViewController: NSSplitViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    self.postsViewController.onFileSelected = { [weak self] file in
+    self.postsViewController.onPostSelected = { [weak self] file in
       let tags = file.tags.sorted(by: { (first, second) in
         let firstN = first.namespace ?? sortBottom
         let secondN = second.namespace ?? sortBottom
@@ -75,7 +75,7 @@ class MainViewController: NSSplitViewController {
     }
   }
 
-  func setInitialListing(fromFiles files: [BooruFile]) {
+  func setInitialListing(fromFiles files: [BooruPost]) {
     self.postsViewController.listing =
       files.isEmpty ? nil : BooruListing(files: files, fromBooru: self.booru)
     self.reloadPostsGrid()

@@ -77,7 +77,7 @@ class HydrusFile {
   }
 }
 
-extension HydrusFile: BooruFile {
+extension HydrusFile: BooruPost {
   var id: Int {
     self.hashId
   }

@@ -31,7 +31,7 @@ class OuroborosBooru: Booru {
 
   func search(
     forTags tags: [String], offsetBy offset: BooruQueryOffset,
-    completionHandler: @escaping (Result<[BooruFile], Error>) -> Void
+    completionHandler: @escaping (Result<[BooruPost], Error>) -> Void
   ) {
     var components = URLComponents(url: self.baseUrl, resolvingAgainstBaseURL: true)!
 

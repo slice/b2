@@ -11,13 +11,13 @@ public enum BooruPaginationType: Comparable {
   case relativeToLowestPreviousID
 }
 
-/// The offset by which posts should be loaded relative to. This is essential
-/// for pagination purposes, e.g. loading "more" posts from an existing
-/// collection of posts.
+/// The offset that posts should be loaded relative to whenever making a fetch.
+/// This is essential for pagination purposes, e.g. loading "more" posts from an
+/// existing collection of posts.
 public enum BooruQueryOffset {
   case none
   case pageNumber(Int)
-  case previousChunk([BooruFile])
+  case previousChunk([BooruPost])
 }
 
 /// An imageboard where images are categorized by tags.
@@ -36,16 +36,16 @@ public protocol Booru: AnyObject {
   var supportedPaginationTypes: [BooruPaginationType] { get }
 
   /// Fetches an initial set of posts to display by default.
-  func initialFiles(completionHandler: @escaping (Result<[BooruFile], Error>) -> Void)
+  func initialFiles(completionHandler: @escaping (Result<[BooruPost], Error>) -> Void)
 
   /// Fetches all posts with the specified tags, offset by a pagination query.
   func search(
     forTags tags: [String], offsetBy: BooruQueryOffset,
-    completionHandler: @escaping (Result<[BooruFile], Error>) -> Void)
+    completionHandler: @escaping (Result<[BooruPost], Error>) -> Void)
 
   /// Fetches all posts with the specified tags.
   func search(
-    forTags tags: [String], completionHandler: @escaping (Result<[BooruFile], Error>) -> Void)
+    forTags tags: [String], completionHandler: @escaping (Result<[BooruPost], Error>) -> Void)
 }
 
 extension Booru {
@@ -53,12 +53,12 @@ extension Booru {
     self.name
   }
 
-  func initialFiles(completionHandler: @escaping (Result<[BooruFile], Error>) -> Void) {
+  func initialFiles(completionHandler: @escaping (Result<[BooruPost], Error>) -> Void) {
     self.search(forTags: [], completionHandler: completionHandler)
   }
 
   func search(
-    forTags tags: [String], completionHandler: @escaping (Result<[BooruFile], Error>) -> Void
+    forTags tags: [String], completionHandler: @escaping (Result<[BooruPost], Error>) -> Void
   ) {
     var queryOffset: BooruQueryOffset = .none
 

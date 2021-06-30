@@ -20,8 +20,8 @@ class PostsViewController: NSViewController {
   /// The listing that this controller is displaying.
   public var listing: BooruListing?
 
-  /// A closure to be called when a new file is selected.
-  public var onFileSelected: ((BooruFile) -> Void)?
+  /// A closure to be called when a new post is selected.
+  public var onPostSelected: ((BooruPost) -> Void)?
 
   /// A closure to be called when scrolling nearly reaches the end of the
   /// listing.
@@ -152,7 +152,7 @@ extension PostsViewController: NSCollectionViewDelegate {
     let item = collectionView.item(at: lastIndexPath) as? PostsGridCollectionViewItem
 
     if let file = item?.file {
-      self.onFileSelected?(file)
+      self.onPostSelected?(file)
     }
   }
 

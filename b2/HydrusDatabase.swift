@@ -140,7 +140,7 @@ class HydrusDatabase {
 }
 
 extension HydrusDatabase: Booru {
-  func initialFiles(completionHandler: @escaping (Result<[BooruFile], Error>) -> Void) {
+  func initialFiles(completionHandler: @escaping (Result<[BooruPost], Error>) -> Void) {
     do {
       let files = try self.fetchAllFiles()
       completionHandler(.success(files))
@@ -149,7 +149,7 @@ extension HydrusDatabase: Booru {
     }
   }
 
-  private func performSearch(forTags tags: [String]) throws -> [BooruFile] {
+  private func performSearch(forTags tags: [String]) throws -> [BooruPost] {
     // Resolve the given tags to their IDs with the cache.
     let cachedTags: [Int?] = try self.queue.read { db in
       return try tags.map({ tag in
@@ -211,7 +211,7 @@ extension HydrusDatabase: Booru {
 
   func search(
     forTags tags: [String], offsetBy offset: BooruQueryOffset,
-    completionHandler: @escaping (Result<[BooruFile], Error>) -> Void
+    completionHandler: @escaping (Result<[BooruPost], Error>) -> Void
   ) {
     do {
       let files = try self.performSearch(forTags: tags)

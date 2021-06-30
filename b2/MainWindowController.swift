@@ -129,7 +129,7 @@ class MainWindowController: NSWindowController {
     self.window?.subtitle = "\(formatted) post\(s)"
   }
 
-  private func handleQueryResult(_ result: Result<[BooruFile], Error>) {
+  private func handleQueryResult(_ result: Result<[BooruPost], Error>) {
     DispatchQueue.main.async {
       self.viewController.postsViewController.progressIndicator.stopAnimation(nil)
     }

@@ -38,7 +38,7 @@ class PostsGridCollectionViewItem: NSCollectionViewItem {
   /// The file that this item is associated with.
   ///
   /// The thumbnail of the file isn't loaded until you call `loadImage`.
-  var file: BooruFile! {
+  var file: BooruPost! {
     didSet {
       self.view.toolTip = self.toolTip()
     }

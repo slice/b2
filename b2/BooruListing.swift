@@ -17,10 +17,10 @@ import os.log
 /// Chunk arrays should never be empty.
 public class BooruListing {
   /// The chunks of posts in this listing.
-  var chunks: [[BooruFile]]
+  var chunks: [[BooruPost]]
 
   /// All posts in this listing.
-  var posts: [BooruFile] {
+  var posts: [BooruPost] {
     Array(self.chunks.joined())
   }
 
@@ -42,7 +42,7 @@ public class BooruListing {
   /// Creates a listing from an array of chunks and the booru the posts
   /// came from. Any chunk arrays and the array of chunks itself may not be
   /// empty.
-  init(chunks: [[BooruFile]], fromBooru originatingBooru: Booru) {
+  init(chunks: [[BooruPost]], fromBooru originatingBooru: Booru) {
     guard !chunks.isEmpty else {
       fatalError("no chunks were given")
     }
@@ -67,7 +67,7 @@ public class BooruListing {
 
   /// Creates a listing from a single chunk of posts and the booru the posts
   /// came from. The chunk must not be empty.
-  convenience init(files firstChunk: [BooruFile], fromBooru originatingBooru: Booru) {
+  convenience init(files firstChunk: [BooruPost], fromBooru originatingBooru: Booru) {
     guard !firstChunk.isEmpty else {
       fatalError("firstChunk is empty")
     }
@@ -76,7 +76,7 @@ public class BooruListing {
   }
 
   func loadMorePosts(
-    withTags tags: [String], completionHandler: @escaping (Result<[BooruFile], Error>) -> Void
+    withTags tags: [String], completionHandler: @escaping (Result<[BooruPost], Error>) -> Void
   ) {
     guard !self.isExhausted else {
       self.log.info("not loading more posts, listing is exhausted")

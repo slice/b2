@@ -1,6 +1,6 @@
 import Foundation
 
-struct OuroborosFile: BooruFile {
+struct OuroborosFile: BooruPost {
   var globalID: String = ""
   var imageURL: URL
   var thumbnailImageURL: URL

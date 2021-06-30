@@ -43,7 +43,7 @@
 		12F38F9D23401C320011F4FE /* Path in Frameworks */ = {isa = PBXBuildFile; productRef = 12F38F9C23401C320011F4FE /* Path */; };
 		12F38FA023401CF00011F4FE /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 12F38F9F23401CF00011F4FE /* GRDB */; };
 		12F7957622C5BB99002DCBEF /* Booru.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957522C5BB99002DCBEF /* Booru.swift */; };
-		12F7957822C5C092002DCBEF /* BooruFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957722C5C092002DCBEF /* BooruFile.swift */; };
+		12F7957822C5C092002DCBEF /* BooruPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957722C5C092002DCBEF /* BooruPost.swift */; };
 		12F7957A22C5C3F4002DCBEF /* BooruTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957922C5C3F4002DCBEF /* BooruTag.swift */; };
 		12FC13DD267DAB71009561B5 /* SelectableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FC13DC267DAB71009561B5 /* SelectableImageView.swift */; };
 /* End PBXBuildFile section */
@@ -87,7 +87,7 @@
 		12ED8613266DD67800F1303F /* TagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
 		12ED8615266DD68A00F1303F /* PostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewController.swift; sourceTree = "<group>"; };
 		12F7957522C5BB99002DCBEF /* Booru.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booru.swift; sourceTree = "<group>"; };
-		12F7957722C5C092002DCBEF /* BooruFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruFile.swift; sourceTree = "<group>"; };
+		12F7957722C5C092002DCBEF /* BooruPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruPost.swift; sourceTree = "<group>"; };
 		12F7957922C5C3F4002DCBEF /* BooruTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruTag.swift; sourceTree = "<group>"; };
 		12FC13DC267DAB71009561B5 /* SelectableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -212,7 +212,7 @@
 				12A9BB9E22C74E0E0090F503 /* Ouroboros */,
 				12A9BB9D22C60B0E0090F503 /* None */,
 				12F7957522C5BB99002DCBEF /* Booru.swift */,
-				12F7957722C5C092002DCBEF /* BooruFile.swift */,
+				12F7957722C5C092002DCBEF /* BooruPost.swift */,
 				12F7957922C5C3F4002DCBEF /* BooruTag.swift */,
 				12A9BB9922C5F1C30090F503 /* BooruMime.swift */,
 				125922932681A928003E4A2D /* BooruListing.swift */,
@@ -392,7 +392,7 @@
 				12D5009B22BC7A4E00CB1D98 /* HydrusFile.swift in Sources */,
 				12D7B0B322BB6DA000CB740F /* PostsGridCollectionViewItem.swift in Sources */,
 				12E10CF622BE10DE00BD248E /* Data+Hex.swift in Sources */,
-				12F7957822C5C092002DCBEF /* BooruFile.swift in Sources */,
+				12F7957822C5C092002DCBEF /* BooruPost.swift in Sources */,
 				12187445267F17FC00A78791 /* PreferencesWindowController.swift in Sources */,
 				12187469267F2BEE00A78791 /* ResizingTabViewController.swift in Sources */,
 				127C44C522C75FB2003C7BFA /* OuroborosTag.swift in Sources */,

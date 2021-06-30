@@ -93,8 +93,8 @@ class MainWindowController: NSWindowController {
 
       if currentEvent.type == .leftMouseUp {
         // A search was triggered from pressing the clear button! But the
-        // action is dispatched twice for some reason. Allow the next one to
-        // pass through.
+        // action is dispatched twice for some reason. Ignore this dispatch and
+        // allow the next one to pass through.
         if !self.allowNextMouseTriggeredSearch {
           self.allowNextMouseTriggeredSearch = true
           return

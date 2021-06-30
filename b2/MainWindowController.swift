@@ -81,13 +81,27 @@ class MainWindowController: NSWindowController {
     self.searchField.stringValue.split(separator: " ").map { String($0) }
   }
 
+  private var allowNextMouseTriggeredSearch = false
+
   @IBAction func performSearch(_ sender: NSSearchField) {
-    if let currentEvent = NSApp.currentEvent,
-      currentEvent.type == .keyDown && currentEvent.keyCode == kVK_Delete
-    {
-      // For some reason, the action is dispatched if the user empties the
-      // search field while a "searching session" is not active. Ignore this.
-      return
+    if let currentEvent = NSApp.currentEvent {
+      if currentEvent.type == .keyDown && currentEvent.keyCode == kVK_Delete {
+        // For some reason, the action is dispatched if the user empties the
+        // search field while a "searching session" is not active. Ignore this.
+        return
+      }
+
+      if currentEvent.type == .leftMouseUp {
+        // A search was triggered from pressing the clear button! But the
+        // action is dispatched twice for some reason. Allow the next one to
+        // pass through.
+        if !self.allowNextMouseTriggeredSearch {
+          self.allowNextMouseTriggeredSearch = true
+          return
+        }
+
+        self.allowNextMouseTriggeredSearch = false
+      }
     }
 
     // Clear the views.

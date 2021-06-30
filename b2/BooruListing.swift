@@ -6,6 +6,7 @@
 //  Copyright © 2021 slice. All rights reserved.
 //
 
+import Combine
 import os.log
 
 /// An ordered collection of posts from a booru. The posts are separated into
@@ -75,27 +76,30 @@ public class BooruListing {
     self.init(chunks: [firstChunk], fromBooru: originatingBooru)
   }
 
-  func loadMorePosts(
-    withTags tags: [String], completionHandler: @escaping (Result<[BooruPost], Error>) -> Void
-  ) {
-    guard !self.isExhausted else {
-      self.log.info("not loading more posts, listing is exhausted")
-      return
-    }
-    self.nextQuery = self.computeNewNextQuery()
-    self.booru.search(forTags: tags, offsetBy: self.nextQuery) { result in
-      if case .success(let posts) = result {
-        guard !posts.isEmpty else {
-          self.log.info("no more posts")
-          self.isExhausted = true
-          return
-        }
-
-        self.log.info("new chunk has \(posts.count) post(s)")
-        self.chunks.append(posts)
+  func loadMorePosts(withTags tags: [String]) -> Future<[BooruPost], Error> {
+    Future { promise in
+      guard !self.isExhausted else {
+        self.log.info("not loading more posts, listing is exhausted")
+        promise(.success([]))
+        return
       }
 
-      completionHandler(result)
+      self.nextQuery = self.computeNewNextQuery()
+      self.booru.search(forTags: tags, offsetBy: self.nextQuery) { result in
+        if case .success(let posts) = result {
+          guard !posts.isEmpty else {
+            self.log.info("no more posts")
+            self.isExhausted = true
+            promise(.success([]))
+            return
+          }
+
+          self.log.info("new chunk has \(posts.count) post(s)")
+          self.chunks.append(posts)
+        }
+
+        promise(result)
+      }
     }
   }
 

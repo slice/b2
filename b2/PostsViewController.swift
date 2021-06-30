@@ -26,7 +26,7 @@ class PostsViewController: NSViewController {
 
   /// A closure to be called when scrolling nearly reaches the end of the
   /// listing.
-  public var onScrolledNearEnd: (() -> Void)?
+  public let scrolledNearEnd = PassthroughSubject<Void, Never>()
 
   private var defaultsObserver: AnyCancellable!
   private var scrollViewMagnifyEndObserver: AnyCancellable!
@@ -124,7 +124,7 @@ class PostsViewController: NSViewController {
     let percentageScrolled =
       clipView.bounds.origin.y / (documentView.frame.height - clipView.bounds.height)
     if percentageScrolled >= 0.9 {
-      self.onScrolledNearEnd?()
+      self.scrolledNearEnd.send()
     }
   }
 

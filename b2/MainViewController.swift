@@ -1,4 +1,5 @@
 import Cocoa
+import Combine
 import Path
 
 let sortBottom = String(repeating: "z", count: 10)
@@ -14,7 +15,12 @@ class MainViewController: NSSplitViewController {
     return self.postsSplitItem.viewController as? PostsViewController
   }
 
+  private var infiniteScrollSubscriber: AnyCancellable!
   private var isLoadingMorePosts: Bool = false
+
+  private var windowController: MainWindowController! {
+    self.view.window?.windowController as? MainWindowController
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -30,38 +36,21 @@ class MainViewController: NSSplitViewController {
       self?.tagsViewController.tableView.reloadData()
     }
 
-    self.postsViewController.onScrolledNearEnd = { [weak self] in
-      guard let isAlreadyLoading = self?.isLoadingMorePosts, !isAlreadyLoading else {
-        return
-      }
-      self?.isLoadingMorePosts = true
-      guard let listing = self?.postsViewController.listing else { return }
-      // TODO: can we like,, not,,, please,
-      guard let windowController = self?.view.window?.windowController as? MainWindowController
-      else { return }
-      listing.loadMorePosts(withTags: windowController.query) { [weak self] result in
-        switch result {
-        case .failure(let error):
-          NSLog("scrolling-triggered fetch failed to load more posts: \(error)")
-          self?.presentError(error)
-        case .success(let posts):
-          NSLog("scrolling-triggered fetch resulted in \(posts.count) posts")
-
-          DispatchQueue.main.async {
-            self?.postsViewController.collectionView.reloadData()
-            windowController.updateFileCountSubtitle()
+    self.infiniteScrollSubscriber = self.postsViewController.scrolledNearEnd
+      .throttle(for: .seconds(3), scheduler: DispatchQueue.main, latest: true)
+      .flatMap { self.postsViewController.listing.publisher }
+      .flatMap {
+        $0.loadMorePosts(withTags: self.windowController.query)
+          .catch { error -> Empty<[BooruPost], Never> in
+            self.presentError(error)
+            return Empty()
           }
-        }
       }
-
-      // Delay further calls of this closure so we don't repeatedly fetch
-      // more posts.
-      let deadline = DispatchTime.now().advanced(by: .seconds(2))
-      DispatchQueue.main.asyncAfter(deadline: deadline) {
-        NSLog("isNotLoadingPostsAnymore")
-        self?.isLoadingMorePosts = false
+      .receive(on: DispatchQueue.main)
+      .sink { _ in
+        self.postsViewController.collectionView.reloadData()
+        self.windowController.updateFileCountSubtitle()
       }
-    }
   }
 
   /// The `Booru` to load and search from.

@@ -11,11 +11,12 @@
 		12187469267F2BEE00A78791 /* ResizingTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12187468267F2BEE00A78791 /* ResizingTabViewController.swift */; };
 		1218746B267F323C00A78791 /* PostsGridScalingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1218746A267F323C00A78791 /* PostsGridScalingMode.swift */; };
 		1218746D267F398500A78791 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1218746C267F398500A78791 /* ImageCache.swift */; };
+		121BE927268BF29300BA347B /* OuroborosPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121BE926268BF29300BA347B /* OuroborosPost.swift */; };
 		122AD8AB267B019A001F3A94 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122AD8AA267B019A001F3A94 /* Preferences.swift */; };
 		124A55E9267AE2F200FFDA1F /* AppearanceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A55E8267AE2F200FFDA1F /* AppearanceSettingsViewController.swift */; };
 		124A55EB267AE4BB00FFDA1F /* BooruSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A55EA267AE4BB00FFDA1F /* BooruSettingsViewController.swift */; };
 		125922942681A929003E4A2D /* BooruListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125922932681A928003E4A2D /* BooruListing.swift */; };
-		127C44C322C7562E003C7BFA /* OuroborosFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C44C222C7562E003C7BFA /* OuroborosFile.swift */; };
+		127C44C322C7562E003C7BFA /* OuroborosPostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C44C222C7562E003C7BFA /* OuroborosPostResponse.swift */; };
 		127C44C522C75FB2003C7BFA /* OuroborosTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C44C422C75FB2003C7BFA /* OuroborosTag.swift */; };
 		128ED16222AAD1AC00A1DDD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128ED16122AAD1AC00A1DDD6 /* AppDelegate.swift */; };
 		128ED16422AAD1AC00A1DDD6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128ED16322AAD1AC00A1DDD6 /* MainViewController.swift */; };
@@ -53,11 +54,12 @@
 		12187468267F2BEE00A78791 /* ResizingTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizingTabViewController.swift; sourceTree = "<group>"; };
 		1218746A267F323C00A78791 /* PostsGridScalingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsGridScalingMode.swift; sourceTree = "<group>"; };
 		1218746C267F398500A78791 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		121BE926268BF29300BA347B /* OuroborosPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuroborosPost.swift; sourceTree = "<group>"; };
 		122AD8AA267B019A001F3A94 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		124A55E8267AE2F200FFDA1F /* AppearanceSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsViewController.swift; sourceTree = "<group>"; };
 		124A55EA267AE4BB00FFDA1F /* BooruSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruSettingsViewController.swift; sourceTree = "<group>"; };
 		125922932681A928003E4A2D /* BooruListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruListing.swift; sourceTree = "<group>"; };
-		127C44C222C7562E003C7BFA /* OuroborosFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuroborosFile.swift; sourceTree = "<group>"; };
+		127C44C222C7562E003C7BFA /* OuroborosPostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuroborosPostResponse.swift; sourceTree = "<group>"; };
 		127C44C422C75FB2003C7BFA /* OuroborosTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuroborosTag.swift; sourceTree = "<group>"; };
 		128A5835266DA66600DADF61 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		128ED15E22AAD1AC00A1DDD6 /* b2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = b2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -158,7 +160,8 @@
 			isa = PBXGroup;
 			children = (
 				12A9BB9F22C74E180090F503 /* OuroborosBooru.swift */,
-				127C44C222C7562E003C7BFA /* OuroborosFile.swift */,
+				127C44C222C7562E003C7BFA /* OuroborosPostResponse.swift */,
+				121BE926268BF29300BA347B /* OuroborosPost.swift */,
 				127C44C422C75FB2003C7BFA /* OuroborosTag.swift */,
 			);
 			name = Ouroboros;
@@ -386,7 +389,7 @@
 				12ED8614266DD67800F1303F /* TagsViewController.swift in Sources */,
 				12F7957622C5BB99002DCBEF /* Booru.swift in Sources */,
 				12D500A022BC907C00CB1D98 /* HydrusMime.swift in Sources */,
-				127C44C322C7562E003C7BFA /* OuroborosFile.swift in Sources */,
+				127C44C322C7562E003C7BFA /* OuroborosPostResponse.swift in Sources */,
 				128ED16422AAD1AC00A1DDD6 /* MainViewController.swift in Sources */,
 				12A9BBA022C74E190090F503 /* OuroborosBooru.swift in Sources */,
 				12D5009B22BC7A4E00CB1D98 /* HydrusFile.swift in Sources */,
@@ -398,6 +401,7 @@
 				127C44C522C75FB2003C7BFA /* OuroborosTag.swift in Sources */,
 				128ED16222AAD1AC00A1DDD6 /* AppDelegate.swift in Sources */,
 				12E10CF322BE0B3000BD248E /* HydrusCachedTag.swift in Sources */,
+				121BE927268BF29300BA347B /* OuroborosPost.swift in Sources */,
 				12C43B7422BD6076003AF7C1 /* HydrusTag.swift in Sources */,
 				12F7957A22C5C3F4002DCBEF /* BooruTag.swift in Sources */,
 				12E10CF822BE25B700BD248E /* HydrusSubtag.swift in Sources */,

@@ -1,7 +1,7 @@
 import Foundation
 
 private struct OuroborosPostsResponse: Decodable {
-  var posts: [OuroborosFile]
+  var posts: [OuroborosPostResponse]
 }
 
 enum OuroborosBooruError: Error {
@@ -75,11 +75,8 @@ class OuroborosBooru: Booru {
 
       do {
         let response = try JSONDecoder().decode(OuroborosPostsResponse.self, from: data)
-        // *sigh*
-        let posts = response.posts.map { post -> OuroborosFile in
-          var newPost = post
-          newPost.globalID = self.formGlobalID(withBooruID: post.id)
-          return newPost
+        let posts = response.posts.map { response in
+          OuroborosPost(response: response, originatingBooru: self)
         }
         completionHandler(.success(posts))
       } catch {

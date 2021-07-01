@@ -20,7 +20,7 @@ class HydrusDatabase {
   var name: String = "Hydrus"
 
   /// The service ID of the "local tags" service.
-  private var localTagsServiceID: Int!
+  var localTagsServiceID: Int!
 
   init(atBasePath basePath: Path) throws {
     self.base = basePath

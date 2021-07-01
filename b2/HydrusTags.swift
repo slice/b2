@@ -57,11 +57,13 @@ class HydrusTags {
 
   /// Fetches a file's tags from the databases.
   func tags(forFile file: HydrusFile, database: Database) throws -> [HydrusTag] {
-    // TODO: The number on the table name is not always 5. Figure out where
-    // it comes from.
+    guard let localTagsServiceID = self.database.localTagsServiceID else {
+      fatalError("can't fetch the tags for a file if we don't have the local tags service id")
+    }
+    let mappingsTableName = "mappings.current_mappings_\(localTagsServiceID)"
     let cursor = try Row.fetchCursor(
       database,
-      sql: "SELECT tag_id FROM mappings.current_mappings_5 WHERE hash_id = ?",
+      sql: "SELECT tag_id FROM \(mappingsTableName) WHERE hash_id = ?",
       arguments: [file.hashId]
     )
 

@@ -10,6 +10,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
     NSLog("\u{1f986} quack quack")
+    B2Error.setupUserInfoValueProvider()
   }
 
   func applicationWillTerminate(_ aNotification: Notification) {

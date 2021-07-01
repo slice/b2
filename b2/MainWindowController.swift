@@ -1,20 +1,13 @@
 import Carbon.HIToolbox.Events
 import Cocoa
 import Path
+import os.log
 
 enum BooruType: Int {
   case none = -1
   case hydrusNetwork
   case e621
   case e926
-}
-
-enum B2Error: Error {
-  case hydrusDatabaseNotFound
-  case hydrusDatabaseFailedToLoad(Error)
-
-  case searchFailure(Error)
-  case initialLoadFailure(Error)
 }
 
 class MainWindowController: NSWindowController {
@@ -29,34 +22,40 @@ class MainWindowController: NSWindowController {
     return self.contentViewController as! MainViewController
   }
 
+  private let log = Logger(subsystem: loggingSubsystem, category: "window")
+
   @IBAction func booruChanged(_ sender: Any) {
     let selectedBooruTag = self.booruPickerButton.selectedItem!.tag
     let type = BooruType(rawValue: selectedBooruTag)!
-    self.loadBooru(ofType: type)
-    self.loadInitialFiles()
+    do {
+      try self.loadBooru(ofType: type)
+      self.loadInitialFiles()
+    } catch {
+      self.presentError(error)
+    }
   }
 
   /// Loads the Hydrus database.
-  private func loadHydrusDatabase() {
+  private func loadHydrusDatabase() throws {
     guard
       let hydrusHost =
         URL(
           string: UserDefaults.standard.string(forKey: "hydrusClientAPIBaseURL")
             ?? "http://localhost:45869")
     else {
-      fatalError("invalid hydrus client API base URL")
+      throw B2Error.error(code: .invalidBooruEndpoint)
     }
 
     guard let hydrusAccessKey = UserDefaults.standard.string(forKey: "hydrusClientAPIAccessKey")
     else {
-      fatalError("no hydrus client API access key")
+      throw B2Error.error(code: .invalidBooruCredentials)
     }
 
     self.viewController.booru = ConstellationBooru(baseURL: hydrusHost, accessKey: hydrusAccessKey)
   }
 
   /// Loads a booru.
-  func loadBooru(ofType booru: BooruType) {
+  func loadBooru(ofType booru: BooruType) throws {
     // Reset some state.
     self.viewController.setInitialListing(fromFiles: [])
 
@@ -64,7 +63,7 @@ class MainWindowController: NSWindowController {
     case .none:
       self.viewController.booru = NoneBooru()
     case .hydrusNetwork:
-      self.loadHydrusDatabase()
+      try self.loadHydrusDatabase()
     case .e621:
       self.viewController.booru = OuroborosBooru(
         named: "e621", baseUrl: URL(string: "https://e621.net")!)
@@ -156,14 +155,16 @@ class MainWindowController: NSWindowController {
 
     switch result {
     case .success(let files):
-      NSLog("query returned \(files.count) file(s)")
+      self.log.info("query returned \(files.count) file(s)")
       DispatchQueue.main.async {
         self.viewController.setInitialListing(fromFiles: files)
       }
     case .failure(let error):
-      NSLog("failed to query: \(error)")
+      let error = error as NSError
+      self.log.error("failed to query: \(error, privacy: .public)")
       DispatchQueue.main.async {
-        self.presentError(B2Error.searchFailure(error))
+        self.presentError(
+          B2Error.error(code: .queryFailed, userInfo: [NSUnderlyingErrorKey: error]))
       }
     }
 

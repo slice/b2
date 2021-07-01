@@ -174,6 +174,14 @@ extension HydrusDatabase: Booru {
   }
 
   private func performSearch(forTags tags: [String]) throws -> [BooruPost] {
+    // Replace underscores with spaces so that we can search for tags with
+    // spaces. This means that we can't search for tags with underscores
+    // anymore, but it's fairly standard to use spaces in lieu of underscores
+    // within Hydrus, so this is probably OK (for now).
+    //
+    // We should probably use token fields again, sometime later.
+    let tags = tags.map { $0.replacingOccurrences(of: "_", with: " ") }
+
     // Resolve the given tags to their IDs with the cache.
     let cachedTags: [Int?] = try self.queue.read { db in
       return try tags.map({ tag in

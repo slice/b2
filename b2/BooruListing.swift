@@ -78,6 +78,11 @@ public class BooruListing {
 
   func loadMorePosts(withTags tags: [String]) -> Future<[BooruPost], Error> {
     Future { promise in
+      guard self.booru.supportsPagination else {
+        self.log.info("refusing to load more posts; no supported pagination types")
+        return
+      }
+
       guard !self.isExhausted else {
         self.log.info("not loading more posts, listing is exhausted")
         promise(.success([]))

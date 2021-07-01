@@ -74,4 +74,8 @@ extension Booru {
   func formGlobalID(withBooruID id: Int) -> String {
     return "\(self.id).\(id)"
   }
+
+  public var supportsPagination: Bool {
+    self.supportedPaginationTypes != [.none] && !self.supportedPaginationTypes.isEmpty
+  }
 }

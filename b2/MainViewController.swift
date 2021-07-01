@@ -38,6 +38,14 @@ class MainViewController: NSSplitViewController {
 
     self.infiniteScrollSubscriber = self.postsViewController.scrolledNearEnd
       .throttle(for: .seconds(3), scheduler: DispatchQueue.main, latest: true)
+      .flatMap { _ -> AnyPublisher<Void, Never> in
+        guard self.booru.supportsPagination else {
+          NSLog("halting infinite scroll subscriber; pagination is not supported for this booru")
+          return Empty().eraseToAnyPublisher()
+        }
+
+        return Just(()).eraseToAnyPublisher()
+      }
       .flatMap { self.postsViewController.listing.publisher }
       .flatMap {
         $0.loadMorePosts(withTags: self.windowController.query)

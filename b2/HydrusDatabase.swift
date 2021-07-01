@@ -19,6 +19,9 @@ class HydrusDatabase {
 
   var name: String = "Hydrus"
 
+  /// The service ID of the "local tags" service.
+  private var localTagsServiceID: Int!
+
   init(atBasePath basePath: Path) throws {
     self.base = basePath
 
@@ -42,6 +45,27 @@ class HydrusDatabase {
 
     self.tags = HydrusTags(database: self)
     try self.tags.cacheNamespaces()
+
+    try self.queue.read { db in
+      guard let localTagsServiceID = try self.discoverLocalTagsServiceID(database: db) else {
+        fatalError("failed to discover local tags service ID")
+      }
+
+      self.localTagsServiceID = localTagsServiceID
+    }
+  }
+
+  /// Discovers the service ID for the "local tags" service.
+  ///
+  /// This is needed because said service ID is a part of the table name of the
+  /// main mappings table.
+  private func discoverLocalTagsServiceID(database: Database) throws -> Int? {
+    let row = try Row.fetchOne(
+      database,
+      sql: "SELECT service_id FROM services WHERE service_key LIKE '%local tags%'"
+    )
+
+    return row?["service_id"]
   }
 
   /// Fetches a `MediaMetadata` from the main database.
@@ -166,10 +190,14 @@ extension HydrusDatabase: Booru {
     let tagIDs = cachedTags.compactMap({ $0 })
 
     // TODO: Figure out how this monster of an SQL query works and document it.
+    guard let localTagsServiceID = self.localTagsServiceID else {
+      fatalError("can't make a search when we haven't discovered the local tags service id")
+    }
+    let mappingsTableName = "mappings.current_mappings_\(localTagsServiceID)"
     let request = SQLRequest<Any>(
       literal: """
             SELECT DISTINCT hash_id
-            FROM mappings.current_mappings_5
+            FROM \(sql: mappingsTableName)
             WHERE tag_id IN \(tagIDs)
             GROUP BY hash_id
             HAVING COUNT(DISTINCT tag_id) = \(tagIDs.count)

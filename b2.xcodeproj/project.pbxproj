@@ -16,6 +16,10 @@
 		124A55E9267AE2F200FFDA1F /* AppearanceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A55E8267AE2F200FFDA1F /* AppearanceSettingsViewController.swift */; };
 		124A55EB267AE4BB00FFDA1F /* BooruSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A55EA267AE4BB00FFDA1F /* BooruSettingsViewController.swift */; };
 		125922942681A929003E4A2D /* BooruListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125922932681A928003E4A2D /* BooruListing.swift */; };
+		126975C4268D909800E003AC /* ConstellationBooru.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126975C3268D909800E003AC /* ConstellationBooru.swift */; };
+		126975C6268D949C00E003AC /* ConstellationPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126975C5268D949C00E003AC /* ConstellationPost.swift */; };
+		126975C8268D971400E003AC /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126975C7268D971400E003AC /* RequestBuilder.swift */; };
+		126975CA268D9B7600E003AC /* URL+Slash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126975C9268D9B7600E003AC /* URL+Slash.swift */; };
 		127C44C322C7562E003C7BFA /* OuroborosPostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C44C222C7562E003C7BFA /* OuroborosPostResponse.swift */; };
 		127C44C522C75FB2003C7BFA /* OuroborosTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127C44C422C75FB2003C7BFA /* OuroborosTag.swift */; };
 		128ED16222AAD1AC00A1DDD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128ED16122AAD1AC00A1DDD6 /* AppDelegate.swift */; };
@@ -59,6 +63,10 @@
 		124A55E8267AE2F200FFDA1F /* AppearanceSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsViewController.swift; sourceTree = "<group>"; };
 		124A55EA267AE4BB00FFDA1F /* BooruSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruSettingsViewController.swift; sourceTree = "<group>"; };
 		125922932681A928003E4A2D /* BooruListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruListing.swift; sourceTree = "<group>"; };
+		126975C3268D909800E003AC /* ConstellationBooru.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstellationBooru.swift; sourceTree = "<group>"; };
+		126975C5268D949C00E003AC /* ConstellationPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstellationPost.swift; sourceTree = "<group>"; };
+		126975C7268D971400E003AC /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
+		126975C9268D9B7600E003AC /* URL+Slash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Slash.swift"; sourceTree = "<group>"; };
 		127C44C222C7562E003C7BFA /* OuroborosPostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuroborosPostResponse.swift; sourceTree = "<group>"; };
 		127C44C422C75FB2003C7BFA /* OuroborosTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuroborosTag.swift; sourceTree = "<group>"; };
 		128A5835266DA66600DADF61 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -116,8 +124,19 @@
 				12C43B6E22BCA5DD003AF7C1 /* Utilities.swift */,
 				12E10CF522BE10DE00BD248E /* Data+Hex.swift */,
 				1218746C267F398500A78791 /* ImageCache.swift */,
+				126975C7268D971400E003AC /* RequestBuilder.swift */,
+				126975C9268D9B7600E003AC /* URL+Slash.swift */,
 			);
 			name = Support;
+			sourceTree = "<group>";
+		};
+		126975C2268D908A00E003AC /* Hydrus Client API */ = {
+			isa = PBXGroup;
+			children = (
+				126975C3268D909800E003AC /* ConstellationBooru.swift */,
+				126975C5268D949C00E003AC /* ConstellationPost.swift */,
+			);
+			name = "Hydrus Client API";
 			sourceTree = "<group>";
 		};
 		128ED15522AAD1AC00A1DDD6 = {
@@ -211,6 +230,7 @@
 		12F7957422C5BB8B002DCBEF /* Booru */ = {
 			isa = PBXGroup;
 			children = (
+				126975C2268D908A00E003AC /* Hydrus Client API */,
 				12D7B0B522BC1A5200CB740F /* Hydrus */,
 				12A9BB9E22C74E0E0090F503 /* Ouroboros */,
 				12A9BB9D22C60B0E0090F503 /* None */,
@@ -392,6 +412,7 @@
 				127C44C322C7562E003C7BFA /* OuroborosPostResponse.swift in Sources */,
 				128ED16422AAD1AC00A1DDD6 /* MainViewController.swift in Sources */,
 				12A9BBA022C74E190090F503 /* OuroborosBooru.swift in Sources */,
+				126975C4268D909800E003AC /* ConstellationBooru.swift in Sources */,
 				12D5009B22BC7A4E00CB1D98 /* HydrusFile.swift in Sources */,
 				12D7B0B322BB6DA000CB740F /* PostsGridCollectionViewItem.swift in Sources */,
 				12E10CF622BE10DE00BD248E /* Data+Hex.swift in Sources */,
@@ -401,9 +422,12 @@
 				127C44C522C75FB2003C7BFA /* OuroborosTag.swift in Sources */,
 				128ED16222AAD1AC00A1DDD6 /* AppDelegate.swift in Sources */,
 				12E10CF322BE0B3000BD248E /* HydrusCachedTag.swift in Sources */,
+				126975C6268D949C00E003AC /* ConstellationPost.swift in Sources */,
 				121BE927268BF29300BA347B /* OuroborosPost.swift in Sources */,
+				126975CA268D9B7600E003AC /* URL+Slash.swift in Sources */,
 				12C43B7422BD6076003AF7C1 /* HydrusTag.swift in Sources */,
 				12F7957A22C5C3F4002DCBEF /* BooruTag.swift in Sources */,
+				126975C8268D971400E003AC /* RequestBuilder.swift in Sources */,
 				12E10CF822BE25B700BD248E /* HydrusSubtag.swift in Sources */,
 				12C43B6F22BCA5DD003AF7C1 /* Utilities.swift in Sources */,
 				12ED8616266DD68A00F1303F /* PostsViewController.swift in Sources */,

@@ -38,24 +38,21 @@ class MainWindowController: NSWindowController {
 
   /// Loads the Hydrus database.
   private func loadHydrusDatabase() {
-    let filePath =
-      UserDefaults.standard.string(forKey: "hydrusDatabaseBasePath")
-      ?? "/Volumes/launchpad/media/hydrus2"
-    let fileURL = URL(fileURLWithPath: filePath)
-    let path = Path(url: fileURL)!
-
-    guard path.isDirectory else {
-      self.presentError(CocoaError.error(.fileReadNoSuchFile, userInfo: nil, url: fileURL))
-      return
+    guard
+      let hydrusHost =
+        URL(
+          string: UserDefaults.standard.string(forKey: "hydrusClientAPIBaseURL")
+            ?? "http://localhost:45869")
+    else {
+      fatalError("invalid hydrus client API base URL")
     }
 
-    do {
-      try measure("Loading database") {
-        self.viewController.booru = try HydrusDatabase(atBasePath: path)
-      }
-    } catch {
-      self.presentError(CocoaError.error(.fileReadCorruptFile, userInfo: nil, url: fileURL))
+    guard let hydrusAccessKey = UserDefaults.standard.string(forKey: "hydrusClientAPIAccessKey")
+    else {
+      fatalError("no hydrus client API access key")
     }
+
+    self.viewController.booru = ConstellationBooru(baseURL: hydrusHost, accessKey: hydrusAccessKey)
   }
 
   /// Loads a booru.

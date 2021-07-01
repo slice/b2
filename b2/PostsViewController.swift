@@ -129,7 +129,9 @@ class PostsViewController: NSViewController {
   }
 
   private func loadFallbackThumbnailData() -> Data {
-    guard let fallbackImageURL = Bundle.main.url(forResource: "FailedToLoadImage", withExtension: "png") else {
+    guard
+      let fallbackImageURL = Bundle.main.url(forResource: "FailedToLoadImage", withExtension: "png")
+    else {
       fatalError("failed to locate *fallback* thumbnail image (what)")
     }
 
@@ -193,7 +195,9 @@ extension PostsViewController: NSCollectionViewDelegate {
       do {
         image = try self.loadThumbnail(forPost: post)
       } catch {
-        self.fetchLog.error("failed to load thumbnail image for post (globalID: \(post.globalID, privacy: .public), error: \(error.localizedDescription, privacy: .public)")
+        self.fetchLog.error(
+          "failed to load thumbnail image for post (globalID: \(post.globalID, privacy: .public), error: \(error.localizedDescription, privacy: .public), URL: \(post.thumbnailImageURL, privacy: .public))"
+        )
         guard let fallbackThumbnailImage = NSImage(data: self.loadFallbackThumbnailData()) else {
           fatalError("failed to create image from fallback thumbnail data (?)")
         }

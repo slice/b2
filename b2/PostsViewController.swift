@@ -128,6 +128,38 @@ class PostsViewController: NSViewController {
     }
   }
 
+  private func loadFallbackThumbnailData() -> Data {
+    guard let fallbackImageURL = Bundle.main.url(forResource: "FailedToLoadImage", withExtension: "png") else {
+      fatalError("failed to locate *fallback* thumbnail image (what)")
+    }
+
+    guard let fallbackData = try? Data(contentsOf: fallbackImageURL) else {
+      fatalError("failed to load *fallback* thumbnail image data (something terrible has happened)")
+    }
+
+    return fallbackData
+  }
+
+  private func loadThumbnail(forPost post: BooruPost) throws -> NSImage {
+    let cache = ImageCache.shared
+
+    if let image = cache.image(forGlobalID: post.globalID) {
+      self.fetchLog.debug("using cached thumbnail for post \(post.globalID, privacy: .public)")
+      return image
+    } else {
+      self.fetchLog.info("fetching thumbnail for post \(post.globalID, privacy: .public)")
+
+      let data = try Data(contentsOf: post.thumbnailImageURL)
+      guard let image = NSImage(data: data) else {
+        // TODO: Temporary. Proper errors coming soon™!
+        throw NSError(domain: "zone.slice.b2", code: 1001)
+      }
+
+      cache.insert(image, forGlobalID: post.globalID)
+      return image
+    }
+  }
+
   deinit {
     self.postsLog.notice("PostsViewController deinit")
   }
@@ -145,46 +177,31 @@ extension PostsViewController: NSCollectionViewDelegate {
     }
   }
 
+  // Only load thumbnails as the user scrolls.
   func collectionView(
     _ collectionView: NSCollectionView, willDisplay item: NSCollectionViewItem,
     forRepresentedObjectAt indexPath: IndexPath
   ) {
     let postsGridItem = item as! PostsGridCollectionViewItem
-    let cache = ImageCache.shared
 
-    // Only load thumbnails as the user scrolls.
-    //
-    // TODO: Don't crash if we can't load the image, because it might fetch
-    //       from the network.
     self.thumbnailsQueue.async {
-      guard let file = postsGridItem.file else {
+      guard let post = postsGridItem.file else {
         return
       }
 
-      if let image = cache.image(forGlobalID: file.globalID) {
-        self.fetchLog.debug("using cached thumbnail for \(file.globalID)")
-
-        DispatchQueue.main.async {
-          postsGridItem.selectableImageView.image = image
+      var image: NSImage
+      do {
+        image = try self.loadThumbnail(forPost: post)
+      } catch {
+        self.fetchLog.error("failed to load thumbnail image for post (globalID: \(post.globalID, privacy: .public), error: \(error.localizedDescription, privacy: .public)")
+        guard let fallbackThumbnailImage = NSImage(data: self.loadFallbackThumbnailData()) else {
+          fatalError("failed to create image from fallback thumbnail data (?)")
         }
-      } else {
-        self.fetchLog.info("fetching thumbnail for \(file.globalID)")
+        image = fallbackThumbnailImage
+      }
 
-        guard let data = try? Data(contentsOf: file.thumbnailImageURL) else {
-          // TODO: Don't die, this code path is not fatal.
-          fatalError("failed to fetch image")
-        }
-
-        guard let image = NSImage(data: data) else {
-          // TODO: Don't die.
-          fatalError("failed to read image from fetched data")
-        }
-
-        cache.insert(image, forGlobalID: file.globalID)
-
-        DispatchQueue.main.async {
-          postsGridItem.selectableImageView.image = image
-        }
+      DispatchQueue.main.async {
+        postsGridItem.selectableImageView.image = image
       }
     }
   }

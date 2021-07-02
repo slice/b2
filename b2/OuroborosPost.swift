@@ -1,17 +1,10 @@
-//
-//  OuroborosPost.swift
-//  b2
-//
-//  Created by slice on 6/29/21.
-//  Copyright © 2021 slice. All rights reserved.
-//
-
 import Cocoa
 
 private func extractHashChunks(_ hash: String) -> (Substring, Substring) {
-  let chunk1 = hash[hash.startIndex..<hash.index(hash.startIndex, offsetBy: 2)]
+  let chunk1 = hash[hash.startIndex ..< hash.index(hash.startIndex, offsetBy: 2)]
   let chunk2 = hash[
-    hash.index(hash.startIndex, offsetBy: 2)..<hash.index(hash.startIndex, offsetBy: 4)]
+    hash.index(hash.startIndex, offsetBy: 2) ..< hash.index(hash.startIndex, offsetBy: 4)
+  ]
   return (chunk1, chunk2)
 }
 
@@ -48,7 +41,7 @@ class OuroborosPost {
       response.imageURL ?? synthesizeImageURL(response: response, isPreview: false, host: host)
     self.thumbnailImageURL =
       response.thumbnailImageURL
-      ?? synthesizeImageURL(response: response, isPreview: true, host: host)
+        ?? synthesizeImageURL(response: response, isPreview: true, host: host)
   }
 }
 

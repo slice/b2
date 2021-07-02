@@ -19,13 +19,12 @@ class PostsGridCollectionViewItem: NSCollectionViewItem {
       //
       // Ignore this if we're already selected, except for when we're
       // being deselected.
-      if self.isSelected && self.highlightState != .forDeselection {
+      if self.isSelected, self.highlightState != .forDeselection {
         return
       }
 
       let isHighlighted = self.highlightState == .forSelection
       self.selectableImageView.isSelected = isHighlighted
-
     }
   }
 

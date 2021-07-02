@@ -8,8 +8,8 @@ struct HydrusTag {
   /// The tag's ID.
   let id: Int
 
-  fileprivate let hydrusSubtag: HydrusSubtag
-  fileprivate let hydrusNamespace: HydrusTagNamespace
+  private let hydrusSubtag: HydrusSubtag
+  private let hydrusNamespace: HydrusTagNamespace
 
   init(id: Int, subtag: HydrusSubtag, namespace: HydrusTagNamespace) {
     self.id = id
@@ -31,10 +31,10 @@ extension HydrusTag: CustomStringConvertible {
 
 extension HydrusTag: BooruTag {
   var subtag: String {
-    return self.hydrusSubtag.text
+    self.hydrusSubtag.text
   }
 
   var namespace: String? {
-    return self.hydrusNamespace.isDefault ? nil : self.hydrusNamespace.text
+    self.hydrusNamespace.isDefault ? nil : self.hydrusNamespace.text
   }
 }

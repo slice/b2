@@ -13,11 +13,11 @@ class HydrusTags {
   /// Caches all namespaces from the master database.
   func cacheNamespaces() throws {
     self.cachedNamespaces = try self.database.queue.read { db in
-      return try HydrusTagNamespace.fetchAll(db)
+      try HydrusTagNamespace.fetchAll(db)
     }
 
     self.cachedNamespacesByID = Dictionary(
-      uniqueKeysWithValues: self.cachedNamespaces.map({ ($0.id, $0) })
+      uniqueKeysWithValues: self.cachedNamespaces.map { ($0.id, $0) }
     )
   }
 
@@ -69,7 +69,7 @@ class HydrusTags {
 
     return try Array(
       cursor.map { row in
-        return try self.tag(fromTagID: row["tag_id"] as Int, database: database)
+        try self.tag(fromTagID: row["tag_id"] as Int, database: database)
       })
   }
 }

@@ -23,7 +23,7 @@ extension HydrusCachedTag: FetchableRecord {
 
   enum Columns: String, ColumnExpression {
     case id = "tag_id"
-    case tag = "tag"
+    case tag
   }
 }
 
@@ -33,6 +33,6 @@ extension HydrusCachedTag: TableRecord {
 
 extension HydrusCachedTag: CustomStringConvertible {
   var description: String {
-    return self.text
+    self.text
   }
 }

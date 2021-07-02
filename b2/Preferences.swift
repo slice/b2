@@ -1,11 +1,3 @@
-//
-//  Preferences.swift
-//  b2
-//
-//  Created by slice on 6/16/21.
-//  Copyright © 2021 slice. All rights reserved.
-//
-
 import Foundation
 
 // https://danieltull.co.uk/blog/2019/10/09/type-safe-user-defaults
@@ -23,7 +15,8 @@ extension PreferenceKey where Value == Int {
   static let imageGridThumbnailSize = Self("imageGridThumbnailSize", defaultingTo: 150)
   static let imageGridSpacing = Self("imageGridSpacing", defaultingTo: 1)
   static let imageGridScalingMode = Self(
-    "imageGridScalingMode", defaultingTo: PostsGridScalingMode.resizeToFit.rawValue)
+    "imageGridScalingMode", defaultingTo: PostsGridScalingMode.resizeToFit.rawValue
+  )
 }
 
 extension PreferenceKey where Value == Bool {

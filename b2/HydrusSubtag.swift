@@ -29,6 +29,6 @@ extension HydrusSubtag: TableRecord {
 
 extension HydrusSubtag: CustomStringConvertible {
   var description: String {
-    return self.text
+    self.text
   }
 }

@@ -1,17 +1,10 @@
-//
-//  AppearanceSettingsViewController.swift
-//  b2
-//
-//  Created by slice on 6/16/21.
-//  Copyright © 2021 slice. All rights reserved.
-//
-
 import Cocoa
 
 class AppearanceSettingsViewController: NSViewController {
   lazy var imageGridThumbnailSizeSlider: NSSlider = {
     let slider = NSSlider(
-      value: 0, minValue: 50, maxValue: 500, target: self, action: #selector(action))
+      value: 0, minValue: 50, maxValue: 500, target: self, action: #selector(action)
+    )
     slider.widthAnchor.constraint(equalToConstant: 200).isActive = true
     slider.numberOfTickMarks = 5
     return slider
@@ -19,7 +12,8 @@ class AppearanceSettingsViewController: NSViewController {
 
   lazy var imageGridSpacingSlider: NSSlider = {
     let slider = NSSlider(
-      value: 0, minValue: 0, maxValue: 100, target: self, action: #selector(action))
+      value: 0, minValue: 0, maxValue: 100, target: self, action: #selector(action)
+    )
     slider.translatesAutoresizingMaskIntoConstraints = false
     slider.widthAnchor.constraint(equalToConstant: 200).isActive = true
     slider.numberOfTickMarks = 5
@@ -29,7 +23,8 @@ class AppearanceSettingsViewController: NSViewController {
   lazy var imageGridScalingPopUpButton: NSPopUpButton = {
     let button = NSPopUpButton()
     let resizeToFitItem = NSMenuItem(
-      title: "Resize to fit", action: #selector(action), keyEquivalent: "")
+      title: "Resize to fit", action: #selector(action), keyEquivalent: ""
+    )
     resizeToFitItem.tag = PostsGridScalingMode.resizeToFit.rawValue
     button.menu?.addItem(resizeToFitItem)
     let fillItem = NSMenuItem(title: "Fill", action: #selector(action), keyEquivalent: "")
@@ -39,7 +34,7 @@ class AppearanceSettingsViewController: NSViewController {
   }()
 
   lazy var compactTagsCheckbox: NSButton = {
-    return NSButton(checkboxWithTitle: "Compact tags", target: nil, action: #selector(action))
+    NSButton(checkboxWithTitle: "Compact tags", target: nil, action: #selector(action))
   }()
 
   lazy var settingsGridView: NSGridView = {
@@ -83,7 +78,7 @@ class AppearanceSettingsViewController: NSViewController {
     self.imageGridScalingPopUpButton.selectItem(withTag: p.get(.imageGridScalingMode))
   }
 
-  @IBAction private func action(sender: Any?) {
+  @IBAction private func action(sender _: Any?) {
     let p = Preferences.shared
     p.set(.imageGridThumbnailSize, to: self.imageGridThumbnailSizeSlider.integerValue)
     p.set(.imageGridSpacing, to: self.imageGridSpacingSlider.integerValue)

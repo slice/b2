@@ -1,11 +1,3 @@
-//
-//  ConstellationBooru.swift
-//  b2
-//
-//  Created by slice on 6/30/21.
-//  Copyright © 2021 slice. All rights reserved.
-//
-
 import Combine
 import Foundation
 
@@ -59,7 +51,7 @@ struct ConstellationBooruMetadataResponse: Decodable {
 class ConstellationBooru: Booru {
   static let apiAccessKeyHeader: String = "Hydrus-Client-API-Access-Key"
 
-  var id: UUID = UUID()
+  var id = UUID()
   var name: String = "Hydrus (Client API)"
   var supportedPaginationTypes: [BooruPaginationType] = [.none]
 
@@ -83,7 +75,7 @@ class ConstellationBooru: Booru {
   }
 
   func search(
-    forTags tags: [String], offsetBy: BooruQueryOffset,
+    forTags tags: [String], offsetBy _: BooruQueryOffset,
     completionHandler: @escaping (Result<[BooruPost], Error>) -> Void
   ) {
     let jsonDecoder = JSONDecoder()
@@ -96,7 +88,7 @@ class ConstellationBooru: Booru {
     let transformedTags = tags.map { $0.replacingOccurrences(of: "_", with: " ") }
 
     guard let encodedTags = try? jsonEncoder.encode(transformedTags),
-      let encodedTagsString = String(data: encodedTags, encoding: .utf8)
+          let encodedTagsString = String(data: encodedTags, encoding: .utf8)
     else {
       completionHandler(.failure(ConstellationError.tagEncodingFailure))
       return
@@ -104,17 +96,17 @@ class ConstellationBooru: Booru {
 
     guard
       let searchRequest = RequestBuilder(url: self.baseURL / "get_files" / "search_files")
-        .header(name: Self.apiAccessKeyHeader, value: self.accessKey)
-        .query(name: "tags", value: encodedTagsString)
-        .query(
-          name: "system_inbox",
-          value: self.temporaryFlag(named: "SearchInInbox", default: false)
-        )
-        .query(
-          name: "system_archive",
-          value: self.temporaryFlag(named: "SearchInArchive", default: false)
-        )
-        .build()
+      .header(name: Self.apiAccessKeyHeader, value: self.accessKey)
+      .query(name: "tags", value: encodedTagsString)
+      .query(
+        name: "system_inbox",
+        value: self.temporaryFlag(named: "SearchInInbox", default: false)
+      )
+      .query(
+        name: "system_archive",
+        value: self.temporaryFlag(named: "SearchInArchive", default: false)
+      )
+      .build()
     else {
       completionHandler(.failure(ConstellationError.invalidBaseURL))
       return
@@ -130,9 +122,9 @@ class ConstellationBooru: Booru {
         encodedFileIDs -> AnyPublisher<[ConstellationBooruMetadataResponse.Entry], Error> in
         guard
           let metadataRequest = RequestBuilder(url: self.baseURL / "get_files" / "file_metadata")
-            .header(name: Self.apiAccessKeyHeader, value: self.accessKey)
-            .query(name: "file_ids", value: encodedFileIDs)
-            .build()
+          .header(name: Self.apiAccessKeyHeader, value: self.accessKey)
+          .query(name: "file_ids", value: encodedFileIDs)
+          .build()
         else {
           return Fail(error: ConstellationError.invalidBaseURL).eraseToAnyPublisher()
         }
@@ -146,7 +138,7 @@ class ConstellationBooru: Booru {
       .map { $0.map { ConstellationPost(metadata: $0, booru: self) } }
       .sink(
         receiveCompletion: { completion in
-          if case .failure(let error) = completion {
+          if case let .failure(error) = completion {
             completionHandler(.failure(error))
           }
         }, receiveValue: { completionHandler(.success($0)) }

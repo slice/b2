@@ -1,11 +1,3 @@
-//
-//  BooruListing.swift
-//  b2
-//
-//  Created by slice on 6/21/21.
-//  Copyright © 2021 slice. All rights reserved.
-//
-
 import Combine
 import os.log
 
@@ -91,7 +83,7 @@ public class BooruListing {
 
       self.nextQuery = self.computeNewNextQuery()
       self.booru.search(forTags: tags, offsetBy: self.nextQuery) { result in
-        if case .success(let posts) = result {
+        if case let .success(posts) = result {
           guard !posts.isEmpty else {
             self.log.info("no more posts")
             self.isExhausted = true
@@ -119,9 +111,9 @@ public class BooruListing {
   }
 
   private func computeNewNextQuery() -> BooruQueryOffset {
-    if case .pageNumber(let pageNumber) = self.nextQuery {
+    if case let .pageNumber(pageNumber) = self.nextQuery {
       return .pageNumber(pageNumber + 1)
-    } else if case .previousChunk(_) = self.nextQuery, let lastChunk = self.chunks.last {
+    } else if case .previousChunk = self.nextQuery, let lastChunk = self.chunks.last {
       return .previousChunk(lastChunk)
     } else {
       self.log.info("new next query is none")

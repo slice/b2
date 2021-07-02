@@ -1,5 +1,3 @@
-excluded:
-    - Pods
 disabled_rules:
     - line_length
     - todo
@@ -7,5 +5,8 @@ disabled_rules:
     - identifier_name
     # Hydrus uses "master" terminology everywhere.
     - inclusive_language
-analyzer_rules:
-    - explicit_self
+
+    # These rules clash with SwiftFormat:
+    - trailing_comma
+    - closure_parameter_position
+    - opening_brace

@@ -11,7 +11,7 @@ struct HydrusTagNamespace {
   /// Returns a `Bool` value indicating whether the namespace is the default
   /// one (no namespace).
   var isDefault: Bool {
-    return self.text == ""
+    self.text == ""
   }
 }
 
@@ -25,7 +25,7 @@ extension HydrusTagNamespace: FetchableRecord {
 
   enum Columns: String, ColumnExpression {
     case id = "namespace_id"
-    case namespace = "namespace"
+    case namespace
   }
 }
 
@@ -35,6 +35,6 @@ extension HydrusTagNamespace: TableRecord {
 
 extension HydrusTagNamespace: CustomStringConvertible {
   var description: String {
-    return self.text
+    self.text
   }
 }

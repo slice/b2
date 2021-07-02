@@ -1,7 +1,7 @@
 import Carbon.HIToolbox.Events
 import Cocoa
-import Path
 import os.log
+import Path
 
 enum BooruType: Int {
   case none = -1
@@ -12,19 +12,19 @@ enum BooruType: Int {
 
 class MainWindowController: NSWindowController {
   private var createdTab: MainWindowController?
-  @IBOutlet weak var booruPickerButton: NSPopUpButton!
-  @IBOutlet weak var searchField: NSSearchField!
+  @IBOutlet var booruPickerButton: NSPopUpButton!
+  @IBOutlet var searchField: NSSearchField!
 
   /// A `DispatchQueue` used for fetching data.
   private let fetchQueue = DispatchQueue(label: "fetch", attributes: .concurrent)
 
   private var viewController: MainViewController {
-    return self.contentViewController as! MainViewController
+    self.contentViewController as! MainViewController
   }
 
   private let log = Logger(subsystem: loggingSubsystem, category: "window")
 
-  @IBAction func booruChanged(_ sender: Any) {
+  @IBAction func booruChanged(_: Any) {
     let selectedBooruTag = self.booruPickerButton.selectedItem!.tag
     let type = BooruType(rawValue: selectedBooruTag)!
     do {
@@ -39,9 +39,9 @@ class MainWindowController: NSWindowController {
   private func loadHydrusDatabase() throws {
     guard
       let hydrusHost =
-        URL(
-          string: UserDefaults.standard.string(forKey: "hydrusClientAPIBaseURL")
-            ?? "http://localhost:45869")
+      URL(
+        string: UserDefaults.standard.string(forKey: "hydrusClientAPIBaseURL")
+          ?? "http://localhost:45869")
     else {
       throw B2Error.error(code: .invalidBooruEndpoint)
     }
@@ -66,10 +66,12 @@ class MainWindowController: NSWindowController {
       try self.loadHydrusDatabase()
     case .e621:
       self.viewController.booru = OuroborosBooru(
-        named: "e621", baseUrl: URL(string: "https://e621.net")!)
+        named: "e621", baseUrl: URL(string: "https://e621.net")!
+      )
     case .e926:
       self.viewController.booru = OuroborosBooru(
-        named: "e926", baseUrl: URL(string: "https://e926.net")!)
+        named: "e926", baseUrl: URL(string: "https://e926.net")!
+      )
     }
   }
 
@@ -79,9 +81,9 @@ class MainWindowController: NSWindowController {
 
   private var allowNextMouseTriggeredSearch = false
 
-  @IBAction func performSearch(_ sender: NSSearchField) {
+  @IBAction func performSearch(_: NSSearchField) {
     if let currentEvent = NSApp.currentEvent {
-      if currentEvent.type == .keyDown && currentEvent.keyCode == kVK_Delete {
+      if currentEvent.type == .keyDown, currentEvent.keyCode == kVK_Delete {
         // For some reason, the action is dispatched if the user empties the
         // search field while a "searching session" is not active. Ignore this.
         return
@@ -114,7 +116,7 @@ class MainWindowController: NSWindowController {
     }
   }
 
-  override func newWindowForTab(_ sender: Any?) {
+  override func newWindowForTab(_: Any?) {
     let controller = self.storyboard!.instantiateInitialController() as! MainWindowController
     self.window!.addTabbedWindow(controller.window!, ordered: .above)
     controller.window!.makeKeyAndOrderFront(self)
@@ -122,13 +124,13 @@ class MainWindowController: NSWindowController {
 
     NotificationCenter.default.addObserver(
       self,
-      selector: #selector(createdTabWillClose),
+      selector: #selector(self.createdTabWillClose),
       name: NSWindow.willCloseNotification,
       object: controller.window
     )
   }
 
-  @objc private func createdTabWillClose(notification: Notification) {
+  @objc private func createdTabWillClose(notification _: Notification) {
     self.createdTab = nil
   }
 
@@ -154,12 +156,12 @@ class MainWindowController: NSWindowController {
     }
 
     switch result {
-    case .success(let files):
+    case let .success(files):
       self.log.info("query returned \(files.count) file(s)")
       DispatchQueue.main.async {
         self.viewController.setInitialListing(fromFiles: files)
       }
-    case .failure(let error):
+    case let .failure(error):
       let error = error as NSError
       self.log.error("failed to query: \(error, privacy: .public)")
       DispatchQueue.main.async {

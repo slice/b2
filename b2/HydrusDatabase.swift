@@ -125,7 +125,7 @@ class HydrusDatabase {
 
   /// Fetches all local files in the "all local files" service from the main and master databases.
   func fetchAllFiles() throws -> [HydrusFile] {
-    return try self.queue.read { db -> [HydrusFile] in
+    try self.queue.read { db -> [HydrusFile] in
       guard
         let localFilesServiceId = try self.fetchServiceID(fromName: "all local files", database: db)
       else {
@@ -144,7 +144,8 @@ class HydrusDatabase {
           let hashID = row["hash_id"] as Int
           let hash = try self.fetchHash(fromID: hashID, database: db)!
           let metadata = try self.fetchMetadataForFile(
-            withHashID: hashID, timestamp: row["timestamp"], database: db)!
+            withHashID: hashID, timestamp: row["timestamp"], database: db
+          )!
 
           guard metadata.mime.booruMime != nil else {
             // MIME type isn't appropriate.
@@ -153,8 +154,9 @@ class HydrusDatabase {
 
           let globalID = self.formGlobalID(withBooruID: hashID)
           return HydrusFile(
-            hash: hash, hashId: hashID, database: self, metadata: metadata, globalID: globalID)
-        }.compactMap({ $0 }))
+            hash: hash, hashId: hashID, database: self, metadata: metadata, globalID: globalID
+          )
+        }.compactMap { $0 })
     }
   }
 
@@ -184,9 +186,9 @@ extension HydrusDatabase: Booru {
 
     // Resolve the given tags to their IDs with the cache.
     let cachedTags: [Int?] = try self.queue.read { db in
-      return try tags.map({ tag in
-        return try HydrusCachedTag.filter(HydrusCachedTag.Columns.tag == tag).fetchOne(db)?.id
-      })
+      try tags.map { tag in
+        try HydrusCachedTag.filter(HydrusCachedTag.Columns.tag == tag).fetchOne(db)?.id
+      }
     }
 
     // If `nil` appears in `cachedTags`, then a tag wasn't found.
@@ -195,7 +197,7 @@ extension HydrusDatabase: Booru {
       return []
     }
 
-    let tagIDs = cachedTags.compactMap({ $0 })
+    let tagIDs = cachedTags.compactMap { $0 }
 
     // TODO: Figure out how this monster of an SQL query works and document it.
     guard let localTagsServiceID = self.localTagsServiceID else {
@@ -204,18 +206,18 @@ extension HydrusDatabase: Booru {
     let mappingsTableName = "mappings.current_mappings_\(localTagsServiceID)"
     let request = SQLRequest<Any>(
       literal: """
-            SELECT DISTINCT hash_id
-            FROM \(sql: mappingsTableName)
-            WHERE tag_id IN \(tagIDs)
-            GROUP BY hash_id
-            HAVING COUNT(DISTINCT tag_id) = \(tagIDs.count)
-        """)
+          SELECT DISTINCT hash_id
+          FROM \(sql: mappingsTableName)
+          WHERE tag_id IN \(tagIDs)
+          GROUP BY hash_id
+          HAVING COUNT(DISTINCT tag_id) = \(tagIDs.count)
+      """)
 
     return try self.queue.read { db in
       let cursor = try Row.fetchCursor(db, request)
 
       return try Array(
-        cursor.map({ row in
+        cursor.map { row in
           let hashID = row["hash_id"] as Int
 
           guard let hash = try self.fetchHash(fromID: hashID, database: db) else {
@@ -231,7 +233,8 @@ extension HydrusDatabase: Booru {
 
           guard
             let metadata = try self.fetchMetadataForFile(
-              withHashID: hashID, timestamp: timestamp, database: db)
+              withHashID: hashID, timestamp: timestamp, database: db
+            )
           else {
             NSLog("Failed to locate \(hashID) in files_info table.")
             return nil
@@ -239,14 +242,15 @@ extension HydrusDatabase: Booru {
 
           let globalID = self.formGlobalID(withBooruID: hashID)
           return HydrusFile(
-            hash: hash, hashId: hashID, database: self, metadata: metadata, globalID: globalID)
-        })
-      ).compactMap({ $0 })
+            hash: hash, hashId: hashID, database: self, metadata: metadata, globalID: globalID
+          )
+        }
+      ).compactMap { $0 }
     }
   }
 
   func search(
-    forTags tags: [String], offsetBy offset: BooruQueryOffset,
+    forTags tags: [String], offsetBy _: BooruQueryOffset,
     completionHandler: @escaping (Result<[BooruPost], Error>) -> Void
   ) {
     do {

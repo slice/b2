@@ -5,14 +5,14 @@ import Path
 let sortBottom = String(repeating: "z", count: 10)
 
 class MainViewController: NSSplitViewController {
-  @IBOutlet weak var tagsSplitItem: NSSplitViewItem!
+  @IBOutlet var tagsSplitItem: NSSplitViewItem!
   var tagsViewController: TagsViewController! {
-    return self.tagsSplitItem.viewController as? TagsViewController
+    self.tagsSplitItem.viewController as? TagsViewController
   }
 
-  @IBOutlet weak var postsSplitItem: NSSplitViewItem!
+  @IBOutlet var postsSplitItem: NSSplitViewItem!
   var postsViewController: PostsViewController! {
-    return self.postsSplitItem.viewController as? PostsViewController
+    self.postsSplitItem.viewController as? PostsViewController
   }
 
   private var infiniteScrollSubscriber: AnyCancellable!
@@ -26,7 +26,7 @@ class MainViewController: NSSplitViewController {
     super.viewDidLoad()
 
     self.postsViewController.onPostSelected = { [weak self] file in
-      let tags = file.tags.sorted(by: { (first, second) in
+      let tags = file.tags.sorted(by: { first, second in
         let firstN = first.namespace ?? sortBottom
         let secondN = second.namespace ?? sortBottom
         return (firstN, first.subtag) < (secondN, second.subtag)

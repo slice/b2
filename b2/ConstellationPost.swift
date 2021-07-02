@@ -1,11 +1,3 @@
-//
-//  ConstellationPost.swift
-//  b2
-//
-//  Created by slice on 6/30/21.
-//  Copyright © 2021 slice. All rights reserved.
-//
-
 import Foundation
 
 enum ConstellationTagStatus: Int {
@@ -33,7 +25,7 @@ extension ConstellationPost: BooruPost {
     }
     components.query =
       "file_id=\(self.metadata.fileID)&"
-      + "\(ConstellationBooru.apiAccessKeyHeader)=\(self.booru.accessKey)"
+        + "\(ConstellationBooru.apiAccessKeyHeader)=\(self.booru.accessKey)"
     guard let finalURL = components.url else {
       fatalError("can't compute ConstellationPost's imageURL -- invalid final URL")
     }
@@ -64,7 +56,7 @@ extension ConstellationPost: BooruPost {
       .compactMap { $0 }
       .joined()
     let uniqueCurrentRawTags = Array(Set(allCurrentRawTags))
-    return uniqueCurrentRawTags.compactMap { SimpleBooruTag.init(parsingDescription: $0) }
+    return uniqueCurrentRawTags.compactMap { SimpleBooruTag(parsingDescription: $0) }
   }
 
   var mime: BooruMime {

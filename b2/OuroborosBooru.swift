@@ -37,7 +37,7 @@ class OuroborosBooru: Booru {
 
     var queries = [
       // TODO: make this configurable?
-      URLQueryItem(name: "limit", value: "100")
+      URLQueryItem(name: "limit", value: "100"),
     ]
 
     if !tags.isEmpty {
@@ -46,9 +46,9 @@ class OuroborosBooru: Booru {
       )
     }
 
-    if case .pageNumber(let pageNumber) = offset {
+    if case let .pageNumber(pageNumber) = offset {
       queries.append(URLQueryItem(name: "page", value: String(pageNumber)))
-    } else if case .previousChunk(let posts) = offset {
+    } else if case let .previousChunk(posts) = offset {
       let lowestPost = posts.min { a, b in a.id < b.id }
       guard let lowestPost = lowestPost else {
         fatalError("empty array passed as previousChunk")

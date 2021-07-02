@@ -1,11 +1,3 @@
-//
-//  PostsViewController.swift
-//  b2
-//
-//  Created by slice on 6/6/21.
-//  Copyright © 2021 slice. All rights reserved.
-//
-
 import Cocoa
 import Combine
 import os.log
@@ -15,8 +7,8 @@ extension NSUserInterfaceItemIdentifier {
 }
 
 class PostsViewController: NSViewController {
-  @IBOutlet weak var collectionView: NSCollectionView!
-  @IBOutlet weak var progressIndicator: NSProgressIndicator!
+  @IBOutlet var collectionView: NSCollectionView!
+  @IBOutlet var progressIndicator: NSProgressIndicator!
 
   /// The listing that this controller is displaying.
   public var listing: BooruListing?
@@ -111,7 +103,8 @@ class PostsViewController: NSViewController {
     }
 
     self.collectionView.register(
-      PostsGridCollectionViewItem.self, forItemWithIdentifier: .postsGridItem)
+      PostsGridCollectionViewItem.self, forItemWithIdentifier: .postsGridItem
+    )
   }
 
   private func loadMoreIfNearEnd(scrollView: NSScrollView) {
@@ -181,8 +174,8 @@ extension PostsViewController: NSCollectionViewDelegate {
 
   // Only load thumbnails as the user scrolls.
   func collectionView(
-    _ collectionView: NSCollectionView, willDisplay item: NSCollectionViewItem,
-    forRepresentedObjectAt indexPath: IndexPath
+    _: NSCollectionView, willDisplay item: NSCollectionViewItem,
+    forRepresentedObjectAt _: IndexPath
   ) {
     let postsGridItem = item as! PostsGridCollectionViewItem
 
@@ -212,14 +205,14 @@ extension PostsViewController: NSCollectionViewDelegate {
 }
 
 extension PostsViewController: NSCollectionViewDataSource {
-  func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int)
+  func collectionView(_: NSCollectionView, numberOfItemsInSection _: Int)
     -> Int
   {
-    return self.listing?.count ?? 0
+    self.listing?.count ?? 0
   }
 
   func collectionView(
-    _ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath
+    _: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath
   ) -> NSCollectionViewItem {
     let item =
       self.collectionView.makeItem(

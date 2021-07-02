@@ -41,11 +41,13 @@ public protocol Booru: AnyObject {
   /// Fetches all posts with the specified tags, offset by a pagination query.
   func search(
     forTags tags: [String], offsetBy: BooruQueryOffset,
-    completionHandler: @escaping (Result<[BooruPost], Error>) -> Void)
+    completionHandler: @escaping (Result<[BooruPost], Error>) -> Void
+  )
 
   /// Fetches all posts with the specified tags.
   func search(
-    forTags tags: [String], completionHandler: @escaping (Result<[BooruPost], Error>) -> Void)
+    forTags tags: [String], completionHandler: @escaping (Result<[BooruPost], Error>) -> Void
+  )
 }
 
 extension Booru {
@@ -72,7 +74,7 @@ extension Booru {
   }
 
   func formGlobalID(withBooruID id: Int) -> String {
-    return "\(self.id).\(id)"
+    "\(self.id).\(id)"
   }
 
   public var supportsPagination: Bool {

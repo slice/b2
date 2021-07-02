@@ -30,6 +30,6 @@ public protocol BooruPost {
 
 extension BooruPost {
   var thumbnailImageURL: URL {
-    return self.imageURL
+    self.imageURL
   }
 }

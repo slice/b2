@@ -1,15 +1,7 @@
-//
-//  SelectableImageView.swift
-//  b2
-//
-//  Created by slice on 6/18/21.
-//  Copyright © 2021 slice. All rights reserved.
-//
-
 import Cocoa
 
-extension NSImage {
-  fileprivate func tinted(with color: NSColor) -> NSImage {
+private extension NSImage {
+  func tinted(with color: NSColor) -> NSImage {
     guard let tinted = self.copy() as? NSImage else { return self }
 
     tinted.lockFocus()
@@ -35,7 +27,7 @@ class SelectableImageView: NSView {
     }
   }
 
-  var image: NSImage? = nil {
+  var image: NSImage? {
     didSet {
       self.cachedTintedImage = nil
       self.needsDisplay = true
@@ -85,6 +77,6 @@ class SelectableImageView: NSView {
     layer.borderColor = color.cgColor
     layer.borderWidth = CGFloat(self.selectionBorderWidth)
     layer.contentsGravity = self.contentsGravity
-    layer.contents = self.isSelected ? self.tintedImage : image
+    layer.contents = self.isSelected ? self.tintedImage : self.image
   }
 }

@@ -9,7 +9,7 @@ class NoneBooru: Booru {
   let supportedPaginationTypes: [BooruPaginationType] = [.none]
 
   func search(
-    forTags tags: [String], offsetBy offset: BooruQueryOffset,
+    forTags _: [String], offsetBy _: BooruQueryOffset,
     completionHandler: @escaping (Result<[BooruPost], Error>) -> Void
   ) {
     completionHandler(.success([]))

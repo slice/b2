@@ -26,8 +26,8 @@ public struct SimpleBooruTag: BooruTag {
   }
 }
 
-extension BooruTag {
-  public var description: String {
+public extension BooruTag {
+  var description: String {
     if let namespace = self.namespace {
       return "\(namespace):\(self.subtag)"
     } else {

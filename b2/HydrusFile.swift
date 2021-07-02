@@ -22,9 +22,9 @@ class HydrusFile {
 
   let globalID: String
 
-  lazy fileprivate var cachedTags: [HydrusTag] = {
-    return try! measure("Initial Hydrus tag fetch for \(self.hashId)") {
-      return try self.fetchTags()
+  private lazy var cachedTags: [HydrusTag] = {
+    try! measure("Initial Hydrus tag fetch for \(self.hashId)") {
+      try self.fetchTags()
     }
   }()
 
@@ -38,7 +38,7 @@ class HydrusFile {
     self.globalID = globalID
   }
 
-  fileprivate func path(ofType type: PathType = .original) -> Path {
+  private func path(ofType type: PathType = .original) -> Path {
     guard let database = self.database else {
       // This happens when the file is loaded after the database has been
       // freed, e.g. if the user switches away from the booru source while
@@ -52,7 +52,7 @@ class HydrusFile {
       return Path(url: url!)!
     }
 
-    let firstTwo = self.hash[...self.hash.index(hash.startIndex, offsetBy: 1)]
+    let firstTwo = self.hash[...self.hash.index(self.hash.startIndex, offsetBy: 1)]
     let sectorId = type.rawValue + firstTwo
     let sectorPath = database.base / "client_files" / sectorId
 
@@ -65,14 +65,14 @@ class HydrusFile {
     }
   }
 
-  fileprivate func fetchTags() throws -> [HydrusTag] {
+  private func fetchTags() throws -> [HydrusTag] {
     guard let database = self.database else {
       NSLog("Warning: Attempted to fetch tags of a HydrusFile after database was freed.")
       return []
     }
 
     return try database.queue.read { db in
-      return try database.tags.tags(forFile: self, database: db)
+      try database.tags.tags(forFile: self, database: db)
     }
   }
 }
@@ -83,26 +83,26 @@ extension HydrusFile: BooruPost {
   }
 
   var imageURL: URL {
-    return self.path(ofType: .original).url
+    self.path(ofType: .original).url
   }
 
   var thumbnailImageURL: URL {
-    return self.path(ofType: .thumbnail).url
+    self.path(ofType: .thumbnail).url
   }
 
   var createdAt: Date {
-    return self.metadata.timestamp
+    self.metadata.timestamp
   }
 
   var size: Int {
-    return self.metadata.size
+    self.metadata.size
   }
 
   var tags: [BooruTag] {
-    return self.cachedTags
+    self.cachedTags
   }
 
   var mime: BooruMime {
-    return self.metadata.mime.booruMime!
+    self.metadata.mime.booruMime!
   }
 }

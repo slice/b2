@@ -1,11 +1,3 @@
-//
-//  B2Error.swift
-//  b2
-//
-//  Created by slice on 7/1/21.
-//  Copyright © 2021 slice. All rights reserved.
-//
-
 import Foundation
 
 struct B2Error {
@@ -18,7 +10,7 @@ struct B2Error {
   }
 
   public static func error(code: Self.Code, userInfo: [String: Any]? = nil) -> NSError {
-    return NSError(domain: Self.domain, code: code.rawValue, userInfo: userInfo)
+    NSError(domain: Self.domain, code: code.rawValue, userInfo: userInfo)
   }
 
   public static func setupUserInfoValueProvider() {

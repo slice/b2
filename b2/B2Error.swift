@@ -51,7 +51,7 @@ struct B2Error {
           return "Couldn't authenticate with the booru."
         case NSLocalizedRecoverySuggestionErrorKey:
           return
-            "Make sure that any passwords and access key associated with the booru are correct."
+            "Make sure that any passwords and access keys associated with the booru are correct."
         default: return nil
         }
       case .previewLoadFailed:

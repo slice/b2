@@ -310,9 +310,10 @@ CA
                     <splitViewItems>
                         <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" id="yHG-0B-etV"/>
                         <splitViewItem id="cWR-uh-ktI"/>
+                        <splitViewItem canCollapse="YES" id="iHM-qu-LRq"/>
                     </splitViewItems>
-                    <splitView key="splitView" dividerStyle="thin" vertical="YES" id="fQJ-Ho-Nvm">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                    <splitView key="splitView" dividerStyle="paneSplitter" vertical="YES" id="fQJ-Ho-Nvm">
+                        <rect key="frame" x="0.0" y="0.0" width="557" height="362"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
                             <outlet property="delegate" destination="iXt-VD-jVa" id="0Pr-7L-Klj"/>
@@ -320,15 +321,17 @@ CA
                     </splitView>
                     <connections>
                         <outlet property="postsSplitItem" destination="cWR-uh-ktI" id="1S6-b9-adZ"/>
+                        <outlet property="previewSplitItem" destination="iHM-qu-LRq" id="hDb-ii-4t2"/>
                         <outlet property="splitView" destination="fQJ-Ho-Nvm" id="Jda-m7-33b"/>
                         <outlet property="tagsSplitItem" destination="yHG-0B-etV" id="CcN-dL-cr5"/>
                         <segue destination="2y8-5v-Qbo" kind="relationship" relationship="splitItems" id="77f-Ny-hd2"/>
                         <segue destination="Rdk-ZL-7B3" kind="relationship" relationship="splitItems" id="Fi0-EU-7Ld"/>
+                        <segue destination="i7I-py-e4k" kind="relationship" relationship="splitItems" id="jS3-SK-C0s"/>
                     </connections>
                 </splitViewController>
                 <customObject id="DMU-cD-m97" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="597" y="41"/>
+            <point key="canvasLocation" x="780" y="41"/>
         </scene>
         <!--Tags View Controller-->
         <scene sceneID="dLt-Nr-oib">
@@ -403,24 +406,24 @@ CA
                 </viewController>
                 <customObject id="Ngl-fK-Ihk" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1061" y="-152"/>
+            <point key="canvasLocation" x="706" y="565"/>
         </scene>
         <!--Posts View Controller-->
         <scene sceneID="5Wi-1q-Ckr">
             <objects>
                 <viewController id="Rdk-ZL-7B3" customClass="PostsViewController" customModule="b2" customModuleProvider="target" sceneMemberID="viewController">
                     <visualEffectView key="view" blendingMode="behindWindow" material="fullScreenUI" state="followsWindowActiveState" id="aDZ-Qj-TdM">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KU2-1j-akO">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="500"/>
                                 <clipView key="contentView" id="75f-Fq-xgi">
-                                    <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="450" height="500"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView selectable="YES" allowsMultipleSelection="YES" id="fA5-6O-SIQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="450" height="500"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <collectionViewGridLayout key="collectionViewLayout" id="zec-bz-AUh">
                                                 <size key="minimumItemSize" width="150" height="150"/>
@@ -444,7 +447,7 @@ CA
                                 </scroller>
                             </scrollView>
                             <progressIndicator wantsLayer="YES" maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="5aV-Wv-e92">
-                                <rect key="frame" x="209" y="134" width="32" height="32"/>
+                                <rect key="frame" x="209" y="234" width="32" height="32"/>
                             </progressIndicator>
                         </subviews>
                         <constraints>
@@ -463,7 +466,65 @@ CA
                 </viewController>
                 <customObject id="4Pj-fe-1Xh" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1211" y="209"/>
+            <point key="canvasLocation" x="1031" y="665"/>
+        </scene>
+        <!--Preview View Controller-->
+        <scene sceneID="MiN-zN-x6h">
+            <objects>
+                <viewController id="i7I-py-e4k" customClass="PreviewViewController" customModule="b2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="8xE-tt-1NQ">
+                        <rect key="frame" x="0.0" y="0.0" width="220" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <scrollView horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="251" verticalCompressionResistancePriority="251" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" maxMagnification="30" minMagnification="1" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QML-7K-2Gs">
+                                <rect key="frame" x="0.0" y="0.0" width="220" height="300"/>
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Dq8-79-pHM">
+                                    <rect key="frame" x="0.0" y="0.0" width="220" height="300"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view id="Zag-nI-b5X">
+                                            <rect key="frame" x="0.0" y="0.0" width="220" height="300"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <imageView horizontalHuggingPriority="300" verticalHuggingPriority="300" horizontalCompressionResistancePriority="251" verticalCompressionResistancePriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RW9-Ni-TOW">
+                                                    <rect key="frame" x="0.0" y="0.0" width="220" height="300"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="pH3-US-oYP"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="C9h-EU-i2K">
+                                    <rect key="frame" x="0.0" y="284" width="220" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="hYS-vM-B8P">
+                                    <rect key="frame" x="204" y="0.0" width="16" height="300"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                            <progressIndicator maxValue="100" displayedWhenStopped="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="7ie-AS-EQ1">
+                                <rect key="frame" x="94" y="134" width="32" height="32"/>
+                            </progressIndicator>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="QML-7K-2Gs" secondAttribute="bottom" id="JYM-4R-9SH"/>
+                            <constraint firstItem="QML-7K-2Gs" firstAttribute="leading" secondItem="8xE-tt-1NQ" secondAttribute="leading" id="LQ6-MF-0y9"/>
+                            <constraint firstItem="7ie-AS-EQ1" firstAttribute="centerX" secondItem="8xE-tt-1NQ" secondAttribute="centerX" id="LVD-3u-tP6"/>
+                            <constraint firstItem="7ie-AS-EQ1" firstAttribute="centerY" secondItem="8xE-tt-1NQ" secondAttribute="centerY" id="VtA-C4-vQs"/>
+                            <constraint firstItem="QML-7K-2Gs" firstAttribute="top" secondItem="8xE-tt-1NQ" secondAttribute="top" id="meo-jL-ZHr"/>
+                            <constraint firstAttribute="trailing" secondItem="QML-7K-2Gs" secondAttribute="trailing" id="xqt-Yz-iaC"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="RW9-Ni-TOW" id="Rze-hb-K7i"/>
+                        <outlet property="progressIndicator" destination="7ie-AS-EQ1" id="to8-MN-70A"/>
+                    </connections>
+                </viewController>
+                <customObject id="nUW-bY-8dG" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1281" y="92"/>
         </scene>
     </scenes>
 </document>

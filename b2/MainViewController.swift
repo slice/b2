@@ -15,6 +15,11 @@ class MainViewController: NSSplitViewController {
     self.postsSplitItem.viewController as? PostsViewController
   }
 
+  @IBOutlet var previewSplitItem: NSSplitViewItem!
+  var previewViewController: PreviewViewController! {
+    self.previewSplitItem.viewController as? PreviewViewController
+  }
+
   private var infiniteScrollSubscriber: AnyCancellable!
   private var isLoadingMorePosts: Bool = false
 
@@ -34,6 +39,10 @@ class MainViewController: NSSplitViewController {
 
       self?.tagsViewController.tags = tags
       self?.tagsViewController.tableView.reloadData()
+
+      if !(self?.previewSplitItem.isCollapsed ?? true) {
+        self?.previewViewController.loadPreviewImage(at: file.imageURL)
+      }
     }
 
     self.infiniteScrollSubscriber = self.postsViewController.scrolledNearEnd

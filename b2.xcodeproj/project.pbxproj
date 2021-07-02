@@ -33,6 +33,7 @@
 		12C43B7122BD5E59003AF7C1 /* HydrusTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B7022BD5E59003AF7C1 /* HydrusTags.swift */; };
 		12C43B7422BD6076003AF7C1 /* HydrusTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B7322BD6076003AF7C1 /* HydrusTag.swift */; };
 		12C43B7622BD6094003AF7C1 /* HydrusTagNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C43B7522BD6094003AF7C1 /* HydrusTagNamespace.swift */; };
+		12D00E39268EDCD2000F9DE0 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D00E38268EDCD2000F9DE0 /* PreviewViewController.swift */; };
 		12D5009B22BC7A4E00CB1D98 /* HydrusFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5009A22BC7A4E00CB1D98 /* HydrusFile.swift */; };
 		12D500A022BC907C00CB1D98 /* HydrusMime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D5009F22BC907C00CB1D98 /* HydrusMime.swift */; };
 		12D500A222BC931400CB1D98 /* HydrusMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D500A122BC931400CB1D98 /* HydrusMetadata.swift */; };
@@ -85,6 +86,7 @@
 		12C43B7022BD5E59003AF7C1 /* HydrusTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusTags.swift; sourceTree = "<group>"; };
 		12C43B7322BD6076003AF7C1 /* HydrusTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusTag.swift; sourceTree = "<group>"; };
 		12C43B7522BD6094003AF7C1 /* HydrusTagNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusTagNamespace.swift; sourceTree = "<group>"; };
+		12D00E38268EDCD2000F9DE0 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		12D5009A22BC7A4E00CB1D98 /* HydrusFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusFile.swift; sourceTree = "<group>"; };
 		12D5009D22BC7D4100CB1D98 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		12D5009F22BC907C00CB1D98 /* HydrusMime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HydrusMime.swift; sourceTree = "<group>"; };
@@ -211,6 +213,14 @@
 			name = File;
 			sourceTree = "<group>";
 		};
+		12D00E37268EDCC9000F9DE0 /* Preview Pane */ = {
+			isa = PBXGroup;
+			children = (
+				12D00E38268EDCD2000F9DE0 /* PreviewViewController.swift */,
+			);
+			name = "Preview Pane";
+			sourceTree = "<group>";
+		};
 		12D7B0B522BC1A5200CB740F /* Hydrus */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +268,7 @@
 		12FC13E8267DB239009561B5 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				12D00E37268EDCC9000F9DE0 /* Preview Pane */,
 				12FC13EB267DB24D009561B5 /* Preferences */,
 				12FC13EA267DB24A009561B5 /* Posts Grid */,
 				12FC13E9267DB246009561B5 /* Main Window */,
@@ -414,6 +425,7 @@
 				12D500A022BC907C00CB1D98 /* HydrusMime.swift in Sources */,
 				127C44C322C7562E003C7BFA /* OuroborosPostResponse.swift in Sources */,
 				128ED16422AAD1AC00A1DDD6 /* MainViewController.swift in Sources */,
+				12D00E39268EDCD2000F9DE0 /* PreviewViewController.swift in Sources */,
 				12A9BBA022C74E190090F503 /* OuroborosBooru.swift in Sources */,
 				126975C4268D909800E003AC /* ConstellationBooru.swift in Sources */,
 				12D5009B22BC7A4E00CB1D98 /* HydrusFile.swift in Sources */,

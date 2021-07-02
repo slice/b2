@@ -2,7 +2,8 @@ import Cocoa
 import os.log
 
 class ImageCache: NSObject, NSCacheDelegate {
-  static let shared = ImageCache()
+  static let sharedThumbnailCache = ImageCache()
+  static let sharedFullImageCache = ImageCache()
 
   var cache: NSCache<NSString, NSImage> = NSCache()
   private let log = Logger(subsystem: loggingSubsystem, category: "image-cache")
@@ -12,7 +13,7 @@ class ImageCache: NSObject, NSCacheDelegate {
     self.cache.delegate = self
   }
 
-  func cache(_: NSCache<AnyObject, AnyObject>, willEvictObject obj: Any) {
+  internal func cache(_: NSCache<AnyObject, AnyObject>, willEvictObject obj: Any) {
     let image = obj as! NSImage
     self.log.info("\(image) will be evicted")
   }

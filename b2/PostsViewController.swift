@@ -136,7 +136,7 @@ class PostsViewController: NSViewController {
   }
 
   private func loadThumbnail(forPost post: BooruPost) throws -> NSImage {
-    let cache = ImageCache.shared
+    let cache = ImageCache.sharedThumbnailCache
 
     if let image = cache.image(forGlobalID: post.globalID) {
       self.fetchLog.debug("using cached thumbnail for post \(post.globalID, privacy: .public)")

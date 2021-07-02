@@ -7,6 +7,7 @@ struct B2Error {
     case queryFailed
     case invalidBooruEndpoint
     case invalidBooruCredentials
+    case previewLoadFailed
   }
 
   public static func error(code: Self.Code, userInfo: [String: Any]? = nil) -> NSError {
@@ -51,6 +52,15 @@ struct B2Error {
         case NSLocalizedRecoverySuggestionErrorKey:
           return
             "Make sure that any passwords and access key associated with the booru are correct."
+        default: return nil
+        }
+      case .previewLoadFailed:
+        switch key {
+        case NSLocalizedDescriptionKey:
+          return "Couldn't load preview image."
+        case NSLocalizedRecoverySuggestionErrorKey:
+          return "\(underlyingError().localizedDescription) "
+            + "Make sure your booru credentials are correct, or try loading the image again."
         default: return nil
         }
       }

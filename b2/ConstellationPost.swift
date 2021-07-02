@@ -15,11 +15,9 @@ class ConstellationPost {
     self.metadata = metadata
     self.booru = booru
   }
-}
 
-extension ConstellationPost: BooruPost {
-  var imageURL: URL {
-    let url = self.booru.baseURL / "get_files" / "thumbnail"
+  private func computeImageURL(thumbnail: Bool) -> URL {
+    let url = self.booru.baseURL / "get_files" / (thumbnail ? "thumbnail" : "file")
     guard var components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
       fatalError("can't compute ConstellationPost's imageURL -- invalid booru baseURL")
     }
@@ -30,6 +28,16 @@ extension ConstellationPost: BooruPost {
       fatalError("can't compute ConstellationPost's imageURL -- invalid final URL")
     }
     return finalURL
+  }
+}
+
+extension ConstellationPost: BooruPost {
+  var imageURL: URL {
+    self.computeImageURL(thumbnail: false)
+  }
+
+  var thumbnailImageURL: URL {
+    self.computeImageURL(thumbnail: true)
   }
 
   var id: Int {

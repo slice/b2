@@ -43,12 +43,12 @@ class MainWindowController: NSWindowController {
         string: UserDefaults.standard.string(forKey: "hydrusClientAPIBaseURL")
           ?? "http://localhost:45869")
     else {
-      throw B2Error.error(code: .invalidBooruEndpoint)
+      throw B2Error.invalidBooruEndpoint
     }
 
     guard let hydrusAccessKey = UserDefaults.standard.string(forKey: "hydrusClientAPIAccessKey")
     else {
-      throw B2Error.error(code: .invalidBooruCredentials)
+      throw B2Error.invalidBooruCredentials
     }
 
     self.viewController.booru = ConstellationBooru(baseURL: hydrusHost, accessKey: hydrusAccessKey)
@@ -165,8 +165,7 @@ class MainWindowController: NSWindowController {
       let error = error as NSError
       self.log.error("failed to query: \(error, privacy: .public)")
       DispatchQueue.main.async {
-        self.presentError(
-          B2Error.error(code: .queryFailed, userInfo: [NSUnderlyingErrorKey: error]))
+        self.presentError(B2Error.queryFailed.wrap(underlyingError: error))
       }
     }
 

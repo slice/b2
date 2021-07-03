@@ -35,7 +35,7 @@ class PreviewViewController: NSViewController {
       .subscribe(on: self.loadingQueue)
       .receive(on: DispatchQueue.main)
       .catch { error -> Empty<NSImage, Never> in
-        self.presentError(B2Error.error(code: .previewLoadFailed, userInfo: [NSUnderlyingErrorKey: error]))
+        self.presentError(B2Error.previewLoadFailed.wrap(underlyingError: error))
         return Empty()
       }
       .sink { image in

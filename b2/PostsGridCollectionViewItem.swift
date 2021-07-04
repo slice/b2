@@ -15,6 +15,7 @@ class PostsGridCollectionViewItem: NSCollectionViewItem {
     self.boxView.fillColor = .selectedContentBackgroundColor
 
     self.customImageView = NSImageView(frame: .zero)
+    self.customImageView.imageScaling = .scaleProportionallyUpOrDown
     self.customImageView.translatesAutoresizingMaskIntoConstraints = false
     self.boxView.addSubview(self.customImageView)
     NSLayoutConstraint.activate([

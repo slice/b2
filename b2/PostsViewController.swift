@@ -44,9 +44,6 @@ class PostsViewController: NSViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    // Let the NSVisualEffectView show through.
-    self.collectionView.backgroundColors = [.clear]
-
     let scrollView = self.collectionView.enclosingScrollView!
 
     if Preferences.shared.get(.imageGridPinchZoomEnabled) {

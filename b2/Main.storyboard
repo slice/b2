@@ -412,9 +412,9 @@ CA
         <scene sceneID="5Wi-1q-Ckr">
             <objects>
                 <viewController id="Rdk-ZL-7B3" customClass="PostsViewController" customModule="b2" customModuleProvider="target" sceneMemberID="viewController">
-                    <visualEffectView key="view" blendingMode="behindWindow" material="fullScreenUI" state="followsWindowActiveState" id="aDZ-Qj-TdM">
+                    <customView key="view" id="k3f-tb-TjT">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="500"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KU2-1j-akO">
                                 <rect key="frame" x="0.0" y="0.0" width="450" height="500"/>
@@ -451,14 +451,14 @@ CA
                             </progressIndicator>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="5aV-Wv-e92" firstAttribute="centerY" secondItem="aDZ-Qj-TdM" secondAttribute="centerY" id="8L9-K7-Ivh"/>
-                            <constraint firstItem="KU2-1j-akO" firstAttribute="top" secondItem="aDZ-Qj-TdM" secondAttribute="top" id="CMM-wj-Hh4"/>
-                            <constraint firstAttribute="trailing" secondItem="KU2-1j-akO" secondAttribute="trailing" id="M1w-ip-X98"/>
-                            <constraint firstItem="5aV-Wv-e92" firstAttribute="centerX" secondItem="aDZ-Qj-TdM" secondAttribute="centerX" id="VLy-ho-syS"/>
-                            <constraint firstAttribute="bottom" secondItem="KU2-1j-akO" secondAttribute="bottom" id="Xwo-Lr-CZp"/>
-                            <constraint firstItem="KU2-1j-akO" firstAttribute="leading" secondItem="aDZ-Qj-TdM" secondAttribute="leading" id="n6G-uA-5de"/>
+                            <constraint firstItem="KU2-1j-akO" firstAttribute="top" secondItem="k3f-tb-TjT" secondAttribute="top" id="5Zd-qf-n4B"/>
+                            <constraint firstAttribute="trailing" secondItem="KU2-1j-akO" secondAttribute="trailing" id="YFM-y3-l9h"/>
+                            <constraint firstItem="5aV-Wv-e92" firstAttribute="centerY" secondItem="k3f-tb-TjT" secondAttribute="centerY" id="kb3-de-anp"/>
+                            <constraint firstItem="5aV-Wv-e92" firstAttribute="centerX" secondItem="k3f-tb-TjT" secondAttribute="centerX" id="lT5-Li-D98"/>
+                            <constraint firstItem="KU2-1j-akO" firstAttribute="leading" secondItem="k3f-tb-TjT" secondAttribute="leading" id="nSf-IZ-9uL"/>
+                            <constraint firstAttribute="bottom" secondItem="KU2-1j-akO" secondAttribute="bottom" id="q2u-zx-LxB"/>
                         </constraints>
-                    </visualEffectView>
+                    </customView>
                     <connections>
                         <outlet property="collectionView" destination="fA5-6O-SIQ" id="c4X-0K-TmY"/>
                         <outlet property="progressIndicator" destination="5aV-Wv-e92" id="xKn-Aa-fQu"/>

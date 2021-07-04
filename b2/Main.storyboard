@@ -312,7 +312,7 @@ CA
                         <splitViewItem id="cWR-uh-ktI"/>
                         <splitViewItem canCollapse="YES" id="iHM-qu-LRq"/>
                     </splitViewItems>
-                    <splitView key="splitView" dividerStyle="paneSplitter" vertical="YES" id="fQJ-Ho-Nvm">
+                    <splitView key="splitView" dividerStyle="thin" vertical="YES" id="fQJ-Ho-Nvm">
                         <rect key="frame" x="0.0" y="0.0" width="557" height="362"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>

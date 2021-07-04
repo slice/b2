@@ -100,6 +100,11 @@ public class BooruListing {
     }
   }
 
+  /// Find the post with the given global ID.
+  public func post(withGlobalID globalID: String) -> BooruPost? {
+    self.posts.first { $0.globalID == globalID }
+  }
+
   private func preferredPaginationType() -> BooruPaginationType {
     guard let preferredPaginationType = self.booru.supportedPaginationTypes.max() else {
       fatalError(

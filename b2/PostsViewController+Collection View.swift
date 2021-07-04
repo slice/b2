@@ -28,9 +28,19 @@ extension PostsViewController: NSCollectionViewDelegate {
   func collectionView(
     _ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>
   ) {
-    let lastIndexPath = indexPaths.max()!
-    let item = collectionView.item(at: lastIndexPath) as! PostsGridCollectionViewItem
-    self.onPostSelected?(item.post)
+    guard let lastIndexPath = indexPaths.max() else {
+      return
+    }
+    guard let dataSource = collectionView.dataSource as? NSCollectionViewDiffableDataSource<PostsGridSection, String> else {
+      return
+    }
+    guard let identifier = dataSource.itemIdentifier(for: lastIndexPath) else {
+      return
+    }
+    guard let post = self.listing?.post(withGlobalID: identifier) else {
+      return
+    }
+    self.onPostSelected?(post)
   }
 
   // Only load thumbnails as the user scrolls.

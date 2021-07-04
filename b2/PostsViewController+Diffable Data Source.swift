@@ -9,8 +9,7 @@ extension PostsViewController {
     NSCollectionViewDiffableDataSource(collectionView: self.collectionView) {
       (collectionView: NSCollectionView, indexPath: IndexPath, itemIdentifier: String) -> NSCollectionViewItem? in
       let item = collectionView.makeItem(withIdentifier: .postsGridItem, for: indexPath) as! PostsGridCollectionViewItem
-      // XXX: This is probably too slow. Profile this and optimize it if necessary.
-      let post = self.listing?.posts.first(where: { $0.globalID == itemIdentifier })
+      let post = self.listing?.post(withGlobalID: itemIdentifier)
       item.post = post
       return item
     }

@@ -24,22 +24,14 @@ class PostsViewController: NSViewController {
   private var scrollViewMagnifyEndObserver: AnyCancellable!
   private var clipViewBoundsChangedObserver: AnyCancellable!
 
-  private let postsLog = Logger(subsystem: loggingSubsystem, category: "posts")
-  private let fetchLog = Logger(subsystem: loggingSubsystem, category: "fetch")
+  internal let postsLog = Logger(subsystem: loggingSubsystem, category: "posts")
+  internal let fetchLog = Logger(subsystem: loggingSubsystem, category: "fetch")
 
   /// A `DispatchQueue` used for loading thumbnails.
-  private let thumbnailsQueue = DispatchQueue(label: "thumbnails", attributes: .concurrent)
+  internal let thumbnailsQueue = DispatchQueue(label: "thumbnails", attributes: .concurrent)
 
-  private func updateCollectionViewLayout() {
-    let spacing: Int = Preferences.shared.get(.imageGridSpacing)
-    let size: Int = Preferences.shared.get(.imageGridThumbnailSize)
-
-    let layout = self.collectionView.collectionViewLayout! as! NSCollectionViewGridLayout
-    layout.minimumInteritemSpacing = CGFloat(spacing)
-    layout.minimumLineSpacing = CGFloat(spacing)
-    layout.minimumItemSize = NSSize(width: size, height: size)
-    layout.maximumItemSize = NSSize(width: size, height: size)
-  }
+  /// The diffable data source used for the collection view.
+  internal lazy var dataSource: NSCollectionViewDiffableDataSource<PostsGridSection, String> = self.makeDiffableDataSource()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -63,11 +55,11 @@ class PostsViewController: NSViewController {
       }
     }
 
-    self.updateCollectionViewLayout()
+    self.collectionView.collectionViewLayout = self.makeCompositionalLayout()
 
     self.defaultsObserver = NotificationCenter.default.publisher(for: .preferencesChanged)
       .sink { [weak self] _ in
-        self?.updateCollectionViewLayout()
+        self?.collectionView.collectionViewLayout = self?.makeCompositionalLayout()
       }
 
     let clipView = scrollView.contentView
@@ -79,12 +71,10 @@ class PostsViewController: NSViewController {
       self?.loadMoreIfNearEnd(scrollView: scrollView)
     }
 
-    self.collectionView.register(
-      PostsGridCollectionViewItem.self, forItemWithIdentifier: .postsGridItem
-    )
+    self.setupCollectionView()
   }
 
-  private func loadMoreIfNearEnd(scrollView: NSScrollView) {
+  internal func loadMoreIfNearEnd(scrollView: NSScrollView) {
     let clipView = scrollView.contentView
     let documentView = scrollView.documentView!
     //        guard documentView.frame.height > clipView.bounds.height else {
@@ -98,7 +88,7 @@ class PostsViewController: NSViewController {
     }
   }
 
-  private func loadFallbackThumbnailData() -> Data {
+  internal func loadFallbackThumbnailData() -> Data {
     guard
       let fallbackImageURL = Bundle.main.url(forResource: "FailedToLoadImage", withExtension: "png")
     else {
@@ -112,7 +102,7 @@ class PostsViewController: NSViewController {
     return fallbackData
   }
 
-  private func loadThumbnail(forPost post: BooruPost) throws -> NSImage {
+  internal func loadThumbnail(forPost post: BooruPost) throws -> NSImage {
     let cache = ImageCache.sharedThumbnailCache
 
     if let image = cache.image(forGlobalID: post.globalID) {
@@ -134,72 +124,5 @@ class PostsViewController: NSViewController {
 
   deinit {
     self.postsLog.notice("PostsViewController deinit")
-  }
-}
-
-extension PostsViewController: NSCollectionViewDelegate {
-  func collectionView(
-    _ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>
-  ) {
-    let lastIndexPath = indexPaths.max()!
-    let item = collectionView.item(at: lastIndexPath) as? PostsGridCollectionViewItem
-
-    if let file = item?.file {
-      self.onPostSelected?(file)
-    }
-  }
-
-  // Only load thumbnails as the user scrolls.
-  func collectionView(
-    _: NSCollectionView, willDisplay item: NSCollectionViewItem,
-    forRepresentedObjectAt _: IndexPath
-  ) {
-    let postsGridItem = item as! PostsGridCollectionViewItem
-
-    self.thumbnailsQueue.async {
-      guard let post = postsGridItem.file else {
-        return
-      }
-
-      var image: NSImage
-      do {
-        image = try self.loadThumbnail(forPost: post)
-      } catch {
-        self.fetchLog.error(
-          "failed to load thumbnail image for post (globalID: \(post.globalID, privacy: .public), error: \(error.localizedDescription, privacy: .public), URL: \(post.thumbnailImageURL, privacy: .public))"
-        )
-        guard let fallbackThumbnailImage = NSImage(data: self.loadFallbackThumbnailData()) else {
-          fatalError("failed to create image from fallback thumbnail data (?)")
-        }
-        image = fallbackThumbnailImage
-      }
-
-      DispatchQueue.main.async {
-        postsGridItem.customImageView.image = image
-      }
-    }
-  }
-}
-
-extension PostsViewController: NSCollectionViewDataSource {
-  func collectionView(_: NSCollectionView, numberOfItemsInSection _: Int)
-    -> Int
-  {
-    self.listing?.count ?? 0
-  }
-
-  func collectionView(
-    _: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath
-  ) -> NSCollectionViewItem {
-    let item =
-      self.collectionView.makeItem(
-        withIdentifier: .postsGridItem,
-        for: indexPath
-      ) as! PostsGridCollectionViewItem
-
-    let file = self.listing!.posts[indexPath.item]
-    item.file = file
-
-    return item
   }
 }

@@ -431,7 +431,6 @@ CA
                                             </collectionViewGridLayout>
                                             <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <connections>
-                                                <outlet property="dataSource" destination="Rdk-ZL-7B3" id="e5T-LR-zSi"/>
                                                 <outlet property="delegate" destination="Rdk-ZL-7B3" id="P7Y-04-4xo"/>
                                             </connections>
                                         </collectionView>
@@ -442,7 +441,7 @@ CA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="2lK-hB-lEJ">
-                                    <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                    <rect key="frame" x="434" y="0.0" width="16" height="300"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>

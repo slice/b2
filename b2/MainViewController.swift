@@ -65,7 +65,7 @@ class MainViewController: NSSplitViewController {
       }
       .receive(on: DispatchQueue.main)
       .sink { _ in
-        self.postsViewController.collectionView.reloadData()
+        self.postsViewController.applySnapshotWithLatestChunk()
         self.windowController.updateFileCountSubtitle()
       }
   }
@@ -81,13 +81,32 @@ class MainViewController: NSSplitViewController {
   }
 
   func setInitialListing(fromFiles files: [BooruPost]) {
-    self.postsViewController.listing =
-      files.isEmpty ? nil : BooruListing(files: files, fromBooru: self.booru)
-    self.reloadPostsGrid()
+    let listing = files.isEmpty ? nil : BooruListing(files: files, fromBooru: self.booru)
+    self.postsViewController.listing = listing
+    self.postsViewController.collectionView.deselectAll(nil)
+    self.applySnapshot(ofListing: listing)
   }
 
-  private func reloadPostsGrid() {
-    self.postsViewController.collectionView.deselectAll(nil)
-    self.postsViewController.collectionView.reloadData()
+  private func applySnapshot(ofListing listing: BooruListing?) {
+    guard let collectionView = self.postsViewController.collectionView else {
+      return
+    }
+
+    guard let dataSource = collectionView.dataSource as? NSCollectionViewDiffableDataSource<PostsGridSection, String> else {
+      return
+    }
+
+    var snapshot = NSDiffableDataSourceSnapshot<PostsGridSection, String>()
+
+    guard let listing = listing else {
+      // Apply the empty snapshot.
+      dataSource.apply(snapshot)
+      return
+    }
+
+    snapshot.appendSections([.main])
+    snapshot.appendItems(listing.posts.map(\.globalID), toSection: .main)
+
+    dataSource.apply(snapshot)
   }
 }

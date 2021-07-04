@@ -51,10 +51,8 @@ class PostsGridCollectionViewItem: NSCollectionViewItem {
     }
   }
 
-  /// The file that this item is associated with.
-  ///
-  /// The thumbnail of the file isn't loaded until you call `loadImage`.
-  var file: BooruPost! {
+  /// The post that this item is associated with.
+  var post: BooruPost! {
     didSet {
       self.view.toolTip = self.toolTip()
     }
@@ -66,9 +64,9 @@ class PostsGridCollectionViewItem: NSCollectionViewItem {
     dateFormatter.timeStyle = .short
     dateFormatter.locale = Locale.current
 
-    let timestampHumanReadable = dateFormatter.string(from: self.file.createdAt)
+    let timestampHumanReadable = dateFormatter.string(from: self.post.createdAt)
     let sizeHumanReadable = ByteCountFormatter.string(
-      fromByteCount: Int64(self.file.size),
+      fromByteCount: Int64(self.post.size),
       countStyle: .file
     )
     return "added \(timestampHumanReadable), \(sizeHumanReadable)"
@@ -78,7 +76,7 @@ class PostsGridCollectionViewItem: NSCollectionViewItem {
     super.mouseDown(with: event)
 
     if event.clickCount == 2 {
-      NSWorkspace.shared.open(self.file.imageURL)
+      NSWorkspace.shared.open(self.post.imageURL)
     }
   }
 

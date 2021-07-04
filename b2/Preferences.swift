@@ -14,6 +14,7 @@ struct PreferenceKey<Value> {
 extension PreferenceKey where Value == Int {
   static let imageGridThumbnailSize = Self("imageGridThumbnailSize", defaultingTo: 150)
   static let imageGridSpacing = Self("imageGridSpacing", defaultingTo: 1)
+  static let imageGridThumbnailPadding = Self("imageGridThumbnailPadding", defaultingTo: 1)
 }
 
 extension PreferenceKey where Value == Bool {

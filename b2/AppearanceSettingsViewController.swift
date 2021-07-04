@@ -20,6 +20,14 @@ class AppearanceSettingsViewController: NSViewController {
     return slider
   }()
 
+  lazy var imageGridPaddingSlider: NSSlider = {
+    let slider = NSSlider(
+      value: 1, minValue: 1, maxValue: 100, target: self, action: #selector(action))
+    slider.translatesAutoresizingMaskIntoConstraints = false
+    slider.widthAnchor.constraint(equalToConstant: 200).isActive = true
+    return slider
+  }()
+
   lazy var compactTagsCheckbox: NSButton = {
     NSButton(checkboxWithTitle: "Compact tags", target: nil, action: #selector(action))
   }()
@@ -28,6 +36,7 @@ class AppearanceSettingsViewController: NSViewController {
     let gridView = NSGridView(views: [
       [NSTextField(labelWithString: "Grid thumbnail size:"), self.imageGridThumbnailSizeSlider],
       [NSTextField(labelWithString: "Grid spacing:"), self.imageGridSpacingSlider],
+      [NSTextField(labelWithString: "Grid thumbnail padding:"), self.imageGridPaddingSlider],
       [NSView(), self.compactTagsCheckbox],
     ])
     gridView.translatesAutoresizingMaskIntoConstraints = false
@@ -61,6 +70,8 @@ class AppearanceSettingsViewController: NSViewController {
     self.imageGridThumbnailSizeSlider.integerValue = p.get(.imageGridThumbnailSize)
     self.imageGridSpacingSlider.integerValue = p.get(.imageGridSpacing)
     self.compactTagsCheckbox.state = p.get(.compactTagsEnabled) ? .on : .off
+    self.imageGridPaddingSlider.integerValue = p.get(.imageGridThumbnailPadding)
+    self.imageGridPaddingSlider.maxValue = Double(self.imageGridThumbnailSizeSlider.integerValue) / 4
   }
 
   @IBAction private func action(sender _: Any?) {
@@ -68,5 +79,7 @@ class AppearanceSettingsViewController: NSViewController {
     p.set(.imageGridThumbnailSize, to: self.imageGridThumbnailSizeSlider.integerValue)
     p.set(.imageGridSpacing, to: self.imageGridSpacingSlider.integerValue)
     p.set(.compactTagsEnabled, to: self.compactTagsCheckbox.state == .on)
+    p.set(.imageGridThumbnailPadding, to: self.imageGridPaddingSlider.integerValue)
+    self.imageGridPaddingSlider.maxValue = Double(self.imageGridThumbnailSizeSlider.integerValue) / 4
   }
 }

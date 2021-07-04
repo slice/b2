@@ -5,9 +5,11 @@ extension PostsViewController {
   func makeCompositionalLayout() -> NSCollectionViewCompositionalLayout {
     let spacing = CGFloat(Preferences.shared.get(.imageGridSpacing))
     let size = CGFloat(Preferences.shared.get(.imageGridThumbnailSize))
+    let inset = CGFloat(Preferences.shared.get(.imageGridThumbnailPadding))
 
     let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(size), heightDimension: .absolute(size))
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
+    item.contentInsets = NSDirectionalEdgeInsets(top: inset, leading: inset, bottom: inset, trailing: inset)
     item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: nil, trailing: .fixed(spacing), bottom: nil)
     let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(size + spacing))
     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])

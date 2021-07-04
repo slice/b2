@@ -30,20 +30,6 @@ class PostsViewController: NSViewController {
   /// A `DispatchQueue` used for loading thumbnails.
   private let thumbnailsQueue = DispatchQueue(label: "thumbnails", attributes: .concurrent)
 
-  private func imageLayerGravity() -> CALayerContentsGravity {
-    guard let mode = PostsGridScalingMode(rawValue: Preferences.shared.get(.imageGridScalingMode))
-    else {
-      fatalError("failed to determine grid scaling mode")
-    }
-
-    switch mode {
-    case .fill:
-      return .resizeAspectFill
-    case .resizeToFit:
-      return .resizeAspect
-    }
-  }
-
   private func updateCollectionViewLayout() {
     let spacing: Int = Preferences.shared.get(.imageGridSpacing)
     let size: Int = Preferences.shared.get(.imageGridThumbnailSize)
@@ -53,12 +39,6 @@ class PostsViewController: NSViewController {
     layout.minimumLineSpacing = CGFloat(spacing)
     layout.minimumItemSize = NSSize(width: size, height: size)
     layout.maximumItemSize = NSSize(width: size, height: size)
-
-    let gravity = self.imageLayerGravity()
-    for item in self.collectionView.visibleItems() {
-      let item = item as! PostsGridCollectionViewItem
-      item.selectableImageView.contentsGravity = gravity
-    }
   }
 
   override func viewDidLoad() {
@@ -198,7 +178,7 @@ extension PostsViewController: NSCollectionViewDelegate {
       }
 
       DispatchQueue.main.async {
-        postsGridItem.selectableImageView.image = image
+        postsGridItem.customImageView.image = image
       }
     }
   }
@@ -221,7 +201,6 @@ extension PostsViewController: NSCollectionViewDataSource {
       ) as! PostsGridCollectionViewItem
 
     let file = self.listing!.posts[indexPath.item]
-    item.selectableImageView.contentsGravity = self.imageLayerGravity()
     item.file = file
 
     return item

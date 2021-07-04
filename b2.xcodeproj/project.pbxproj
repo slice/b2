@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		12187445267F17FC00A78791 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12187444267F17FC00A78791 /* PreferencesWindowController.swift */; };
 		12187469267F2BEE00A78791 /* ResizingTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12187468267F2BEE00A78791 /* ResizingTabViewController.swift */; };
-		1218746B267F323C00A78791 /* PostsGridScalingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1218746A267F323C00A78791 /* PostsGridScalingMode.swift */; };
 		1218746D267F398500A78791 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1218746C267F398500A78791 /* ImageCache.swift */; };
 		121BE927268BF29300BA347B /* OuroborosPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121BE926268BF29300BA347B /* OuroborosPost.swift */; };
 		122AD8AB267B019A001F3A94 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122AD8AA267B019A001F3A94 /* Preferences.swift */; };
@@ -52,13 +51,11 @@
 		12F7957622C5BB99002DCBEF /* Booru.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957522C5BB99002DCBEF /* Booru.swift */; };
 		12F7957822C5C092002DCBEF /* BooruPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957722C5C092002DCBEF /* BooruPost.swift */; };
 		12F7957A22C5C3F4002DCBEF /* BooruTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F7957922C5C3F4002DCBEF /* BooruTag.swift */; };
-		12FC13DD267DAB71009561B5 /* SelectableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FC13DC267DAB71009561B5 /* SelectableImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		12187444267F17FC00A78791 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 		12187468267F2BEE00A78791 /* ResizingTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizingTabViewController.swift; sourceTree = "<group>"; };
-		1218746A267F323C00A78791 /* PostsGridScalingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsGridScalingMode.swift; sourceTree = "<group>"; };
 		1218746C267F398500A78791 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		121BE926268BF29300BA347B /* OuroborosPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OuroborosPost.swift; sourceTree = "<group>"; };
 		122AD8AA267B019A001F3A94 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -103,7 +100,6 @@
 		12F7957522C5BB99002DCBEF /* Booru.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booru.swift; sourceTree = "<group>"; };
 		12F7957722C5C092002DCBEF /* BooruPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruPost.swift; sourceTree = "<group>"; };
 		12F7957922C5C3F4002DCBEF /* BooruTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooruTag.swift; sourceTree = "<group>"; };
-		12FC13DC267DAB71009561B5 /* SelectableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,10 +286,8 @@
 		12FC13EA267DB24A009561B5 /* Posts Grid */ = {
 			isa = PBXGroup;
 			children = (
-				12FC13DC267DAB71009561B5 /* SelectableImageView.swift */,
 				12D7B0B122BB6DA000CB740F /* PostsGridCollectionViewItem.swift */,
 				12ED8615266DD68A00F1303F /* PostsViewController.swift */,
-				1218746A267F323C00A78791 /* PostsGridScalingMode.swift */,
 			);
 			name = "Posts Grid";
 			sourceTree = "<group>";
@@ -451,9 +445,7 @@
 				12D500A222BC931400CB1D98 /* HydrusMetadata.swift in Sources */,
 				122AD8AB267B019A001F3A94 /* Preferences.swift in Sources */,
 				124A55E9267AE2F200FFDA1F /* AppearanceSettingsViewController.swift in Sources */,
-				1218746B267F323C00A78791 /* PostsGridScalingMode.swift in Sources */,
 				12C43B7122BD5E59003AF7C1 /* HydrusTags.swift in Sources */,
-				12FC13DD267DAB71009561B5 /* SelectableImageView.swift in Sources */,
 				12C43B7622BD6094003AF7C1 /* HydrusTagNamespace.swift in Sources */,
 				12D7B0B822BC237200CB740F /* HydrusDatabase.swift in Sources */,
 				12ECACE5268E633B002C6820 /* B2Error.swift in Sources */,

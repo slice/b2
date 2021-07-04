@@ -2,12 +2,29 @@ import Cocoa
 import Path
 
 class PostsGridCollectionViewItem: NSCollectionViewItem {
-  var selectableImageView: SelectableImageView!
+  private var boxView: NSBox!
+  var customImageView: NSImageView!
 
   override func loadView() {
     // The frame is determined by the collection view.
-    self.selectableImageView = SelectableImageView(frame: .zero)
-    self.view = self.selectableImageView
+    self.boxView = NSBox(frame: .zero)
+    self.boxView.isTransparent = true
+    self.boxView.boxType = .custom
+    self.boxView.borderWidth = 1
+    self.boxView.borderColor = .selectedContentBackgroundColor.blended(withFraction: 0.25, of: .white) ?? .selectedContentBackgroundColor
+    self.boxView.fillColor = .selectedContentBackgroundColor
+
+    self.customImageView = NSImageView(frame: .zero)
+    self.customImageView.translatesAutoresizingMaskIntoConstraints = false
+    self.boxView.addSubview(self.customImageView)
+    NSLayoutConstraint.activate([
+      self.customImageView.topAnchor.constraint(equalTo: self.boxView.topAnchor),
+      self.customImageView.leftAnchor.constraint(equalTo: self.boxView.leftAnchor),
+      self.customImageView.rightAnchor.constraint(equalTo: self.boxView.rightAnchor),
+      self.customImageView.bottomAnchor.constraint(equalTo: self.boxView.bottomAnchor),
+    ])
+
+    self.view = self.boxView
   }
 
   override var highlightState: NSCollectionViewItem.HighlightState {
@@ -24,13 +41,13 @@ class PostsGridCollectionViewItem: NSCollectionViewItem {
       }
 
       let isHighlighted = self.highlightState == .forSelection
-      self.selectableImageView.isSelected = isHighlighted
+      self.boxView.isTransparent = !isHighlighted
     }
   }
 
   override var isSelected: Bool {
     didSet {
-      self.selectableImageView.isSelected = self.isSelected
+      self.boxView.isTransparent = !self.isSelected
     }
   }
 
@@ -66,7 +83,7 @@ class PostsGridCollectionViewItem: NSCollectionViewItem {
   }
 
   override func prepareForReuse() {
-    self.selectableImageView.isSelected = false
-    self.selectableImageView.image = nil
+    self.boxView.isTransparent = true
+    self.customImageView.image = nil
   }
 }

@@ -7,6 +7,7 @@ class ImageCache: NSObject, NSCacheDelegate {
 
   var cache: NSCache<NSString, NSImage> = NSCache()
   private let log = Logger(subsystem: loggingSubsystem, category: "image-cache")
+  private var shouldLog: Bool = Preferences.shared.get(.logImageCachingAndFetching)
 
   override init() {
     super.init()
@@ -15,7 +16,9 @@ class ImageCache: NSObject, NSCacheDelegate {
 
   internal func cache(_: NSCache<AnyObject, AnyObject>, willEvictObject obj: Any) {
     let image = obj as! NSImage
-    self.log.info("\(image) will be evicted")
+    if self.shouldLog {
+      self.log.info("\(image) will be evicted")
+    }
   }
 
   func image(forGlobalID id: String) -> NSImage? {
@@ -23,7 +26,9 @@ class ImageCache: NSObject, NSCacheDelegate {
   }
 
   func insert(_ image: NSImage, forGlobalID id: String) {
-    self.log.info("inserting image (id: \(id)) into cache")
+    if self.shouldLog {
+      self.log.info("inserting image (id: \(id)) into cache")
+    }
     self.cache.setObject(image, forKey: NSString(string: id))
   }
 

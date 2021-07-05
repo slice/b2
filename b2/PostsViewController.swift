@@ -33,6 +33,8 @@ class PostsViewController: NSViewController {
   /// The diffable data source used for the collection view.
   internal lazy var dataSource: NSCollectionViewDiffableDataSource<PostsGridSection, String> = self.makeDiffableDataSource()
 
+  private var logImageCachingAndFetching: Bool = Preferences.shared.get(.logImageCachingAndFetching)
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -106,10 +108,14 @@ class PostsViewController: NSViewController {
     let cache = ImageCache.sharedThumbnailCache
 
     if let image = cache.image(forGlobalID: post.globalID) {
-      self.fetchLog.debug("using cached thumbnail for post \(post.globalID, privacy: .public)")
+      if self.logImageCachingAndFetching {
+        self.fetchLog.debug("using cached thumbnail for post \(post.globalID, privacy: .public)")
+      }
       return image
     } else {
-      self.fetchLog.info("fetching thumbnail for post \(post.globalID, privacy: .public)")
+      if self.logImageCachingAndFetching {
+        self.fetchLog.info("fetching thumbnail for post \(post.globalID, privacy: .public)")
+      }
 
       let data = try Data(contentsOf: post.thumbnailImageURL)
       guard let image = NSImage(data: data) else {

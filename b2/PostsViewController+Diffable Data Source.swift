@@ -26,7 +26,18 @@ extension PostsViewController {
       NSLog("tried to update snapshot without a latest chunk")
       return
     }
-    snapshot.appendItems(latestChunk.map(\.globalID))
+
+    // Only ever append *new* posts into the snapshot. Appending existing items
+    // results in a warning and the current selection being squashed if it's
+    // nearby.
+    let newPosts = latestChunk.filter { !snapshot.itemIdentifiers.contains($0.globalID) }
+
+    guard !newPosts.isEmpty else {
+      NSLog("not updating snapshot; all posts in the latest chunk were already within the snapshot")
+      return
+    }
+
+    snapshot.appendItems(newPosts.map(\.globalID))
     self.dataSource.apply(snapshot, animatingDifferences: true)
   }
 }

@@ -26,7 +26,7 @@ extension B2Error: LocalizedError {
     switch self {
     case .queryFailed: return "Try making the query again."
     case .invalidBooruEndpoint: return "Make sure that the booru's URL is correct."
-    case .invalidBooruCredentials: return "Couldn't authenticate with the booru."
+    case .invalidBooruCredentials: return "Make sure your booru credentials are correct."
     case .previewLoadFailed: return "Make sure your booru credentials are correct, or try loading the image again."
     }
   }

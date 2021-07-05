@@ -422,7 +422,7 @@ CA
                                     <rect key="frame" x="0.0" y="0.0" width="450" height="500"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <collectionView selectable="YES" allowsMultipleSelection="YES" id="fA5-6O-SIQ">
+                                        <collectionView selectable="YES" allowsMultipleSelection="YES" id="fA5-6O-SIQ" customClass="PostsGridCollectionView" customModule="b2" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="450" height="500"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <collectionViewGridLayout key="collectionViewLayout" id="zec-bz-AUh">

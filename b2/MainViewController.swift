@@ -53,6 +53,11 @@ class MainViewController: NSSplitViewController {
           return Empty().eraseToAnyPublisher()
         }
 
+        guard !(self.postsViewController.listing?.isExhausted ?? true) else {
+          NSLog("halting infinite scroll subscriber; listing is already exhausted")
+          return Empty().eraseToAnyPublisher()
+        }
+
         return Just(()).eraseToAnyPublisher()
       }
       .flatMap { self.postsViewController.listing.publisher }

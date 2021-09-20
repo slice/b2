@@ -9,6 +9,9 @@ public protocol BooruPost {
   /// The URL to the thumbnail image of this post.
   var thumbnailImageURL: URL { get }
 
+  /// The URL to the post on the booru.
+  var postURL: URL? { get }
+
   /// A booru-local identifier.
   var id: Int { get }
 

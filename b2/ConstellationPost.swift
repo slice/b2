@@ -73,4 +73,8 @@ extension ConstellationPost: BooruPost {
     }
     return mime
   }
+
+  var postURL: URL? {
+    nil
+  }
 }

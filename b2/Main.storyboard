@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="zmA-tV-kk1">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="zmA-tV-kk1">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
         <capability name="Search Toolbar Item" minToolsVersion="12.0" minSystemVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -78,6 +79,23 @@
                                         <menuItem title="Close" keyEquivalent="w" id="7b4-fc-lhS">
                                             <connections>
                                                 <action selector="performClose:" target="h0z-e5-cfs" id="LKo-GX-8Lh"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Post" id="Ujt-nu-nbM">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Post" id="JEC-SI-tpW">
+                                    <items>
+                                        <menuItem title="Open Post" keyEquivalent="o" id="jdI-kq-CFY">
+                                            <connections>
+                                                <action selector="openPost:" target="h0z-e5-cfs" id="DFa-Q9-Hwz"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Open Post Media" keyEquivalent="O" id="CNa-MF-J0f">
+                                            <connections>
+                                                <action selector="openPostMedia:" target="h0z-e5-cfs" id="h1s-xZ-GdO"/>
                                             </connections>
                                         </menuItem>
                                     </items>

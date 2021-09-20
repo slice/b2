@@ -37,6 +37,8 @@ class OuroborosPost {
     guard let host = booru.baseUrl.host else {
       fatalError("originatingBooru's baseUrl has no host")
     }
+
+    self.originatingBooru = booru
     self.imageURL =
       response.imageURL ?? synthesizeImageURL(response: response, isPreview: false, host: host)
     self.thumbnailImageURL =
@@ -70,5 +72,13 @@ extension OuroborosPost: BooruPost {
       let normalizedNamespace: String? = namespace == "general" ? nil : namespace
       return tags.map { OuroborosTag(namespace: normalizedNamespace, subtag: $0) }
     }
+  }
+
+  var postURL: URL? {
+    guard let baseUrl = self.originatingBooru?.baseUrl else {
+      return nil
+    }
+
+    return baseUrl / "posts" / String(self.id)
   }
 }

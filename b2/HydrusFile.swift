@@ -105,4 +105,8 @@ extension HydrusFile: BooruPost {
   var mime: BooruMime {
     self.metadata.mime.booruMime!
   }
+
+  var postURL: URL? {
+    nil
+  }
 }
